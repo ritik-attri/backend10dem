@@ -270,7 +270,7 @@ app.get("/superadmin/create-project",(req,res)=>{
   else{
     res.render("superadminCreateProject1")
   }
-})
+}) 
 /*####################################### 
   ######### handing Create Project Superadmin########
   #######################################*/
@@ -279,7 +279,7 @@ app.get("/superadmin/create-project",(req,res)=>{
       res.redirect('/');
     }
     else{
-      console.log(req.file)
+      console.log(req.body)
       var newProject = new superadminProject({
         title:req.body.title,
         summary:req.body.summary,
@@ -288,7 +288,7 @@ app.get("/superadmin/create-project",(req,res)=>{
         keywords:req.body.keywords,
         inquiryQuestion:req.body.inquiryQuestion,
         learningOutcome:req.body.learningOutcome,
-        learningOutcome:req.body.learningOutcome,
+        keyContribution:req.body.keyContribution,
         projectCover:req.file.path
       })
       newProject.save().then(result=>{
@@ -381,6 +381,45 @@ app.get("/superadmin/draft-project-preview/:id",(req,res)=>{
       console.log(result)
       res.render('superadminDraftViewProject',{data:result[0]})
     })
+  }
+})
+/*####################################### 
+  ##Superadmin Draft edit handling #### 
+  #######################################*/ 
+
+app.get("/superadmin/edit-projects/:id",(req,res)=>{
+  if(sess.user_data==undefined){
+    res.redirect('/');
+  }else{
+    superadminProject.findById(req.params.id).then(result =>{
+      console.log(result)
+      req.session.draftID = req.params.id
+      res.render("EditDrafts",{data:result})
+    })
+  
+  }
+})
+
+app.post("/superadmin/edit-projects",upload.single("projectCover"),(req,res)=>{
+  console.log(req.session.draftID)
+  if(sess.user_data==undefined){
+    res.redirect('/');
+  }
+  else{
+    superadminProject.findOneAndUpdate({_id:req.session.draftID},{
+      title:req.body.title,
+      summary:req.body.summary,
+      subject:req.body.subject,
+      grade:req.body.grade,
+      keywords:req.body.keywords,
+      inquiryQuestion:req.body.inquiryQuestion,
+      learningOutcome:req.body.learningOutcome,
+      keyContribution:req.body.keyContribution,
+      projectCover:req.file.path
+}).then(result=>{
+  console.log(result)
+  res.redirect("/superadmin/create-activity")
+})
   }
 })
 

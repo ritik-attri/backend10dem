@@ -22,14 +22,14 @@ const superadminProjectSchema = Schema({
         type:String,
        
     },
-    inquiryQuestions:{
+    inquiryQuestion:{
         type:String,
         
     },
     learningOutcome:{
         type:String,
     }, 
-    keyContributions:{
+    keyContribution:{
         type:String,
     },
     projectCover:{

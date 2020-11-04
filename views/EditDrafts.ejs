@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="en">
+    <head>
+
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <link rel="stylesheet" href="/public/css/adminDashboard.css">
+        <link rel="stylesheet" href="/public/css/myprojects.css">
+
+        <title>10dem Education|Dashboard</title>
+        <style>
+            #drop-area {
+                width: 100%;
+                height: 180px;
+                background: #FD585C1A 0% 0% no-repeat padding-box;
+                border: 2px dashed #FD585C80;
+                border-radius: 4px;
+            }
+
+            #gallery {
+                margin-top: 0px;
+                position: relative;
+                bottom: 52x;
+            }
+
+            #gallery img {
+                width: 100%;
+                height: 172px;
+                padding: 0;
+                vertical-align: middle;
+            }
+
+            .my-form .button {
+                text-align: center;
+                display: block;
+                position: absolute;
+                top: 44%;
+                left: 29%;
+                color: #272727;
+                font-weight: 600;
+                font-size: 16px;
+                cursor: pointer;
+            }
+
+            #fileElem {
+                display: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        
+        <div class="sidebar">
+            <div style="height: 100px;"></div>
+            <div class="sidebarDiv">
+                <img src="/public/img/language.svg" class="sidebarImg">
+            </div>
+            <div class="sidebarDiv">
+                <img src="/public/img/language.svg" class="sidebarImg">
+            </div>
+            <div class="sidebarDiv">
+                <img src="/public/img/language.svg" class="sidebarImg">
+            </div>
+            <div class="sidebarDiv">
+                <img src="/public/img/language.svg" class="sidebarImg">
+            </div>
+        </div>
+
+        <div style="background: #FCFCFC;position: absolute;left: 70px;right: 0px;">
+
+            <header>
+                
+                <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between">
+                        <img src="/public/img/logo.jpeg" style="width: 50px;height: 50px;">
+                        <p style="padding: 0 8px;">LIFECOACHING<br/>Betterlife</p>
+                    </div>
+                    
+                    <div class="d-flex justify-content-left">
+                        <img src="/public/img/person_circle.svg" style="width: 40px;height: 40px;border-radius: 50%;">
+                        <p style="padding: 8px;font-size: 18px;">Super Admin</p>
+                    </div>
+                </div>
+                
+            </header>
+
+            <div class="container" style="max-width: 80%;margin-top: 50px;margin-left:0.6rem;padding: 40px 80px;background: #FFFFFF 0% 0% no-repeat padding-box;box-shadow: 0px 0px 6px #00000024;">
+
+                <h5 style="padding: 5px 15px;color: #27272780;text-transform: uppercase;">New project</h5>
+                <h4 style="font-family: ProductB;font-size: 30px;padding: 5px 15px;">Create a new project</h4>
+    
+                <div class="row">
+                    <form action="/superadmin/edit-projects" method="POST" enctype="multipart/form-data">
+                    <div class="col-lg-12">
+                        <div class="row" style="width: 100%;height: 60px;border-bottom: 2px solid #00000029;margin: 2rem 0;margin-bottom: 1rem;">
+                            <div class="col-xl-4 col-lg-6 col-md-4">
+                                <p class="navtabs" style="color: #FD585C;border-bottom: 4px solid #FD585C;font-size: 24px;padding-bottom: 24px;">Inquiry Introducation</p>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-4">
+                                <p class="navtabs" style="font-size: 24px;padding-bottom: 24px;">Create Activity</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    <div class="col-lg-8">
+
+                        <div class="row adminform">
+
+                            
+                                <section  id="section1">
+
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h3>Basic Information</h3>
+                                            <div class="underline"></div>
+                                        </div>
+                                        
+                                        <div class="col-lg-12">
+                                            <h4>Project Title</h4>                             
+                                        </div>
+                                    
+                                        <div class="col-lg-12">
+                                            <input value="<%=data.title%>" class="input100" type="text" name="title">
+                                        </div>
+        
+                                        <div class="col-lg-12">
+                                            <h4>Summary</h4>                             
+                                        </div>
+        
+                                        <!-- Text Area -->
+        
+                                        <div class="col-lg-12 pad">
+                                            <div class="col-lg-12">
+                                                <textarea  class="textinput100" name="summary" style="height: 99%;" id="editor" placeholder="Overview of project.."  ><%=data.summary%></textarea>
+                                            </div>
+                                       </div>   
+                                    </div>
+    
+                                </section>
+    
+                                <section id="section2">
+    
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h3>Subject and Grade</h3>
+                                            <div class="underline"></div>
+                                        </div>
+        
+                                        <div class="col-lg-12">
+                                            <h4>Subject</h4>                             
+                                        </div>
+        
+                                        <div class="col-lg-12">
+                                            <div class="dropdown" style="width: 100%;">
+                                                <div class="d-flex">
+                                                    <input value="<%=data.subject%>" name="subject" class="input100" id="subject" style="overflow-y: hidden;">
+                                                    <img src="/public/img/expand.svg" style="float: right;position: absolute;top: 14px;right: 8px;">
+                                                </div>
+                                                <div class="dropdown-content" style="width: 100%;background: #FFFFFF 0% 0% no-repeat padding-box;box-shadow: 0px 3px 14px #00000029;border-radius: 6px;opacity: 1;top: 50px;">
+                                                    <div class="upcoming1" style="height: 300px;">
+        
+                                                        <div id="custom-search-input2">
+                                                            <div class="input-group col-lg-12">
+                                                                <input type="text" class="search-query form-control" placeholder="Search"/>
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn btn-danger" type="button">
+                                                                        <i class="fas fa-search"></i>
+                                                                    </button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    
+                                                        <a class="memberfields 0">
+                                                            <div class="d-flex justify-content-left">
+                                                                <div class="memberfieldimage">
+                                                                    <input value="All" type="checkbox" name="" id="0" class="inputcheck">
+                                                                </div>
+                                                                <div class="memberfieldname 0">All</div>
+                                                            </div>
+                                                        </a>
+                                                        <a class="memberfields 1">
+                                                            <div class="d-flex justify-content-left">
+                                                                <div class="memberfieldimage">
+                                                                    <input value="Chemistry" type="checkbox" name="" id="1" class="inputcheck">
+                                                                </div>
+                                                                <div class="memberfieldname 1">Chemistry</div>
+                                                            </div>
+                                                        </a>
+                                                        <a class="memberfields 2">
+                                                            <div class="d-flex justify-content-left">
+                                                                <div class="memberfieldimage">
+                                                                    <input value="Physics" type="checkbox" name="" id="2" class="inputcheck">
+                                                                </div>
+                                                                <div class="memberfieldname 2">
+                                                                    Physics
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                        <a class="memberfields 3">
+                                                            <div class="d-flex justify-content-left">
+                                                                <div class="memberfieldimage">
+                                                                    <input value="Sustainable Development Goals" type="checkbox" name="" id="3" class="inputcheck">
+                                                                </div>
+                                                                <div class="memberfieldname 3">
+                                                                    Sustainable Development Goals
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                        <a class="memberfields 4">
+                                                            <div class="d-flex justify-content-left">
+                                                                <div class="memberfieldimage">
+                                                                    <input value="Language" type="checkbox" name="" id="4" class="inputcheck">
+                                                                </div>
+                                                                <div class="memberfieldname 4">
+                                                                    Language
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                        <a class="memberfields 5">
+                                                            <div class="d-flex justify-content-left">
+                                                                <div class="memberfieldimage">
+                                                                    <input value="Health" type="checkbox" name="" id="5" class="inputcheck">
+                                                                </div>
+                                                                <div class="memberfieldname 5">
+                                                                    Health
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                        <a class="memberfields 6">
+                                                            <div class="d-flex justify-content-left">
+                                                                <div class="memberfieldimage">
+                                                                    <input value="Science" type="checkbox" name="" id="6" class="inputcheck">
+                                                                </div>
+                                                                <div class="memberfieldname 6">
+                                                                    Science
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                        <a class="memberfields 7">
+                                                            <div class="d-flex justify-content-left">
+                                                                <div class="memberfieldimage">
+                                                                    <input value="Map" type="checkbox" name="" id="7" class="inputcheck">
+                                                                </div>
+                                                                <div class="memberfieldname 7">
+                                                                    Map
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                        <a class="memberfields 8">
+                                                            <div class="d-flex justify-content-left">
+                                                                <div class="memberfieldimage">
+                                                                    <input value="Social Science" type="checkbox" name="" id="8" class="inputcheck">
+                                                                </div>
+                                                                <div class="memberfieldname 8">
+                                                                    Social Science
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                        <a class="memberfields 9">
+                                                            <div class="d-flex justify-content-left">
+                                                                <div class="memberfieldimage">
+                                                                    <input value="Ecommerce and Economics" type="checkbox" name="" id="9" class="inputcheck">
+                                                                </div>
+                                                                <div class="memberfieldname 9">
+                                                                    Ecommerce and Economics
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+        
+                                                </div>
+                                            </div>
+                                        </div>
+        
+                                        <div class="col-lg-12">
+                                            <h4>Grade</h4>                             
+                                        </div>
+        
+                                        <div class="col-lg-12">
+                                            <div class="dropdown" style="width: 100%;">
+                                                <div class="d-flex">
+                                                    <input value="<%=data.grade%>" name="grade" class="input100" id="subject" style="overflow-y: hidden;">
+                                                    <img src="/public/img/expand.svg" style="float: right;position: absolute;top: 14px;right: 8px;">
+                                                </div>
+                                                <div class="dropdown-content" style="width: 100%;background: #FFFFFF 0% 0% no-repeat padding-box;box-shadow: 0px 3px 14px #00000029;border-radius: 6px;opacity: 1;top: 50px;">
+                                                    <div class="upcoming1" style="height: 300px;">
+        
+                                                        <div id="custom-search-input2">
+                                                            <div class="input-group col-lg-12">
+                                                                <input type="text" class="search-query form-control" placeholder="Search"/>
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn btn-danger" type="button">
+                                                                        <i class="fas fa-search"></i>
+                                                                    </button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    
+                                                        <a class="memberfields 0">
+                                                            <div class="d-flex justify-content-left">
+                                                                <div class="memberfieldimage">
+                                                                    <input type="checkbox" name="" id="0" class="inputcheck">
+                                                                </div>
+                                                                <div class="memberfieldname 0">All</div>
+                                                            </div>
+                                                        </a>
+                                                        <a class="memberfields 1">
+                                                            <div class="d-flex justify-content-left">
+                                                                <div class="memberfieldimage">
+                                                                    <input type="checkbox" name="" id="1" class="inputcheck">
+                                                                </div>
+                                                                <div class="memberfieldname 1">Grade 8-9</div>
+                                                            </div>
+                                                        </a>
+                                                        <a class="memberfields 2">
+                                                            <div class="d-flex justify-content-left">
+                                                                <div class="memberfieldimage">
+                                                                    <input type="checkbox" name="" id="2" class="inputcheck">
+                                                                </div>
+                                                                <div class="memberfieldname 2">
+                                                                    Grade 6-7
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                        <a class="memberfields 3">
+                                                            <div class="d-flex justify-content-left">
+                                                                <div class="memberfieldimage">
+                                                                    <input type="checkbox" name="" id="3" class="inputcheck">
+                                                                </div>
+                                                                <div class="memberfieldname 3">
+                                                                    Grade 4-5
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                        
+                                                    </div>
+        
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </section>
+    
+                                <section id="section3">
+    
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h3>Keywords and Questions</h3>
+                                            <div class="underline"></div>
+                                        </div>
+            
+                                        <div class="col-lg-12">
+                                            <h4>Keywords</h4>                             
+                                        </div>
+            
+                                        <div class="col-lg-12">
+                                            <input value="<%=data.keywords%>" class="input100" type="text" name="keywords">
+                                        </div>
+            
+                                        <div class="col-lg-12">
+                                            <h4>Inquiry Question</h4>                             
+                                        </div>
+            
+                                        <div class="col-lg-12">
+                                            <div class="d-flex justify-content-between">
+                                                <input class="input100" type="text" value="<%=data.inquiryQuestion%>" name="inquiryQuestion" placeholder="Eg. What is sustainability management ?">
+                                                <button class="btn" style="width: 160px;height: 50px;margin-left: 30px;box-shadow: 0px 1px 3px #00000033;border: 2px solid #FD585C;color: #FD585C;"><img src="/public/img/redplus.svg">Add More</button>                                   
+                                            </div>
+                                            
+                                            <div class="d-flex justify-content-between inquiry">
+                                                <p style="height: auto;">What was your idea behind the concept?</p>
+                                                <img src="/public/img/close.svg">
+                                            </div>
+            
+                                            <div class="d-flex justify-content-between inquiry">
+                                                <p style="height: auto;">What was your idea behind the concept?</p>
+                                                <img src="/public/img/close.svg">
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                </section>
+    
+                                <section id="section4">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h3>Section 4</h3>
+                                            <div class="underline"></div>
+                                        </div>
+            
+                                        <div class="col-lg-12">
+                                            <h4>Learning Outcome</h4>                             
+                                        </div>
+            
+                                        <div class="col-lg-12">
+                                            <textarea class="textinput100" type="text" name="learningOutcome" placeholder="Student learning at the end of the project.."><%=data.learningOutcome%></textarea>
+                                        </div>
+            
+                                        <div class="col-lg-12">
+                                            <h4>Key Contribution (Key Contribution)</h4>                             
+                                        </div>
+            
+                                        <div class="col-lg-12">
+                                            <textarea class="textinput100" type="text" name="keyContribution" placeholder="Eg. SDG alignment , community, impact etc"><%=data.keyContribution%></textarea>
+                                        </div>
+                                    </div>
+                                </section>
+    
+                                <section id="section5">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h3>Project Cover</h3>
+                                            <div class="underline"></div>
+                                        </div>
+            
+                                        <div class="col-lg-12">
+                                            <h4>Project Cover</h4>
+                                            <div class="d-flex justify-content-between">
+                                                <p style="color: #27272780;">Upload image less than 1200px * 600px and 100kb</p>
+                                                <a style="color: #FD585C;cursor: pointer;">Remove</a>
+                                            </div>
+                                        </div>
+    
+                                        <div class="col-lg-12">
+                                            <div id="drop-area">
+                                                <div class="my-form">
+                                                    <input name="projectCover" type="file" id="fileElem" onchange="handleFiles(this.files)">
+                                                    <label class="button" for="fileElem"><img src="/public/img/redplus.svg">Drop your image here or choose files</label>
+                                                </div>
+                                                <div id="gallery"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+       
+                            </div>
+                            <button class="btn savebutton"  type="submit"  style="border-radius: 50%;width: 60px;height: 60px;"><img src="/public/img/arrow.svg"></button>    
+                        </form>
+                        </div>
+    
+                            
+                    <div class="col-lg-4 sidebarw">
+                        <div style="position: fixed;top: 10rem;padding: 0 80px;right: -4rem;">
+                            <h3>Contents</h3>
+
+                            <nav class="">
+                                
+                                <ul style="list-style-type: none;padding: 0;">
+                
+                                    <li><a href="#section1" class="sidenavigation">Basic Information</a></li>
+                
+                                    <li><a href="#section2" class="sidenavigation">Subject and Grade</a></li>
+                
+                                    <li><a href="#section3" class="sidenavigation">Keywords and Questions</a></li>
+                
+                                    <li><a href="#section4" class="sidenavigation">Section 4</a></li>
+                
+                                    <li><a href="#section5" class="sidenavigation">Project Cover</a></li>
+                
+                                </ul>
+                
+                            </nav>
+
+
+                        </div> 
+                    </div>
+
+                </div>
+
+            </div>
+
+            <footer><p>10dem © 2020</p></footer>
+
+        </div>
+        <!-- end of container -->
+
+        
+
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/6f24662773.js" crossorigin="anonymous"></script>
+        <script src="js/build/ckeditor.js"></script>
+        <script>ClassicEditor
+			.create( document.querySelector( '#editor' ), {
+				
+				toolbar: {
+					items: [
+						'undo',
+						'redo',
+						'|',
+						'bold',
+						'italic',
+						'underline',
+						'|',
+						'fontColor',
+						'fontSize',
+						'fontFamily',
+						'|',
+						'bulletedList',
+						'numberedList',
+						'alignment',
+						'|',
+						'specialCharacters',
+						'pageBreak',
+						'exportPdf',
+					]
+				},
+				language: 'en',
+				licenseKey: '',
+                
+				
+			} )
+			.then( editor => {
+				window.editor = editor;
+		
+
+				
+			} )
+			.catch( error => {
+				console.error( 'Oops, something went wrong!' );
+				console.error( 'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:' );
+				console.warn( 'Build id: lx24fbxhq5yi-iz5wel70h9kx' );
+				console.error( error );
+			} );
+    </script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        
+        $(document).ready(function () {
+        
+            $(window).scroll(function(){
+            
+                var window_top = $(window).scrollTop() + 12;
+        
+                // the "12" should equal the margin-top value for nav.stickydiv
+        
+                var div_top = $('#checkdiv').offset().top;
+        
+                if (window_top >= div_top) {
+        
+                        $('nav').addClass('stickydiv');
+        
+                } else {
+    
+                    $('nav').removeClass('stickydiv');
+    
+                }
+        
+            }); 
+
+            $(document).on("scroll", onScroll);
+
+            $('a[href^="#"]').on('click', function (e) {
+            
+                e.preventDefault();
+            
+                $(document).off("scroll");
+        
+                $('a').each(function () {
+        
+                    $(this).removeClass('active');
+        
+                })
+        
+                $(this).addClass('active');
+        
+                var target = this.hash,
+        
+                menu = target;
+        
+                $target = $(target);
+            
+                $('html, body').stop().animate({
+            
+                        'scrollTop': $target.offset().top+2
+            
+                }, 600, 'swing', function () {
+            
+                    window.location.hash = target;
+        
+                    $(document).on("scroll", onScroll);
+            
+                });
+            
+            });
+            
+        });
+
+        function onScroll(event){
+            
+            var scrollPos = $(document).scrollTop();
+        
+            $('.sidebarw a').each(function () {
+        
+                var currLink = $(this);
+    
+                var refElement = $(currLink.attr("href"));
+        
+                if (refElement.position().top <= scrollPos && refElement.position().top + refElement.height() > scrollPos) {
+        
+                    $('.sidebarw ul li a').removeClass("active");
+        
+                    currLink.addClass("active");
+        
+                }
+        
+                else{
+        
+                    currLink.removeClass("active");
+        
+                }
+        
+            });
+        
+        }
+        
+    </script>
+    <script>
+        let dropArea = document.getElementById('drop-area')
+            
+        ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false)
+        })
+
+        function preventDefaults (e) {
+            e.preventDefault()
+            e.stopPropagation()
+        }
+
+        ;['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, highlight, false)
+        })
+
+        ;['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, unhighlight, false)
+        })
+
+        function highlight(e) {
+            dropArea.classList.add('highlight')
+        }
+
+        function unhighlight(e) {
+            dropArea.classList.remove('highlight')
+        }
+        
+        dropArea.addEventListener('drop', handleDrop, false)
+
+        function handleDrop(e) {
+            let dt = e.dataTransfer
+            let files = dt.files
+
+            handleFiles(files)
+        }
+
+        function previewFile(file) {
+            let reader = new FileReader()
+            reader.readAsDataURL(file)
+            reader.onloadend = function() {
+                let img = document.createElement('img')
+                img.src = reader.result
+                document.getElementById('gallery').appendChild(img)
+            }
+        }
+
+        function handleFiles(files) {
+            files = [...files]
+            // files.forEach(uploadFile)
+            files.forEach(previewFile)
+        }
+
+    </script>
+        
+    </body>
+</html>
