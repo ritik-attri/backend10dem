@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en">
+    <head>
+
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="/public/css/adminDashboard.css">
+
+        <title>10dem Education|Dashboard</title>
+        <style>
+            /* Tooltip */
+            .tooltip {
+                position: relative;
+                display: inline-block;
+            }
+            .tooltip > .tooltip-inner {
+                max-width: 300px !important;
+                height: 170px !important;
+                padding: 10px;
+                text-align: justify;
+                color: #000000;
+                line-height: 2rem; 
+                
+                background: #FFFFFF 0% 0% no-repeat padding-box;
+                box-shadow: 0px 0px 3px #00000029;
+                border: 2px solid #7070704D;
+                opacity: 1;
+            }
+            .tooltip > .tooltip-inner h3 {
+                overflow: hidden;
+                font-size: 1.2em;
+                padding: 5px 0;
+                border-bottom: 1px solid rgb(224, 224, 224);
+            }
+            .tooltip > .tooltip-inner p {
+                text-align: center;
+                color: #272727;
+                line-height: 1.2;
+            }
+        </style>
+        <style>
+            .flash {
+                    padding-left: 20px;
+                    font-size: 18px !important;
+                    font-family: ProductR !important;
+                    letter-spacing: 0px;
+                    color: #272727 !important;
+                }
+
+                /* The switch - the box around the slider */
+                .switch {
+                position: relative;
+                display: inline-block;
+                width: 50px;
+                height: 28px;
+                }
+
+                /* Hide default HTML checkbox */
+                .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+                }
+
+                /* The slider */
+                .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #EFEFEF;
+                -webkit-transition: .4s;
+                transition: .4s;
+                }
+
+                .slider:before {
+                position: absolute;
+                content: "";
+                height: 20px;
+                width: 20px;
+                left: 2px;
+                bottom: 4px;
+                background-color: white;
+                -webkit-transition: .4s;
+                transition: .4s;
+                }
+
+                input:checked + .slider {
+                background-color: #22CE5B;
+                }
+
+                input:focus + .slider {
+                box-shadow: 0 0 1px #22CE5B;
+                }
+
+                input:checked + .slider:before {
+                -webkit-transform: translateX(26px);
+                -ms-transform: translateX(26px);
+                transform: translateX(26px);
+                }
+
+                /* Rounded sliders */
+                .slider.round {
+                border-radius: 34px;
+                }
+
+                .slider.round:before {
+                border-radius: 50%;
+                }
+
+        </style>
+    </head>
+
+    <body>
+        
+        <div class="sidebar">
+            <div style="height: 100px;"></div>
+            <div class="sidebarDiv">
+                <img src="/public/img/language.svg" class="sidebarImg">
+            </div>
+            <div class="sidebarDiv">
+                <img src="/public/img/language.svg" class="sidebarImg">
+            </div>
+            <div class="sidebarDiv">
+                <img src="/public/img/language.svg" class="sidebarImg">
+            </div>
+            <div class="sidebarDiv">
+                <img src="/public/img/language.svg" class="sidebarImg">
+            </div>
+        </div>
+
+        <div style="background: #FCFCFC;position: absolute;left: 70px;right: 0px;">
+
+            <header>
+                
+                <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between">
+                        <img src="/public/img/logo.jpeg" style="width: 50px;height: 50px;">
+                        <p style="padding: 0 8px;">SUPERADMIN<br/>10Dem</p>
+                    </div>
+                    
+                    <div class="d-flex justify-content-left">
+                        <img src="/public/img/person_circle.svg" style="width: 40px;height: 40px;border-radius: 50%;">
+                        <p style="padding: 8px;font-size: 18px;">Super Admin</p>
+                    </div>
+                </div>
+                
+            </header>
+
+            <div class="container" style="max-width: 95%;padding: 25px 0;">
+
+                <div class="d-flex justify-content-left">
+                    
+                    <img src="/public/img/external.svg" style="width: 60px;height: 60px;padding: 18px;border-radius: 50%;background: #FD585C7F;">
+                    <h3 style="margin: 12px 0;">Pro Users Details (<%prodetails.length%>)</h3>
+                    
+                </div>
+    
+                <div class="row" style="margin: 3rem 0;">
+                    <div class="col-lg-12 pad" style="background: #FFFFFF 0% 0% no-repeat padding-box;border: 2px solid #80808066;border-radius: 4px 4px 0px 0px;">
+                        <div class="row" style="padding: 20px 0;">
+                            
+                            <div class="col-lg-8">
+                                <div class="d-flex justify-content-left">
+
+                                    <div class="dropdown">
+                                        <button class="btn" style="width: 54px;height: 50px;margin-top: 7px;background: #80808033;border-radius: 4px 0px 0px 4px;box-shadow: 0px 1px 3px #00000033;border: 2px solid #80808066;border-right: none;"><img class="classDropdownImage" style="position: relative;top: 2px;" src="/public/img/expand.svg"></button>
+                                        <div class="dropdown-content" style="background: #FFFFFF 0% 0% no-repeat padding-box;box-shadow: 0px 3px 14px #00000029;border-radius: 6px;opacity: 1;top: 60px;min-width: 200px;left: 0;">
+    
+                                            <a class="memberfields">
+                                                <div class="d-flex justify-content-left">
+                                                    <div class="memberfieldimage">
+                                                        <input type="checkbox" name="" id="0" class="inputcheck">
+                                                    </div>
+                                                    <div class="memberfieldname">Name</div>
+                                                </div>
+                                            </a>
+                                            <a class="memberfields">
+                                                <div class="d-flex justify-content-left">
+                                                    <div class="memberfieldimage">
+                                                        <input type="checkbox" name="" id="1" class="inputcheck">
+                                                    </div>
+                                                    <div class="memberfieldname">Email Id</div>
+                                                </div>
+                                            </a>
+                                            <a class="memberfields">
+                                                <div class="d-flex justify-content-left">
+                                                    <div class="memberfieldimage">
+                                                        <input type="checkbox" name="" id="2" class="inputcheck">
+                                                    </div>
+                                                    <div class="memberfieldname">
+                                                        Created On
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            
+                                        </div>
+                                    </div>
+                                    <div id="custom-search-input1" style="width: 55%;">
+                                        <div class="input-group col-lg-12" style="padding-left: 0;">
+                                            <input type="text" class="search-query form-control" style="border-left: none;border-radius: 0px 4px 4px 0px;" placeholder="Search by name , class , grade etc..."/>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-danger" type="button">
+                                                    <i class="fas fa-search"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>  
+                            </div>
+
+                            <div class="col-lg-1"></div>
+
+                            <div class="col-lg-2">
+                                <div class="dropdown">
+                                    <button class="cancel btn" style="width: 140px;height: 50px;margin: 10px 10px 0 0;padding: 8px 20px;float: right;">Free<img class="classDropdownImage" style="position: relative;top: 5px;right: 12px;" src="/public/img/expand.svg"></button>
+                                    <div class="dropdown-content" style="width: 60%;background: #FFFFFF 0% 0% no-repeat padding-box;box-shadow: 0px 3px 14px #00000029;border-radius: 6px;opacity: 1;top: 60px;min-width: 70px;right: 0;">
+
+                                        <a href="/superadmin/dashboard/orgmembership-Users">Organization</a>
+                                        <a href="/superadmin/dashboard/10dempro-Users">Pro</a>
+                                        <a href="/superadmin/dashboard/nonprofit-Users">Non-Profit</a>
+                                        <a href="/superadmin/dashboard/free-Users">Free</a>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                           
+                            <div class="col-lg-1">
+    
+                                <div class="d-flex" style="float: right;">
+                                    <div class="symbol"><img src="/public/img/doc.png" class="imagefix"></div>
+                                    <div class="symbol"><img src="/public/img/redprint.svg" class="imagefix"></div>
+                                </div>
+                                
+                            </div>
+                            <!-- Headings -->
+                            <div class="col-lg-12 pad">
+
+                                <div class="row" style="padding: 0 15px;">
+                                    <div class="col-lg-1">
+                                        <div class="rowfields">
+                                            <div class="d-flex justify-content-left">
+                                                <div class="container1">
+                                                    <label>
+                                                        <input type="checkbox">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>
+                                                <img src="/public/img/expand.svg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="rowfields">
+                                            <div class="d-flex justify-content-left">
+                                                <p class="p1">Name</p>
+                                                <img src="/public/img/doublearrow.svg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="rowfields">
+                                            <div class="d-flex justify-content-left">
+                                                <p class="p1">Email Id</p>
+                                                <img src="/public/img/doublearrow.svg">
+                                            </div>                                          
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="rowfields">
+                                            <p class="p1">Created On</p>                  
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="rowfields">
+                                            <p class="p1">Action</p>
+                                        </div>   
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- All names and their details -->
+                            <div class="col-lg-12 pad">
+                                <%if(prodetails.length!=0){%>
+                                    <%if(prodetails.length>10){%>
+                                        <%for(i=0;i<10;i++){%>
+                                <div class="row rowstyle">
+                                    <div class="col-lg-1">
+                                        <div class="rowfields">
+                                            <div class="d-flex justify-content-left">
+                                                <div class="container1">
+                                                    <label>
+                                                        <input type="checkbox">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>
+                                                <img src="/public/img/expand.svg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="rowfields">
+                                            <p><%=prodetails[i].username%></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="rowfields">
+                                            <p><%=prodetails[i].email%></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="rowfields">
+                                            <p><%=prodetails[i]._id.getTimestamp()%></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="rowfields">
+                                            <div class="dropdown">
+                                                <img src="/public/img/more_ver.svg">
+                                                <div class="dropdown-content" style="width: 100%;background: #FFFFFF 0% 0% no-repeat padding-box;box-shadow: 0px 3px 14px #00000029;border-radius: 6px;opacity: 1;top: 20px;min-width: 70px;">
+                                                    <a href="#">View</a>
+                                                    <a href="#">Edit</a>
+                                                    <a href="#" data-toggle="modal" data-target="#exampleModalCenter3">Delete</a>
+                                                    <a href="#">Block</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                        <%}%>
+                                    <%}else{%>
+                                        <%for(i=0;i<prodetails.length;i++){%>
+                                            <div class="row rowstyle">
+                                                <div class="col-lg-1">
+                                                    <div class="rowfields">
+                                                        <div class="d-flex justify-content-left">
+                                                            <div class="container1">
+                                                                <label>
+                                                                    <input type="checkbox">
+                                                                    <span class="checkmark"></span>
+                                                                </label>
+                                                            </div>
+                                                            <img src="/public/img/expand.svg">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="rowfields">
+                                                        <p><%=prodetails[i].username%></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="rowfields">
+                                                        <p><%=prodetails[i].email%></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="rowfields">
+                                                        <p><%=prodetails[i]._id.getTimestamp()%></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <div class="rowfields">
+                                                        <div class="dropdown">
+                                                            <img src="/public/img/more_ver.svg">
+                                                            <div class="dropdown-content" style="width: 100%;background: #FFFFFF 0% 0% no-repeat padding-box;box-shadow: 0px 3px 14px #00000029;border-radius: 6px;opacity: 1;top: 20px;min-width: 70px;">
+                                                                <a href="#">View</a>
+                                                                <a href="#">Edit</a>
+                                                                <a href="#" data-toggle="modal" data-target="#exampleModalCenter3">Delete</a>
+                                                                <a href="#">Block</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <%}%>
+                                    <%}%>
+                                <%}%> 
+    
+                            </div>
+                            
+                        </div>
+    
+                    </div>
+                    <div class="col-lg-12 pad">
+                        <div class="row pageRow">
+                            <div class="col-lg-3 pages">
+                                
+                                <div class="d-flex justify-content-left">
+                                    <p>Items per page : <span>10</span> </p>
+                                    <div class="dropdown">
+                                        <img src="/public/img/downarrow.svg" style="cursor: pointer;position: relative;top: 8px;left: 8px;">
+                                        <div class="dropdown-content" style="width: 100%;background: #FFFFFF 0% 0% no-repeat padding-box;box-shadow: 0px 3px 14px #00000029;border-radius: 6px;opacity: 1;top: 40px;min-width: 70px;">       
+                                            <a href="#">5</a>
+                                            <a href="#">10</a>
+                                            <a href="#">15</a>
+                                            <a href="#">20</a>
+                                            <a href="#">30</a>                                      
+                                        </div>
+                                    </div>
+                                </div>
+    
+                            </div>
+                            <div class="col-lg-4 pages">
+                                <p>1 - 10 of 30 items</p>
+                            </div>
+                            <div class="col-lg-3 pages">
+    
+                                <div class="d-flex justify-content-left">
+                                    <p><span>1</span></p>
+                                    <div class="dropdown">
+                                        <img src="/public/img/downarrow.svg" style="cursor: pointer;position: relative;top: 8px;left: 8px;right: 8px;">
+                                        <div class="dropdown-content" style="width: 100%;background: #FFFFFF 0% 0% no-repeat padding-box;box-shadow: 0px 3px 14px #00000029;border-radius: 6px;opacity: 1;top: 40px;min-width: 70px;">
+                                            <a href="#">1</a>
+                                            <a href="#">2</a>
+                                            <a href="#">3</a>
+                                        </div>
+                                    </div>
+                                    <p>&nbsp;&nbsp;of 3 pages</p>
+                                </div>
+                                
+                            </div>
+                            <div class="col-lg-1 pages" style="text-align: center;cursor: pointer;">
+                                <img src="/public/img/arrow_left.svg">
+                            </div>
+                            <div class="col-lg-1 pages" style="border: none;text-align: center;cursor: pointer;">
+                                <img src="/public/img/arrow_right.svg">
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+    
+
+            </div>
+
+            <footer><p>10dem © 2020</p></footer>
+
+        </div>
+        <!-- end of container -->
+
+        <!-- Delete Modal -->
+        <div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="max-width: 600px;">
+                <div class="modal-content">
+                    <div class="modal-header" style="background: #FFFFFF;">
+                        <h4 class="modal-title" id="exampleModalLongTitle" style="color: #272727;padding: 10px;">Delete?</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: #272727;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="d-flex justify-content-left" style="padding: 10px;background: #CDE5FE 0% 0% no-repeat padding-box;border: 1px solid #B6D9FD;">
+                            <img src="/public/img/gallery.svg">
+                            <p style="font-size: 14px;margin: 0;padding-left: 10px;color: #325981;"><span style="font-weight: 600;">Information</span><br/>You can recover this data later on</p>
+                        </div>
+                        
+                        <p style="padding: 10px;font-size: 24px;margin: 0;">Deleting educators data will cause them to lose access to their dashboard</p>
+                    </div>
+                    <div class="modal-footer" style="border: none;">
+                        <button type="button" class="btn modalbutton1" data-dismiss="modal" style="background: #FFFFFF;color: #272727;border: 1px solid #FD585C;left: 0;">Cancel</button>
+                        <button type="button" class="btn modalbutton2" style="left: 0;">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/6f24662773.js" crossorigin="anonymous"></script>
+        <script>
+            $(document).ready(function(){
+              $('[data-toggle="tooltip"]').tooltip({title: '<h3>John Doe</h3><p>Class 9 A</p><p>Class 9 B</p><p>Class 8 A</p><p>Class 8 B</p>', html: true, placement: "left"});
+            })
+        </script>
+    </body>
+</html>

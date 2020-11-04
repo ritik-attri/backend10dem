@@ -603,6 +603,52 @@ app.get('/superadmin/dashboard/free-Users',function(req,res){
     })
   }
 })
+/*################################
+  #######Non Profits Details######
+  ################################ */
+  app.get('/superadmin/dashboard/nonprofit-Users',function(req,res){
+    if(sess.user_data==undefined){
+      res.redirect('/');
+    }else{
+      let nporgdetails=[];
+      let count=0;
+      PorNPORG.find({},(err,resp)=>{
+        resp.forEach((users)=>{
+          count++;
+          if(users.verification_status==true){
+            nporgdetails.push(users);
+          }
+          console.log('Count:- '+count+' nporg length:- '+ resp.length);
+          if(count==resp.length){
+            res.render('superadminNPOrgDetails',{nporgs:nporgdetails});
+          }
+        })
+      })
+    }
+  })
+  /*################################
+  ######10Dem Pro Members Details#
+  ################################ */
+app.get('/superadmin/dashboard/10dempro-Users',function(req,res){
+  if(sess.user_data==undefined){
+    res.redirect('/');
+  }else{
+    let all_pro_users=[];
+    let count=0;
+    user.find({},function(err,resp){
+      resp.forEach((users)=>{
+        count++;
+        if(users.Role.is10DemProuser){
+          all_pro_users.push(users);
+        }
+        console.log('Count:- '+count+' users length:- '+ resp.length);
+        if(count==resp.length){
+          res.render('superadminProDetails',{prodetails:all_pro_users});
+        }
+      })
+    })
+  }
+})
 /* ###############################
    #######EDUCATOR DASHBOARD######
    ###############################*/
