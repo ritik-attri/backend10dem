@@ -9,7 +9,8 @@ const util = require('util');
 const nodemailer = require('nodemailer');
 const request= require('request');
 var google = require('googleapis');
-var fs = require('fs');
+var fs = require('fs-extra');
+var xlsxreader = require('xlsx-to-json-lc');
 var path = require('path');
 var multer = require('multer');
 app.set('views','./views');
@@ -65,7 +66,7 @@ const superadminProject = require('./models/superadminProjects')
 const educatoror10dempro = require('./models/10demprooreducator');
 const PorNPORG = require('./models/PorNPORG');
 const classes = require('./models/classes');
-const student = require('./models/student');
+const Student = require('./models/student');
 const project = require('./models/project');
 const blog = require('./models/blog');
 const { restart } = require('nodemon');
@@ -764,6 +765,172 @@ app.get('/educatordashboard',function(req,res){
       })
     }
   })
+/*##################################
+  #########Adding Students##########
+  ################################## */
+app.get('/managestudents/:class',(req,res)=>{
+  if(sess.user_data==undefined){
+    res.redirect('/');
+  }else{
+    console.log(req.params.class);
+    classes.find({_id:req.params.class},(err,resp)=>{
+      if(err){
+        console.log('Cannot find that class in /managestudent/ because:- '+err);
+      }else{
+        console.log(resp[0]);
+        if(resp[0].students.length==0){
+          res.render('manageClass',{name:sess.user_data.user.username,class_Data:resp[0],students_Data:[],role:'educator',hide_manage_students:false,org_name:sess.user_data.role_Data.org_name});
+        }else{
+          let students=[];
+          let count=0;
+          resp[0].students.forEach((studentid)=>{
+            count++;
+            Student.find({_id:studentid},(err,resp1)=>{
+              if(err){
+                console.log('cannot find students of this class in managestudents/:class:- '+err);
+              }else{
+                students.push(resp1[0]);
+                if(count==resp[0].students.length){
+                  res.render('manageClass',{name:sess.user_data.user.username,class_Data:resp[0],students_Data:students,role:'educator',hide_manage_students:false,org_name:sess.user_data.role_Data.org_name});
+                }
+              }
+            })
+          })
+
+        }
+      }
+    })
+  }
+})
+/*##################################
+  #Handling Post Req of Add student#
+  ################################## */
+app.post('/addingstudent/:grade/:section/:id',(req,res)=>{
+  if(sess.user_data==undefined){
+    res.redirect('/');
+  }else{
+    console.log(util.inspect(req.body)+util.inspect(req.params));
+    let obj={
+      name:req.body.firstname+' '+req.body.lastname,
+      email:req.body.email,
+      password:req.body.firstname+Math.random(),
+      grade:req.params.grade,
+      section:req.params.section
+    }
+    console.log('obj is:- '+util.inspect(obj));
+    Student.create(obj,function(err,resp){
+      if(err){
+        console.log('Cannot upload due to this error in /addingstudent/:grade/:section :- '+err);
+      }else{
+        var mailOptions = {
+          from: '10demdeveloper@gmail.com',
+          to: req.body.email,
+          subject: 'Your Student credentials',
+          text: `Your credentials:- \nYour email:- ${resp.email}\nYour password:- ${resp.password}.\n\n\n Please login through this link:- blah blah`
+        };
+        mail.sendMail(mailOptions,(err,info)=>{
+          if(err){
+            console.log(err);
+          }
+          else{
+            console.log(info.response);
+          }
+        })
+        classes.find({_id:req.params.id},(err,resp1)=>{
+          let current_students=resp1[0].students;
+          current_students.push(resp._id);
+          let obj={
+            students:current_students,
+          }
+          classes.findOneAndUpdate({_id:req.params.id},{$set:obj},(err,resp)=>{
+            if(err){
+              console.log('Cannot upload new class data because:- '+err);
+            }else{
+              res.redirect('/managestudents/'+req.params.id);
+            }
+          })
+        })
+      }
+    })
+  }
+})
+/*##################################
+  #Handling csv upload manage class#
+  ################################## */
+app.post('/addingstudent/csv/:class',upload.single('csvfile'),(req,res)=>{
+  if(sess.user_data==undefined){
+    res.redirect('/');
+  }else{
+    console.log(req.file.path);
+    xlsxreader({
+      input:req.file.path,
+      output:null,
+      lowerCaseHeaders:true
+    },(error,response)=>{
+      if(error) console.log('Cannot read csv because:- '+error);
+      else{
+        console.log(req.params.class);
+        classes.find({_id:req.params.class},(err,resp)=>{
+          if(err){
+            console.log('Cannot find class while reading csv file:- '+err);
+          }else{
+            let current_students=resp[0].students;
+            let count=0;
+            response.forEach((details)=>{
+              count++;
+              let obj={
+                name:details.name,
+                email:details.email,
+                password:details.name+Math.random(),
+                grade:resp[0].grade,
+                section:resp[0].section
+              }
+              console.log(obj);
+              Student.create(obj,function(err1,resp1){
+                if(err1){
+                  console.log('Cannot create student while reading from csv:- '+err1);
+                }else{
+                  var mailOptions = {
+                    from: '10demdeveloper@gmail.com',
+                    to: resp1.email,
+                    subject: 'Your Student credentials',
+                    text: `Your credentials:- \nYour email:- ${resp1.email}\nYour password:- ${resp1.password}.\n\n\n Please login through this link:- blah blah`
+                  };
+                  mail.sendMail(mailOptions,(err,info)=>{
+                    if(err){
+                      console.log(err);
+                    }
+                    else{
+                      console.log(info.response);
+                    }
+                  })
+                  current_students.push(resp1._id);
+                  console.log(count+' '+response.length)
+                  if(count==response.length){
+                    let classupdobj={
+                      students:current_students,
+                    }
+                    classes.findOneAndUpdate({_id:req.params.class},{$set:classupdobj},(err,resp)=>{
+                      if(err){
+                        console.log('Cannot update class after creating student while reading csv:- '+err);
+                      }else{
+                        fs.remove(req.file.path,(err)=>{
+                          if(err) console.log('Couldnt delete the file because:- '+err);
+                          else console.log('Deleted!');
+                        })
+                        res.redirect('/managestudents/'+req.params.class);
+                      }
+                    })
+                  }
+                }
+              })
+            })
+          }
+        })
+      }
+    })
+  }
+})
 /*##################################
   ######Organisation Details########  
   ################################## */
