@@ -71,6 +71,7 @@ const blog = require('./models/blog');
 const { restart } = require('nodemon');
 const { profile, count } = require('console');
 const { ftruncate } = require('fs');
+const superadminProjects = require('./models/superadminProjects');
 mongoose.connect('mongodb+srv://ritik:BIGGBOss12@cluster0.m96r8.gcp.mongodb.net/testing?retryWrites=true&w=majority',{
                 useNewUrlParser:true,
                 useCreateIndex:true,
@@ -331,12 +332,46 @@ app.post("/superadmin/create-activity",upload.array("files",4),(req,res)=>{
       }
       superadminProject.findOneAndUpdate({_id:req.session.tempId},{$push:{activity:obj}}).then(result=>{
         console.log(result)
-        res.redirect("/superadmin/dashboard")
+        res.redirect("/superadmin/create-activity")
       })
       .catch(err=>{
         console.log(err)
       })
 })
+/*####################################### 
+  #######Superadmin project preview########
+  #######################################*/
+  app.get("/superadmin/project-preview",(req,res)=>{
+    if(sess.user_data==undefined){
+      res.redirect('/');
+    }
+    else{
+      console.log(req.session.tempId)
+      superadminProject.find({_id:req.session.tempId}).then(result=>{
+        console.log(result)
+        res.render("projectPreviewSuperadmin",{data:result})
+      })
+    }
+  })
+
+  app.post("/superadmin/publish-project",(req,res)=>{
+    if(sess.user_data==undefined){
+      res.redirect('/');
+    }
+    else{
+      superadminProjects.findOneAndUpdate({_id:req.session.tempId},{
+        title:req.body.title,
+        summary:req.body.summary,
+        learningOutcome:req.body.learningOutcome,
+        keyContribution:req.body.keyContribution,
+        published:true
+      }).then(result=>{
+        res.redirect("/superadmin/dashboard")
+      })
+    }
+  })
+
+
 /*####################################### 
   ##########Superadmin projects#############
   #######################################*/
@@ -393,7 +428,7 @@ app.get("/superadmin/edit-projects/:id",(req,res)=>{
   }else{
     superadminProject.findById(req.params.id).then(result =>{
       console.log(result)
-      req.session.draftID = req.params.id
+      req.session.tempId = req.params.id
       res.render("EditDrafts",{data:result})
     })
   
@@ -401,12 +436,12 @@ app.get("/superadmin/edit-projects/:id",(req,res)=>{
 })
 
 app.post("/superadmin/edit-projects",upload.single("projectCover"),(req,res)=>{
-  console.log(req.session.draftID)
+  console.log(req.session.tempId)
   if(sess.user_data==undefined){
     res.redirect('/');
   }
   else{
-    superadminProject.findOneAndUpdate({_id:req.session.draftID},{
+    superadminProject.findOneAndUpdate({_id:req.session.tempId},{
       title:req.body.title,
       summary:req.body.summary,
       subject:req.body.subject,
@@ -422,6 +457,8 @@ app.post("/superadmin/edit-projects",upload.single("projectCover"),(req,res)=>{
 })
   }
 })
+
+app.post("/")
 
 /*####################################### 
   ############Home##################
@@ -515,7 +552,7 @@ app.get('/superadmin/dashboard',async function(req,res){
             console.log('Users notification:- '+user_from_array.notifications);
             user_from_array.notifications.forEach((notification)=>{
               notifications_of_free_users.push(notification);
-            })
+            }) 
           }
           console.log('Count of users for superadmin dashboard:- '+resp.length+' and count is :- '+count+' their role is:- '+user_from_array.Role);
           if(count==resp.length){

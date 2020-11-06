@@ -35,6 +35,10 @@ const superadminProjectSchema = Schema({
     projectCover:{
         type:String
     },
+    published:{
+        type:Boolean,
+        default: false
+    },
     activity:[new mongoose.Schema({
         activity_title:{
             type:String,

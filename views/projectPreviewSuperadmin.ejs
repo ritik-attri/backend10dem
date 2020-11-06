@@ -1,0 +1,852 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        
+        
+        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+
+        <link rel="stylesheet" href="../public/css/myprojects.css">
+        <link rel="stylesheet" href="../public/css/droparea.css">
+
+
+        <title>10dem Education|My Projects</title>
+        <style>
+            .dropdown-content {
+                top: 60px;
+            }
+            .memberfields{
+                width: 100%;
+            }
+            .memberfieldname{
+                margin: 0;
+                margin-left: 20px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-xl navbar-light">
+            <a class="navbar-brand" href="#">10dem Education</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/myprojects">Ongoing Project</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="#">Resources</a>
+                    </li> -->
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Membership
+                        </a>
+                        <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div> -->
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item">
+                                    <h5 class="innerhead">Pro</h5>
+                                    <p class="innerpara">Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
+                                    <a href="/membershippro" class="innertag">View all</a>
+                                </li>
+                                <li class="nav-item">
+                                    <h5 class="innerhead">Organization</h5>
+                                    <p class="innerpara">Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
+                                    <a href="/membershiporganization" class="innertag">View all</a>
+                                </li>
+                                <li class="nav-item">
+                                    <h5 class="innerhead">Non Profits</h5>
+                                    <p class="innerpara">Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
+                                    <a href="/membershipnonprofit" class="innertag">View all</a>
+                                </li>
+                            </ul>
+                        </div>    
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-crown" style="color: rgb(233, 233, 3);padding-right: 10px;"></i>Try 10dem pro</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="#">Contribute Resource</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn-primary"  style="border-radius: 5px;" href="#"><i class="fas fa-plus" style="color: rgb(255, 255, 255);"></i>  Create Project</a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link btn-primary" id="login" href="#"></a>
+                    </li>
+                    <li class="nav-item dropdown" style="margin-left: -30px;">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                        <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">My Profile</a>
+                           
+                                <a class="dropdown-item" href="/educatordashboard">Dashboard</a>
+                               
+                                <a class="dropdown-item" href="/orgdashboard">Dashboard</a>
+                               
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/">Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="wrapper">
+            <!-- Sidebar  -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <img src="/public/img/logo.jpeg" alt="">
+                </div>
+
+                <ul class="list-unstyled components">
+                    <li>
+                        <a href="/myprojects"><box-icon class="bx-fw" name="laptop"></box-icon>  My Projects</a>
+                    </li>
+                    <li>
+                        <a href="#"><box-icon class="bx-fw" name='bookmark'></box-icon>  Bookmarks</a>
+                    </li>
+                    <li>
+                        <a href="#"><box-icon class="bx-fw" name='folder' ></box-icon>  My Folders</a>
+                    </li>
+                    <li>
+                        <a href="#"><box-icon class="bx-fw" name='user-check' ></box-icon>  Manage Students</a>
+                        
+                    </li>
+                </ul>
+            </nav>
+            
+
+            <!-- Page Content  -->
+            <div id="content" class="container">
+
+                <button type="button" id="sidebarCollapse" class="btn sidebutton">
+                    <i id="collapse-icon" class="fas fa-angle-left" style="font-size: 60px;"></i>
+                </button>
+                
+                <a href="#" class="float">
+                    <img src="/public/img/help.svg" class="my-float" style="width: 30px;height: 30px;" alt="">
+                </a>
+
+                <div style="margin-left: 8%;">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="/home/">Home</a></li>
+                          <li class="breadcrumb-item"><a href="/myprojects">My Projects</a></li>
+                          <li class="breadcrumb-item active" aria-current="page">Create Project</li>
+                        </ol>
+                    </nav>
+                </div>
+
+                
+                <div class="row">
+                    <div class="col-lg-1">
+
+                    </div>
+                    <div class="col-lg-10 pad">
+                        <div style="height: 60px;padding: 10px 20px;background: #F4F5F9CC 0% 0% no-repeat padding-box;border-left: 5px solid #FD585CCC">
+                            <p style="font-size: 24px;color: #272727;">Preview your complete project once before Publishing</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-1">
+
+                    </div>
+                    <div class="col-lg-1">
+
+                    </div>
+                    <form action="/superadmin/publish-project" method="POST">
+                    <div class="col-lg-10" style="margin: 3rem 0;background: #FFFFFF 0% 0% no-repeat padding-box;box-shadow: 0px 0px 6px #00000024;border-radius: 4px;">
+                        <div class="row" style="margin: 0;padding: 30px 0;padding-top: 50px;">
+                            <!-- module -->
+                            <div class="col-lg-1">
+
+                            </div>
+                            <div class="col-lg-10">
+                                
+                                    
+                                <h2>Project Title</h2>                             
+                            
+                                <input class="input100" type="text" name="title" value="<%=data[0].title%>">
+                                    
+                            </div>
+                            <div class="col-lg-1">
+
+                            </div>
+                            <!-- module -->
+                            <div class="col-lg-1">
+
+                            </div>
+                            <div class="col-lg-11">
+                                <h2>Subject</h2>
+                            </div>
+                            <div class="col-lg-1">
+
+                            </div>
+                            <div class="col-lg-10">
+                                
+                                <!-- <h2>Subject</h2>
+                            
+                                <select class="search-slt">
+                                    <option>Fundamental of Design</option>
+                                    <option>Physics</option>
+                                    <option>Chemistry</option>
+                                    <option>Computer</option>
+                                </select> -->
+                                <div class="dropdown" style="width: 100%;">
+                                    <div class="input100" style="padding: 10px;overflow-y: hidden;">                                
+                                        <div class="memberselected"><%=data[0].subject%>
+                                           <span style="float: right;"></span>
+                                        </div>
+                                        <!--<div class="memberselected">
+                                            Chemistry<span style="float: right;">x</span>
+                                        </div>
+                                        <div class="memberselected">
+                                            Physics<span style="float: right;">x</span>
+                                        </div>-->
+                                    </div>
+                                    <div class="dropdown-content" style="width: 100%;background: #FFFFFF 0% 0% no-repeat padding-box;box-shadow: 0px 3px 14px #00000029;border-radius: 6px;opacity: 1;">
+                                        <div class="upcoming1" style="height: 300px;">
+                                            <!--<a class="memberfields">
+                                                <div class="d-flex justify-content-left">
+                                                    <div class="memberfieldimage">
+                                                        <input type="checkbox" name="" id="checkbox" class="inputcheck">
+                                                    </div>
+                                                    <div class="memberfieldname">
+                                                        All
+                                                    </div>
+                                                </div>
+                                            </a>-->
+                                            <a class="memberfields">
+                                                <div class="d-flex justify-content-left">
+                                                    <div class="memberfieldimage">
+                                                        <input type="checkbox" name="subject" value="Chemistry" id="checkbox" class="inputcheck">
+                                                    </div>
+                                                    <div class="memberfieldname">
+                                                        Chemistry
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a class="memberfields">
+                                                <div class="d-flex justify-content-left">
+                                                    <div class="memberfieldimage">
+                                                        <input type="checkbox" name="subject" value="Physics" id="checkbox" class="inputcheck">
+                                                    </div>
+                                                    <div class="memberfieldname">
+                                                        Physics
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a class="memberfields">
+                                                <div class="d-flex justify-content-left">
+                                                    <div class="memberfieldimage">
+                                                        <input type="checkbox" name="subject" value="Sustainable Development Goals" id="checkbox" class="inputcheck">
+                                                    </div>
+                                                    <div class="memberfieldname">
+                                                        Sustainable Development Goals
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a class="memberfields">
+                                                <div class="d-flex justify-content-left">
+                                                    <div class="memberfieldimage">
+                                                        <input type="checkbox" name="subject" value="Language" id="checkbox" class="inputcheck">
+                                                    </div>
+                                                    <div class="memberfieldname">
+                                                        Language
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a class="memberfields">
+                                                <div class="d-flex justify-content-left">
+                                                    <div class="memberfieldimage">
+                                                        <input type="checkbox" name="subject" value="Health" id="checkbox" class="inputcheck">
+                                                    </div>
+                                                    <div class="memberfieldname">
+                                                        Health
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a class="memberfields">
+                                                <div class="d-flex justify-content-left">
+                                                    <div class="memberfieldimage">
+                                                        <input type="checkbox" name="subject" value="Science" id="checkbox" class="inputcheck">
+                                                    </div>
+                                                    <div class="memberfieldname">
+                                                        Science
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a class="memberfields">
+                                                <div class="d-flex justify-content-left">
+                                                    <div class="memberfieldimage">
+                                                        <input type="checkbox" name="" value="Map" id="checkbox" class="inputcheck">
+                                                    </div>
+                                                    <div class="memberfieldname">
+                                                        Map
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a class="memberfields">
+                                                <div class="d-flex justify-content-left">
+                                                    <div class="memberfieldimage">
+                                                        <input type="checkbox" name="subject" value='Social Science' id="checkbox" class="inputcheck">
+                                                    </div>
+                                                    <div class="memberfieldname">
+                                                        Social Science
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a class="memberfields">
+                                                <div class="d-flex justify-content-left">
+                                                    <div class="memberfieldimage">
+                                                        <input type="checkbox" name="subject" value="Ecommerce and Economics" id="checkbox" class="inputcheck">
+                                                    </div>
+                                                    <div class="memberfieldname">
+                                                        Ecommerce and Economics
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                    
+                            </div>
+                            <div class="col-lg-1">
+                                <img src="/public/img/expand.svg" style="position: relative;top: 20px;right: 70px;">
+                            </div>
+                            <!-- module -->
+                            <div class="col-lg-1">
+
+                            </div>
+                            <div class="col-lg-11">
+                                <h2>Grade</h2>
+                            </div>
+                            <div class="col-lg-1">
+
+                            </div>
+                            <div class="col-lg-10">
+                               
+                                <!-- <h2>Grade</h2>
+                            
+                                <select class="search-slt">
+                                    <option>Class 8 to Class 10</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select> -->
+                                <div class="dropdown" style="width: 100%;">
+                                    <div class="input100" style="padding: 10px;overflow-y: hidden;">                                
+                                        <div class="memberselected">
+                                            <%=data[0].grade%>> <span style="float: right;">x</span>
+                                        </div>
+                                        <!--<div class="memberselected">
+                                            Grade 8-9<span style="float: right;">x</span>
+                                        </div>-->
+                                    </div>
+                                    <div class="dropdown-content" style="width: 100%;background: #FFFFFF 0% 0% no-repeat padding-box;box-shadow: 0px 3px 14px #00000029;border-radius: 6px;opacity: 1;">
+                                        <div class="upcoming1" style="height: 200px;">
+                                            <a class="memberfields">
+                                                <div class="d-flex justify-content-left">
+                                                    <div class="memberfieldimage">
+                                                        <input type="checkbox" name="grade" id="checkbox" class="inputcheck">
+                                                    </div>
+                                                    <div class="memberfieldname">
+                                                        All
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a class="memberfields">
+                                                <div class="d-flex justify-content-left">
+                                                    <div class="memberfieldimage">
+                                                        <input type="checkbox" name="grade" value="5" id="checkbox" class="inputcheck">
+                                                    </div>
+                                                    <div class="memberfieldname">
+                                                        Grade 5-6
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a class="memberfields">
+                                                <div class="d-flex justify-content-left">
+                                                    <div class="memberfieldimage">
+                                                        <input type="checkbox" name="grade" value="7" id="checkbox" class="inputcheck">
+                                                    </div>
+                                                    <div class="memberfieldname">
+                                                        Grade 7-8
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a class="memberfields">
+                                                <div class="d-flex justify-content-left">
+                                                    <div class="memberfieldimage">
+                                                        <input type="checkbox" name="grade" value="9" id="checkbox" class="inputcheck">
+                                                    </div>
+                                                    <div class="memberfieldname">
+                                                        Grade 9-10
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a class="memberfields">
+                                                <div class="d-flex justify-content-left">
+                                                    <div class="memberfieldimage">
+                                                        <input type="checkbox" name="grade" value="11" id="checkbox" class="inputcheck">
+                                                    </div>
+                                                    <div class="memberfieldname">
+                                                        Grade 11-12
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            
+                            </div>
+                            <div class="col-lg-1">
+                                <img src="/public/img/expand.svg" style="position: relative;top: 20px;right: 70px;">
+                            </div>
+                            <!-- module -->
+                            <div class="col-lg-1">
+
+                            </div>
+                            <div class="col-lg-10">
+                               
+                                <h2>Summary</h2>
+                            
+                                <textarea class="textinput100" type="text" name="summary" placeholder="Overview of project.."><%=data[0].summary%></textarea>
+                            
+                            </div>
+                            <div class="col-lg-1">
+
+                            </div>
+                            <!-- module -->
+                            <div class="col-lg-1">
+
+                            </div>
+                            <div class="col-lg-10">
+                               
+                                <h2>Learning Outcome</h2>
+                            
+                                <textarea class="textinput100 learn-input" type="text" name="learningOutcome" placeholder="Student learning at the end of the project.."><%=data[0].learningOutcome%></textarea>
+                            
+                            </div>
+                            <div class="col-lg-1">
+
+                            </div>
+                            <!-- module -->
+                            <div class="col-lg-1">
+
+                            </div>
+                            <div class="col-lg-10">
+                        
+                                <h2>Key Contribution (Community & Planet)</h2>
+                            
+                                <textarea class="textinput100 key-input" type="text" name="keyContribution" placeholder="Eg. SDG alignment , community, impact etc"><%=data[0].keyContribution%></textarea>
+                            
+                            </div>
+                            <div class="col-lg-1">
+
+                            </div>
+                            <!-- module -->
+                            <div class="col-lg-1">
+
+                            </div>
+                            <div class="col-lg-10">
+                                
+                                <h2>Details and Activity</h2>
+                            
+                                <textarea id="myTextarea" class="textinput100" type="text" name="activity_desc" placeholder="Activity Details..." style="height: 280px;margin-bottom: 10px;"><%=data[0].activity[0].activity_desc%></textarea>
+                            
+                                <p style="float: right;">maximum 2000 characters(<span id="characterCount"></span> remaining)</p>
+                            
+                            </div>
+                            <div class="col-lg-1">
+
+                            </div>
+                            <!-- module -->
+                            <div class="col-lg-1">
+                
+                            </div>
+                            <div class="col-lg-10">
+                                <h2>Attach Files</h2>
+                                <div id="drop-area">
+                                    <form class="my-form">
+                                      <input type="file" id="fileElem" multiple accept=".doc,.docx,.xls,.xlsx,.csv,.ppt,.pptx,.pdf,.png,.jpeg,.jpg" onchange="handleFiles(this.files)">
+                                      <label class="button" for="fileElem"><img src="/public/img/pin.svg"> <%=data[0].activity[0].attached_files%></label>
+                                    </form>
+                                    <div id="gallery" class="row"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-1">
+        
+                            </div>
+                            <!-- module -->
+                            <div class="col-lg-1">
+        
+                            </div>
+                            <div class="col-lg-10">
+                                <h2>Class Assigned To</h2>
+                                <select class="search-slt">
+                                    <option>Class</option>
+                                    <option>Physics</option>
+                                    <option>Chemistry</option>
+                                    <option>Computer</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-1">
+        
+                            </div>
+                            <!-- module -->
+                            <div class="col-lg-1">
+        
+                            </div>
+                            <div class="col-lg-10">
+                                <div class="row">
+
+                                  
+                                    <div class="col-lg-4">
+                
+                                    </div>
+                                    
+                                 
+                                    <div class="col-lg-4">
+                
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                            <div class="col-lg-1">
+        
+                            </div>
+                            <!-- Buttons -->
+                            <div class="col-lg-1">
+                                
+                            </div>
+                            <div class="col-lg-3">
+                                
+                                <button class="btn savebutton" style="margin: 40px 0;float: left;" type="submit">Save</button> 
+                                
+                            </div>
+                            <div class="col-lg-2">
+                        
+                            </div>
+                            <div class="col-lg-2">
+                                <a class="skipPreview">Preview</a>
+                            </div>
+                            <div class="col-lg-3">
+                                <button class="btn savebutton" style="margin: 40px 0;" type="submit" data-toggle="modal" data-target="#exampleModalCenter4">Publish</button>
+                            </div>
+                            <div class="col-lg-1">
+                                
+                            </div>
+         
+                        </div>
+                    </div>
+                    </form>
+                    <div class="col-lg-1">
+
+                    </div>
+                </div>
+
+
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="exampleModalLongTitle">Do you want to skip the preview?</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>The changes you made may not be saved</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn modalbutton2" data-dismiss="modal">No, Edit Again</button>
+                            <button type="button" class="btn modalbutton1" data-dismiss="modal">Sure Exit</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="exampleModalLongTitle">Confirm Submit?</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Your project will be assigned to <span style="color: #FD585C;">your class</span> immediately.</p>
+                            <p>You won't be able to edit this project again..</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn modalbutton2" data-dismiss="modal">No, Preview Again</button>
+                            <button type="button" class="btn modalbutton1" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalCenter3">Submit</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content" style="align-items: center;text-align: center;">
+                        <div class="modal-header">
+                            <div style="width: 140px;height: 140px;margin: 20px 50px;border-radius: 50%;padding: 33px;background: #FFFFFF 0% 0% no-repeat padding-box;box-shadow: 0px 0px 9px #00000029;justify-content: center;align-items: center;">
+                                <img src="img/icons8-checkmark-50-2.png">
+                            </div>
+                            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button> -->
+                        </div>
+                        <div class="modal-body">
+                            <p style="color: #27272783;font-size: 40px;">Your project created successfully!!</p>
+                            <p style="font-size: 18px;">You will be redirected to the ongoing project section</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn modalbutton1" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                <!-- Modal
+                <div class="modal fade" id="exampleModalCenter4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <form action="/sendinginvites" method="POST">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    
+                    <div class="modal-content" style="padding: 0;">
+                        <div class="modal-header" style="height: 170px;background: transparent linear-gradient(180deg, #FD585C 0%, #FD585CB8 100%) 0% 0% no-repeat padding-box;">
+                            <h4 class="modal-title" id="exampleModalLongTitle" style="color: #FFFFFF;font-size: 36px;margin: 0 auto;position: relative;top: 30%;">Invite to collaborate</h4>
+                        </div>
+                        <div class="modal-body" style="padding: 40px 30px;">
+                            <p style="color: #272727;font-size: 20px;">You Can customize the Content</p>
+                            <textarea class="invitation" name="message" style="width: 100%;height: 200px;padding: 20px;font-size: 18px;text-align: justify;border: 2px solid #80808029;border-radius: 4px;outline: none;">Hello,&#013;&#013;This is John Doe , Member of 10dem Education sending you request to collaborate with the project.&#013;&#013;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod trtttty empor incididunt ut labore etee dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco labo nisi ut aliquip ex ea commodo.
+                            </textarea>
+                        </div>
+                        <div class="modal-footer" style="margin: 10px 15px 40px 0;">
+                            <button type="button" class="btn modalbutton2" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn modalbutton1" >Send Invitition</button>
+                        </div>
+                    </div>
+                    
+                    </div>
+                </form>
+                </div>
+
+                
+            </div>  -->
+
+            <div style="height: 800px;"></div>
+
+        </div>
+
+
+        <footer>
+            <p>10dem © 2020</p>
+        </footer>
+
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <!-- jQuery UI -->
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+        <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
+        <script src="https://kit.fontawesome.com/6f24662773.js" crossorigin="anonymous"></script>
+
+        <script src="js/index.js"></script>
+       
+        <script>
+
+            var count=0;
+            $('#myTextarea').keypress(function(e){
+                count++;
+
+                document.getElementById("characterCount").innerHTML = (2000-(count));
+               
+            });
+
+            $('#myTextarea').keydown(function(e){
+                if (e.keyCode === 8 && count!== 0)
+                    count--;
+
+                document.getElementById("characterCount").innerHTML = (2000-(count));
+                
+            });
+            
+            document.getElementById("characterCount").innerHTML = 2000;
+
+        </script>
+        <script>
+            
+            let dropArea = document.getElementById('drop-area')
+
+            ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false)
+            })
+
+            function preventDefaults (e) {
+                e.preventDefault()
+                e.stopPropagation()
+            }
+
+
+            ;['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, highlight, false)
+            })
+
+            ;['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, unhighlight, false)
+            })
+
+            function highlight(e) {
+                dropArea.classList.add('highlight')
+            }
+
+            function unhighlight(e) {
+                dropArea.classList.remove('highlight')
+            }
+
+            dropArea.addEventListener('drop', handleDrop, false)
+
+            function handleDrop(e) {
+                let dt = e.dataTransfer
+                let files = dt.files
+
+                handleFiles(files)
+            }
+
+            function handleFiles(files) {
+                files = [...files]
+                files.forEach(uploadFile)
+                files.forEach(previewFile)
+            }
+
+            function uploadFile(file) {
+                let url = 'YOUR URL HERE'
+                let formData = new FormData()
+                formData.append('file', file)
+                fetch(url, {
+                method: 'POST',
+                body: formData
+                })
+                .then(() => { /* Done. Inform the user */ })
+                .catch(() => { /* Error. Inform the user */ })
+            }
+
+
+            function previewFile(file) {
+                // let reader = new FileReader()
+                // reader.readAsDataURL(file)
+                // reader.onloadend = function() {
+                // let img = document.createElement('img')
+                // img.src = reader.result
+                // document.getElementById('gallery').appendChild(img)
+                var src;
+                switch (file.type) {
+                    case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+                        src = '/public/img/doc.png'
+                        break;
+                    case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
+                        src = '/public/img/doc.png'
+                        break;
+                    case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+                        src = '/public/img/doc.png'
+                        break;
+                    case 'application/msword':
+                        src = '/public/img/doc.png'
+                        break;
+                    case 'application/vnd.ms-excel':
+                        src = '/public/img/doc.png'
+                        break; 
+                    case 'application/vnd.ms-powerpoint':
+                        src = '/public/img/doc.png'
+                        break;
+                    case 'text/csv':
+                        src = '/public/img/doc.png'
+                        break;
+                    case 'application/pdf':
+                        src = '/public/img/pdf.png'
+                        break;
+                    case 'image/jpg':
+                        src = '/public/img/image.svg'
+                        break;
+                    case 'image/png':
+                        src = '/public/img/image.svg'
+                        break;
+                    case 'image/jpeg':
+                        src = '/public/img/image.svg'
+                        break;  
+                }
+
+
+                let files=document.createElement('div')
+                files.classList.add('col-lg-4')
+                files.innerHTML=`
+                    <div style="margin: 10px;">
+                        <div class="row" style="padding: 10px;background: #FCFCFC 0% 0% no-repeat padding-box;border: 2px solid #70707029">
+                            <div class="col-lg-11 p-0 d-flex justify-content-left">
+                                <img src="${src}" style="height: 56px;width: 56px;margin-right: 15px;">
+                                <div>
+                                    <p>${file.name}</p>
+                                    <p class="filesize">${((file.size)/1000).toFixed(0)}&nbsp;KB</p>
+                                </div> 
+                            </div>
+                            
+                            <div class="col-lg-1 p-0">
+                                <img src="img/cross.svg" style="height: 24px;width: 24px;margin: 0;">
+                            </div>
+                        </div>
+                    </div>
+                    `
+                document.getElementById('gallery').appendChild(files)
+
+            }
+        </script>
+        <!-- DatePicker -->
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <script>
+            $('.flatpickr').flatpickr({
+                
+            });
+        </script>
+
+    </body>
+</html>
