@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+    <head>
+
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <link rel="stylesheet" href="/public/css/adminDashboard.css">
+
+        <title>10dem Education|Dashboard</title>
+        <style>
+            h3 {
+                padding: 15px 0;
+                font-family: ProductB;
+                font-size: 28px;
+                color: #03293D;
+            }
+            p {
+                text-align: justify;
+                font-size: 24px;
+                font-family: ProductR;
+                color: #03293D;
+            }
+            .grades {
+                padding: 4px 30px;
+                margin-right: 20px;
+                border: 1px solid #FD585CCC;
+                border-radius: 20px;
+                font-size: 18px;
+                color: #2727279C;
+            }
+            .p1 {
+                margin: 0 !important;
+                font-size: 18px !important;
+                font-family: ProductR !important;
+                line-height: 0.5rem;
+            }
+            .img1 {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+            }
+        </style>
+    </head>
+
+    <body>
+        
+        <div class="sidebar">
+            <div style="height: 100px;"></div>
+            <div class="sidebarDiv">
+                <img src="/public/img/language.svg" class="sidebarImg">
+            </div>
+            <div class="sidebarDiv">
+                <img src="/public/img/language.svg" class="sidebarImg">
+            </div>
+            <div class="sidebarDiv">
+                <img src="/public/img/language.svg" class="sidebarImg">
+            </div>
+            <div class="sidebarDiv">
+                <img src="/public/img/language.svg" class="sidebarImg">
+            </div>
+        </div>
+
+        <div style="background: #FCFCFC;position: absolute;left: 70px;right: 0px;">
+
+            <header>
+                
+                <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between">
+                        <img src="/public/img/logo.jpeg" style="width: 50px;height: 50px;">
+                        <p style="padding: 0 8px;color: #212529;font-size: 1rem;font-family: sans-serif;">SUPERADMIN<br/>10 Dem</p>
+                    </div>
+                    
+                    <div class="d-flex justify-content-left">
+                        <img src="/public/img/person_circle.svg" style="width: 40px;height: 40px;border-radius: 50%;">
+                        <p style="padding: 8px;font-size: 18px;">Super Admin</p>
+                    </div>
+                </div>
+                
+            </header>
+
+            <div class="container" style="max-width: 95%;padding: 25px 0;">
+
+                <div class="d-flex justify-content-left">
+                    
+                    <img src="/public/img/external.svg" style="width: 60px;height: 60px;padding: 18px;border-radius: 50%;background: #FD585C7F;">
+                    <h3 style="margin: 12px 0;padding: 0 20px;font-size: 30px;font-family: ProductR;color: #03293D;">10Dem Project</h3>
+                    
+                </div>
+
+    
+                <div class="row" style="margin: 2rem 0;padding: 50px 20px 50px 20px;background: #FFFFFF 0% 0% no-repeat padding-box;box-shadow: 0px 0px 6px #00000024;">
+
+                    <div class="col-lg-2">
+
+                    </div>
+                    <div class="col-lg-8">
+
+                        <div class="d-flex justify-content-between">
+                            <h1 style="margin: 30px 0 10px 0;color: #03293D;font-family: ProductB;"><%=projectdata.title%></h1>
+                            <a style="margin: 50px 10px 10px 0;color: #FD585C80;font-size: 24px;cursor: pointer;" data-toggle="modal" data-target="#exampleModalCenter1">Delete</a>
+                        </div>
+                        <hr style="height: 2px;background: #FFDB64;">
+                        <h3>Subject</h3>
+                        <p style="color: #27272799;"><%=projectdata.subject%></p>
+                        <h3>Grade</h3>
+                        <div class="d-flex justify-content-left">
+                            <p class="grades">7-8 grade</p>
+                            <p class="grades">6-7 grade</p>
+                            <p class="grades">9-10 grade</p>
+                        </div>
+                        <h3>Overview</h3>
+                        <p><%=projectdata.summary%></p>
+                        <h3>Learning Outcome</h3>
+                        <p><%=projectdata.learningOutcome%></p>
+                        <h3>Key Contribution (Community & Planet)</h3>
+                        <p><%=projectdata.keywords%></p>
+                        
+                        <h3>Activity</h3>
+                        <%let i=0;%>
+                        <%for(i=0;i<projectdata.activity.length;i++){%>
+                        <div class="row" style="margin: 1rem 0 3rem 0;">
+                            <div class="col-lg-12" style="padding: 0;">
+                                <div class="d-flex justify-content-between">
+                                    <div style="width: 40px;height: 40px;margin-right: 20px;border: 1px solid #03293D;border-radius: 50%;">
+                                        <p style="position: relative;bottom: 12px;padding: 15px;"><%=i+1%></p>
+                                    </div>
+                                    <p style="margin-right:23rem;"><span style="color:#FD585C">Activity Title:-</span> <%=projectdata.activity[i].activity_title%><br><span style="color:#FD585C">Activity Description:-</span> <%=projectdata.activity[i].activity_desc%></p>
+                                </div>
+                            </div>
+                            <!-- <div class="col-lg-1"></div> -->
+                            <div class="col-lg-1"></div>
+                            <div class="col-lg-1"><img src="/public/img/attachment.svg" style="width: 38px;height: 38px;position: relative;top: 25px;"></div>
+                            <%if(projectdata.activity[i].attached_files.length>0){%>
+                                <%projectdata.activity[i].attached_files.forEach((attached)=>{%>
+                            <div class="col-lg-3" style="padding-left: 0;">
+                                <div style="margin: 10px 15px;">
+                                    <div class="row" style="padding: 10px;background: #FCFCFC 0% 0% no-repeat padding-box;border: 2px solid #70707029">
+                                        <div class="col-lg-12 p-0 d-flex justify-content-between">
+                                            <img src="/public/img/doc.png" style="height: 40px;width: 40px;margin-right: 15px;">
+                                            <div>
+                                                <p style="font-weight: 600;margin: 0;font-size: 14px;"><%=attached.split('-')[1]%></p>
+                                                <p style="margin: 0;font-size: 14px;">2 MB</p>
+                                            </div> 
+                                            <a href="/download-file/<%=attached%>"><img src="/public/img/filedownload.svg"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                <%})%>
+                            <%}else{%>
+                                <p style="margin-left:10rem;">No attachments for this project!</p>
+                            <%}%>    
+                        <%}%>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-left">
+                                <img src="/public/img/person_circle.svg" class="img1">
+                                <div style="padding-left: 10px;">
+                                    <p class="p1" style="color: #2727274D;">Created By</p><br>
+                                    <p class="p1"><span style="color: #03293D;font-size: 20px;">Mr. Samyadeep Maneerattana</span> | <span style="font-size: 18px;">May 21, 2020</span></p><br>
+                                    <p class="p1" style="color: #2727274D;">Ryan International School, Australia | May 21, 2020</p><br>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-left">
+                                <img src="/public/img/person_circle.svg" class="img1">
+                                <div style="padding-left: 10px;">
+                                    <p class="p1" style="color: #2727274D;">Collaborated With</p><br>
+                                    <p class="p1"><span style="color: #03293D;font-size: 20px;">Mr. Sam Maneerattana</span> | <span style="font-size: 18px;">May 21, 2020</span></p><br>
+                                    <p class="p1" style="color: #2727274D;">Australia | May 29, 2020</p><br>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-1"></div>
+                       
+                        
+                    </div>
+                    <div class="col-lg-2">
+                        
+                    </div>
+                    
+    
+                </div>
+
+            </div>
+
+            <footer><p>10dem © 2020</p></footer>
+
+        </div>
+        <!-- end of container -->
+
+        <!-- modal starts -->
+        <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="max-width: 600px;">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #ffffff;">
+                <div class="modal-title" style="color: #272727;font-family: ProductR;">Delete ?</div>
+                <button type="button" class="close" style="color: #272727;" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align:justify;padding: 20px;">
+                
+                <p>If you delete this project, educators will lose access to this project</p>
+                <div class="d-flex">
+                    <button type="button" class="btn modalbutton1" data-dismiss="modal" style="left: 0;display: block;margin: 5px 10px 5px auto;color: #272727;background: #ffffff;border: 2px solid #FD585C;">Cancel</button>
+                    <button type="button" class="btn modalbutton1" data-dismiss="modal" style="left: 0;display: block;margin: 5px auto 5px 10px;">Delete</button>
+                </div>
+                
+                  
+            </div>
+            
+        </div>
+        </div>
+        </div>
+    <!-- modal ends -->
+
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/6f24662773.js" crossorigin="anonymous"></script>
+
+    </body>
+</html>

@@ -2093,6 +2093,34 @@ app.get('/previewofproject/:id',function(req,res){
     })
   }
 })
+/*##################################
+  #######10 Dem Project View########
+  ################################## */
+app.get('/10DemProjectView/:id',(req,res)=>{
+  if(sess.user_data==undefined){
+    res.redirect('/');
+  }else{
+    superadminProject.find({_id:req.params.id},function(err,resp){
+      if(err){
+        console.log('Error finding superadmin project because:- '+err);
+      }else{
+        console.log('Going project is :- '+resp);
+        res.render('superadminViewProject',{projectdata:resp[0]});
+      }
+    })
+  }
+})
+/*##################################
+  #########10 Dem Downloads#########
+  ################################## */
+app.get('/download-file/public/uploads/:file',(req,res)=>{
+  if(sess.user_data==undefined){
+    res.redirect('/');
+  }else{
+    console.log(__dirname+'/public/uploads/'+req.params.file);
+    res.download(__dirname+'/public/uploads/'+req.params.file);
+  }
+})
 
 
   /*################################# 
