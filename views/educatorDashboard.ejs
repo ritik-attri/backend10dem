@@ -187,9 +187,9 @@
                                 <h3>Class <%=classesare[i].grade%><%=classesare[i].section%></h3>
                                 <p>Total Student</p>
                                 <%if(classesare[i].students.length!=0){%>
-                                <h1><%=classesare[i].students.length%></h1>
+                                <a href="/managestudents/<%=classesare[i]._id%>"><h1><%=classesare[i].students.length%></h1></a>
                                 <%}else{%>
-                                <p style="color:#FD585C;margin-top:1rem;"><span>+</span> Add Student</p>
+                                <a href="/managestudents/<%=classesare[i]._id%>"><p style="color:#FD585C;margin-top:1rem;"><span>+</span> Manage Students</p></a>
                                 <%}%>
                             </div>
                         </div>

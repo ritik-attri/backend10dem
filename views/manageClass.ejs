@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+   
+    <link rel="stylesheet" href="/public/css/educatorDashboard.css">
+    <link rel="stylesheet" href="/public/css/header.css">
+
+    <title>10dem Education|Dashboard</title>
+</head>
+
+<body>
+    
+    <header id="header">
+                
+        <nav id="nav-menu-container">
+
+            <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-left">
+                    <!-- <div id="logo">
+                    
+                        <a class="navbar-brand" href="#"><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span></a>
+                        
+                    </div> -->
+                    <ul class="nav-menu">
+                        <li><a href="/home/">Home</a></li>
+                        <li><a href="/myprojects">Ongoing Project</a></li>
+                        <%if(hide_manage_students==true){%>
+                        <li class="menu-has-children dropdown-toggle"><a href="">Membership</a>
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item navMember">
+                                    <h5 class="innerhead">Pro</h5>
+                                    <p class="innerpara">Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
+                                    <a href="/membershippro" class="innertag">View all</a>
+                                </li>
+                                <li class="nav-item navMember">
+                                    <h5 class="innerhead">Organization</h5>
+                                    <p class="innerpara">Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
+                                    <a href="/membershiporganization" class="innertag">View all</a>
+                                </li>
+                                <li class="nav-item navMember">
+                                    <h5 class="innerhead">Non Profits</h5>
+                                    <p class="innerpara">Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
+                                    <a href="/membershipnonprofit" class="innertag">View all</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li style="position: relative;top: -3px;"><a href="#"><i class="fas fa-crown" style="color: rgb(233, 233, 3);"></i>Try 10dem pro</a></li>
+                        <%}%>
+                        <l1><a href="#"><img src="/public/img/notifications.svg"><span style="position: relative;right: 10px;bottom: 10px;padding: 2px 6px;border-radius: 50%;background: red;font-size: 14px;">2</span></a></l1>
+                    </ul>
+                </div>
+                
+                <ul class="nav-menu">
+                    <li><a class="btn-primary" style="border-radius: 5px;position: relative;top: -6px;padding: 4px 8px 6px 8px;" href="#"><i class="fas fa-plus" style="color: rgb(255, 255, 255);"></i>  Start Collaboration</a></li>
+                    <li class="menu-has-children dropdown-toggle navprofile" style="margin-top: 0;"><a href="#" style="color: #000;background: #FFFFFF;border-radius: 50%;height: 35px;width: 35px;text-align: center;padding: 7px;">S</a>
+                        <ul style="right: 0 !important;left: auto !important;width: fit-content;padding-left: 1px !important;padding-right: 1px !important;padding-inline-start: 0px;background: #fff !important;">
+                            <%if(role=='org'){%>
+                                <li><a href="#">My profile</a></li>
+                            <%}%>
+                            <li><a href="/">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+        
+        </nav><!-- #nav-menu-container -->
+
+    </header><!-- #header -->
+
+
+
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <img src="/public/img/10-dem@2x.png" alt="">
+            </div>
+
+            <button type="button" id="sidebarCollapse" class="btn bg-light sidebutton">
+                <i id="collapse-icon" class="fas fa-angle-left" style="font-size: 50px;"></i>
+            </button>
+
+            <ul class="list-unstyled components">
+                <li>
+                    <a href="/myprojects"><box-icon class="bx-fw" name="file"></box-icon> My Projects&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                </li>
+                <li>
+                    <a href="/bookmarks"><box-icon class="bx-fw" name='bookmarks'></box-icon> Bookmarks&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                </li>
+                <!-- <li>
+                    <a href="#"><box-icon class="bx-fw" name='folder' ></box-icon>    My Folders</a>
+                </li> -->
+                <li>
+                    <a href="#"><box-icon class="bx-fw" name='chat' ></box-icon> Conversations&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                </li>
+                <%if(role=='educator'){%>
+                <li>
+                    <a href="/educatordashboard"><box-icon class="bx-fw" name='user-circle' ></box-icon> Manage Students&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                </li>
+                <%}else if(role=='org'){%>
+                    <li>
+                        <a href="/orgdashboard"><box-icon class="bx-fw" name='user-circle' ></box-icon> Manage Org&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                    </li>
+                <%}else{%>
+
+                <%}%>
+                <%if(org_name!=''){%>
+                <li>
+                    <a href="/orgDetails"><box-icon class="bx-fw" name='book-reader'></box-icon> <%=org_name%>&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                </li>
+                <%}%>
+            </ul>
+
+            <div class="learnMore">
+                <img src="/public/img/explore.svg">
+                <p>Hello <%=name%> <br/> Explore <span style="color: #FD585C;cursor: pointer;">Pro account</span> with Premium features.</p>
+                <button class="btn">Learn more</button>
+            </div>
+
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content" class="container">
+
+            <!-- <button type="button" id="sidebarCollapse" class="btn bg-light sidebutton">
+                <i id="collapse-icon" class="fas fa-angle-left" style="font-size: 60px;"></i>
+            </button> -->
+
+            <a href="#" class="float">
+                <img src="/public/img/help.svg" class="my-float" style="width: 30px;height: 30px;" alt="">
+            </a>
+
+            <div style="margin-left: 0;">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="/educatordashboard">Manage students</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Manage Class <%=class_Data.grade+class_Data.section%></li>
+                    </ol>
+                </nav>
+            </div>
+
+            <h2>Students(<%=class_Data.students.length%>)</h2>
+            <div class="row" style="margin: 3rem 0;">
+                <div class="col-lg-2 pad">
+                    <button class="uploadCSV btn" data-toggle="modal" data-target="#exampleModalCenter1"><img src="/public/img/pluswhite.svg">Add Student</button>
+                </div>
+                <div class="col-lg-2 pad">
+                    <button class="uploadCSV btn" data-toggle="modal" data-target="#changingonhover">Upload CSV file</button>
+                </div>
+            </div>            
+            <form action='/addingstudent/csv/<%=class_Data._id%>' enctype="multipart/form-data" method="POST">
+            <div id="changingonhover" aria-hidden="true" class="modal fade">
+                <h4 style='margin-top: 15rem;margin-left:40rem;color:#FD585C'>XLSX column should be in format of:- name,email precisely. </h4>
+                <input style='margin-left:50rem;' type="file" name="csvfile" accept=".xlsx">
+                <button style=' margin-top:0.5rem;margin-left:51rem;' type="submit" class="btn btn-large btn-danger">Submit</button>
+            </div>
+            </form>
+            <!-- Modal -->
+            <form action="/addingstudent/<%=class_Data.grade%>/<%=class_Data.section%>/<%=class_Data._id%>" method="POST">
+                <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <div class="modal-title">Add Student</div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body" style="text-align:justify">
+                            <div class="row" style="margin: 1rem 0;">
+                                
+                                <div class="col-lg-4" style="border-right: 2px solid #70707029;padding: 0 45px 0 25px;">
+                
+                                    <h4>First Name</h4>
+                                    <input class="input100" type="text" name="firstname" placeholder="Enter student's first name">
+                
+                                    <h4>Last Name</h4>
+                                    <input class="input100" type="text" name="lastname" placeholder="Enter student's last name">
+                                    <h4>Email</h4>
+                                    <input class="input100" type="email" name="email" placeholder="Student's Email">
+      
+                                    <button type="submit" class="btn modalbutton1">Add</button>
+                
+                                </div>
+    
+                                <div class="col-lg-8" style="padding-right: 0;">
+                                    <div class="upcoming1">
+                                        <div class="row" style="background: #FFFFFF;">
+                                            <!-- <div style="margin: 120px auto;text-align: center;">
+                                                <img src="/public/img/assignProject.png">
+                                                <p style="margin: 0;font-size: 20px;font-weight: 600;color: #272727;">Educator list will appear here</p>
+                                                <p style="margin: 0;font-size: 16px;">Start creating ..</p>
+                                            </div> -->
+    
+                                            <!-- module -->
+                                            <div class="col-lg-12">
+                                                
+                                                <div class="row" style="background: #FFFFFF;">
+                                                    <div class="col-lg-3">
+                                                        <div class="rowfields">
+                                                            <p><img src="/public/img/person_outline.svg">Name</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <div class="rowfields">
+                                                            <p><img src="/public/img/mail.svg">Mail</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <div class="rowfields">
+                                                            <p><img src="/public/img/person_circle.svg">Username</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <div class="rowfields">
+                                                            <p><img src="/public/img/class.svg">Class</p>
+                                                        </div>
+                                                    </div>
+                                                </div>       
+                                            </div>
+    
+                                            <!-- module -->
+                                            <div class="col-lg-12">
+                                                <div class="row">
+                                                    <div class="col-lg-3">
+                                                        <div class="rowfields">
+                                                            <p>John marks</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <div class="rowfields">
+                                                            <p>John@mark</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <div class="rowfields">
+                                                            <p>John_2020</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="rowfields">
+                                                            <p>Class 8A</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-1">
+                                                        <div class="rowfields">
+                                                            <button class="btn"><img src="/public/img/close.svg"></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+    
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+    
+                            </div>
+                        </div>
+                        
+                    </div>
+                    </div>
+                </div>
+                </form>
+             <!-- Modal ENDS -->
+
+            <div class="row" style="margin: 3rem 0;">
+                <div class="col-lg-12 pad" style="background: #FFFFFF 0% 0% no-repeat padding-box;border: 2px solid #80808066;border-radius: 4px 4px 0px 0px;">
+                    <div class="row" style="padding: 20px 0;">
+                        
+                        <div class="col-lg-10">
+                            <div id="custom-search-input">
+                                <div class="input-group col-lg-6">
+                                    <input type="text" class="search-query form-control"/>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-danger" type="button">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <div class="col-lg-2">
+
+                            <div class="d-flex justify-content-between">
+                                <div class="symbol"><img src="/public/img/pdf.png" class="imagefix"></div>
+                                <div class="symbol"><img src="/public/img/doc.png" class="imagefix"></div>
+                                <div class="symbol"><img src="/public/img/redprint.svg" class="imagefix"></div>
+                            </div>
+                            
+                        </div>
+                        <!-- Headings -->
+                        <div class="col-lg-12 pad">
+                            <div class="row" style="padding: 0 15px;">
+                                <div class="col-lg-1">
+                                    <div class="rowfields">
+                                        <div class="d-flex justify-content-left">
+                                            <div class="container1">
+                                                <label>
+                                                    <input type="checkbox">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <img src="/public/img/expand.svg">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="rowfields">
+                                        <div class="d-flex justify-content-left">
+                                            <p class="p1">First Name</p>
+                                            <img src="/public/img/doublearrow.svg">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="rowfields">
+                                        <div class="d-flex justify-content-left">
+                                            <p class="p1">Last Name</p>
+                                            <img src="/public/img/doublearrow.svg">
+                                        </div>
+                                        
+                                    </div>
+                                   
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="rowfields">
+                                        <div class="d-flex justify-content-left">
+                                            <p class="p1">Username</p>
+                                            <img src="/public/img/doublearrow.svg">
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="rowfields">
+                                        <p class="p1">Password</p>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="rowfields">
+                                        <p class="p1">Action</p>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <!-- All names and their details -->
+                        <div class="col-lg-12 pad">
+                            <%if(students_Data==[]){%>
+                            <%}else{%>
+                                <%students_Data.forEach((document)=>{%>
+                            <div class="row rowstyle">
+                                <div class="col-lg-1">
+                                    <div class="rowfields">
+                                        <div class="d-flex justify-content-left">
+                                            <div class="container1">
+                                                <label>
+                                                    <input type="checkbox">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <img src="/public/img/expand.svg">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="rowfields">
+                                        <p><%=document.name.split(' ')[0]%></p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="rowfields">
+                                        <p><%=document.name.split(' ')[1]%></p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="rowfields">
+                                        <p><%=document.name%></p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="rowfields">
+                                        <p><%=document.password.substr(0,6)%>....</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="rowfields">
+                                        <div class="d-flex justify-content-left">
+                                            <button class="symbol1 btn"><img src="/public/img/redpen.svg"></button>
+                                            <button class="symbol1 btn"><img src="/public/img/redcross.svg"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                <%})%>
+                            <%}%>
+
+                        </div>
+                        
+                    </div>
+
+                </div>
+                <div class="col-lg-12 pad">
+                    <div class="row pageRow">
+                        <div class="col-lg-3 pages">
+                            
+                            <div class="d-flex justify-content-left">
+                                <p>Items per page : <span>10</span> </p>
+                                <div class="dropdown">
+                                    <img src="/public/img/downarrow.svg" style="cursor: pointer;position: relative;top: 8px;left: 8px;">
+                                    <div class="dropdown-content" style="width: 100%;background: #FFFFFF 0% 0% no-repeat padding-box;box-shadow: 0px 3px 14px #00000029;border-radius: 6px;opacity: 1;top: 40px;min-width: 70px;">       
+                                        <a href="#">5</a>
+                                        <a href="#">10</a>
+                                        <a href="#">15</a>
+                                        <a href="#">20</a>
+                                        <a href="#">30</a>                                      
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-4 pages">
+                            <p>1 - 10 of 30 items</p>
+                        </div>
+                        <div class="col-lg-3 pages">
+
+                            <div class="d-flex justify-content-left">
+                                <p><span>1</span></p>
+                                <div class="dropdown">
+                                    <img src="/public/img/downarrow.svg" style="cursor: pointer;position: relative;top: 8px;left: 8px;right: 8px;">
+                                    <div class="dropdown-content" style="width: 100%;background: #FFFFFF 0% 0% no-repeat padding-box;box-shadow: 0px 3px 14px #00000029;border-radius: 6px;opacity: 1;top: 40px;min-width: 70px;">
+                                        <a href="#">1</a>
+                                        <a href="#">2</a>
+                                        <a href="#">3</a>
+                                    </div>
+                                </div>
+                                <p>&nbsp;&nbsp;of 3 pages</p>
+                            </div>
+                            
+                        </div>
+                        <div class="col-lg-1 pages" style="text-align: center;cursor: pointer;">
+                            <img src="/public/img/arrow_left.svg">
+                        </div>
+                        <div class="col-lg-1 pages" style="border: none;text-align: center;cursor: pointer;">
+                            <img src="/public/img/arrow_right.svg">
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <footer>
+        <p>10dem © 2020</p>
+    </footer>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
+    <script src="https://kit.fontawesome.com/6f24662773.js" crossorigin="anonymous"></script>
+
+    <script src="/public/js/index.js"></script>
+   
+
+</body>
+
+</html>
