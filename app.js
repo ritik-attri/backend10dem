@@ -226,12 +226,12 @@ app.post('/checkdata/:id',function(req,res){
     console.log(req.body)
     user.find(obj,function(err,user){
       console.log('user is'+user[0]);
-      if(user[0].Role.is10DemProuser==true&&user[0].Role.isEducator==true&&user[0].Role.isNPOrg==true&&user[0].Role.isOrg){
+      if(err||user[0]==undefined){
         sess.req=session;
         sess.user_data={user:user[0],role_Data:null};
         res.redirect('/superadmin/dashboard');
       }
-      else if(err||user[0]==undefined){
+      else if(user[0].Role.is10DemProuser==true&&user[0].Role.isEducator==true&&user[0].Role.isNPOrg==true&&user[0].Role.isOrg){
         console.log('Cant find user so redirecting: '+err);
         res.redirect('/');
       }else{
@@ -272,6 +272,32 @@ app.post('/checkdata/:id',function(req,res){
   else{
     console.log('Only for social login');
   }
+})
+/*#######################################
+  ############Student Login##############
+  ####################################### */
+app.get('/student-Login',(req,res)=>{
+  res.render('studentSignin');
+})
+/*#######################################
+  #######Handling Student Login##########
+  ####################################### */
+app.post('/student-Credentials',function(req,res){
+  console.log(req.body);
+  Student.find({email:req.body.email,password:req.body.pass},(err,resp)=>{
+    console.log(resp[0]);
+    if(err||resp[0]==undefined){
+      res.redirect('/student-login');
+    }else{
+      sess.req=session;
+      sess.user_data={user:resp[0]};
+      if(sess.user_data.user==undefined){
+        res.redirect('/student-Login');
+      }else{
+        res.render('studentdashboard',{student_Data:resp[0]});
+      }
+    }
+  })
 })
 /*####################################### 
   #########Create Project Superadmin########
@@ -884,6 +910,82 @@ app.get('/managestudents/:class',(req,res)=>{
   }
 })
 /*##################################
+  ####Editing Students details######
+  ################################## */
+app.get('/editingStudent/:class/:id',function(req,res){
+  if(sess.user_data==undefined){
+    res.redirect('/');
+  }else{
+    console.log(req.params.class+req.params.id);
+    let classes_Data=[];
+    let count=0;
+    Student.find({_id:req.params.id},(err,resp)=>{
+      if(err){
+        console.log(err);
+      }else{
+        sess.user_data.role_Data.classes.forEach((classesare)=>{
+          classes.find({_id:classesare},(err,resp1)=>{
+            classes_Data.push(resp1[0]);
+            console.log(resp1[0]);
+            count++;
+            console.log('count:-'+count+' classes:- '+sess.user_data.role_Data.classes.length);
+            if(count==sess.user_data.role_Data.classes.length){
+              console.log('#############################\n ####GOING CLASSES###############\n ###############################\n'+classes_Data);
+              res.render('editStudent',{name:sess.user_data.user.username,role:'educator',org_name:sess.user_data.role_Data.org_name,hide_manage_students:false,students_Data:resp[0],classes_available:classes_Data});
+            }
+          })
+        })
+      }
+    })
+  }
+})
+/*##################################
+  #Handling Editing Student PostReq#
+  ################################## */
+app.post('/editingStudent/:student_id',(req,res)=>{
+  if(sess.user_data==undefined){
+    res.redirect('/');
+  }else{
+    console.log(req.params.student_id,util.inspect(req.body));
+    Student.find({_id:req.params.student_id},(err,resp)=>{
+      classes.find({_id:resp[0].class_id},(err1,resp1)=>{
+        let index = resp1[0].students.indexOf(req.params.student_id);
+        resp1[0].students.splice(index,1);
+        let obj={
+          students:resp1[0].students,
+        }
+        classes.findOneAndUpdate({_id:resp[0].class_id},{$set:obj},{new:true},(err2,resp2)=>{
+          classes.find({_id:req.body.class_assigned},(err3,resp3)=>{
+            console.log('getting in resp3');
+            let newarrival=[resp[0]._id,];
+            let obj={
+              students:resp3[0].students.concat(newarrival)
+            }
+            classes.findOneAndUpdate({_id:req.body.class_assigned},{$set:obj},{new:true},(err4,resp4)=>{
+              console.log('getting in resp4');
+              let obj={
+                name:req.body.firstname+' '+req.body.lastname,
+                password:req.body.password,
+                class_id:req.body.class_assigned,
+                grade:resp4.grade,
+                section:resp4.section,
+              }
+              Student.findOneAndUpdate({_id:req.params.student_id},{$set:obj},{new:true},(err5,resp5)=>{
+                console.log('getting in resp5');
+                if(err5){
+                  console.log(err5);
+                }else{
+                  res.redirect('/educatordashboard');
+                }
+              })
+            })
+          })
+        })
+      })
+    })
+  }
+})
+/*##################################
   #Handling Post Req of Add student#
   ################################## */
 app.post('/addingstudent/:grade/:section/:id',(req,res)=>{
@@ -907,7 +1009,7 @@ app.post('/addingstudent/:grade/:section/:id',(req,res)=>{
           from: '10demdeveloper@gmail.com',
           to: req.body.email,
           subject: 'Your Student credentials',
-          text: `Your credentials:- \nYour email:- ${resp.email}\nYour password:- ${resp.password}.\n\n\n Please login through this link:- blah blah`
+          text: `Your credentials:- \nYour email:- ${resp.email}\nYour password:- ${resp.password}.\n\n\n Please login through this link:- localhost:3000/student-Login`
         };
         mail.sendMail(mailOptions,(err,info)=>{
           if(err){
@@ -975,7 +1077,7 @@ app.post('/addingstudent/csv/:class',upload.single('csvfile'),(req,res)=>{
                     from: '10demdeveloper@gmail.com',
                     to: resp1.email,
                     subject: 'Your Student credentials',
-                    text: `Your credentials:- \nYour email:- ${resp1.email}\nYour password:- ${resp1.password}.\n\n\n Please login through this link:- blah blah`
+                    text: `Your credentials:- \nYour email:- ${resp1.email}\nYour password:- ${resp1.password}.\n\n\n Please login through this link:- localhost:3000/student-Login`
                   };
                   mail.sendMail(mailOptions,(err,info)=>{
                     if(err){
@@ -1689,10 +1791,15 @@ app.get('/externalcollab',function(req,res){
       })
     }
   })
+  .catch(()=>{
+    res.render("noInternet")
+  })
+})
   /*################################
     ############DRAFTS##############
     ################################ */
   app.get('/drafts',function(req,res){
+    internetConnected().then(()=>{
     if(sess.user_data==undefined){
       res.redirect('/');
     }else{
@@ -1766,25 +1873,6 @@ app.get('/completed',function(req,res){
   .catch(()=>{
     res.render("noInternet")
   })
-})
-
-
-
-/*################################# 
-  ######Student DASHBOARD########## 
-  #################################*/
-app.get('/dashboard/student/:id',function(req,res){
- internetConnected().then(()=>{
-  if(sess.user_data.user==undefined){
-    res.redirect('/');
-  }
-  else{
-    let first_letter=sess.user_data.username.split('');
-    res.render('studentdashboard',{name:sess.user_data.username,first_letter:first_letter[0],role:'student'});
-  }
- }).catch(()=>{
-   res.render("noInternet")
- })
 })
 
 /*################################# 
@@ -2416,11 +2504,6 @@ app.post('/role/:id',function(req,res){
     }
   }
 })
-/*################################
-  #######Exporting Classes########
-  ################################ */
-
-
 
 
 
