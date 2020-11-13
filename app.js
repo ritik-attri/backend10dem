@@ -280,7 +280,11 @@ app.post('/checkdata/:id',function(req,res){
   ############Student Login##############
   ####################################### */
 app.get('/student-Login',(req,res)=>{
-  res.render('studentSignin');
+  internetConnected().then(()=>{
+    res.render('studentSignin');
+  }).catch(()=>{
+    res.render("noInternet")
+  })
 })
 /*#######################################
   #######Handling Student Login##########
@@ -886,45 +890,50 @@ app.get('/educatordashboard',function(req,res){
   #########Adding Students##########
   ################################## */
 app.get('/managestudents/:class',(req,res)=>{
-  if(sess.user_data==undefined){
-    res.redirect('/');
-  }else{
-    console.log(req.params.class);
-    classes.find({_id:req.params.class},(err,resp)=>{
-      if(err){
-        console.log('Cannot find that class in /managestudent/ because:- '+err);
-        res.render("somethingWrong")
-      }else{
-        console.log(resp[0]);
-        if(resp[0].students.length==0){
-          res.render('manageClass',{name:sess.user_data.user.username,class_Data:resp[0],students_Data:[],role:'educator',hide_manage_students:false,org_name:sess.user_data.role_Data.org_name});
+  internetConnected().then(()=>{
+    if(sess.user_data==undefined){
+      res.redirect('/');
+    }else{
+      console.log(req.params.class);
+      classes.find({_id:req.params.class},(err,resp)=>{
+        if(err){
+          console.log('Cannot find that class in /managestudent/ because:- '+err);
+          res.render("somethingWrong")
         }else{
-          let students=[];
-          let count=0;
-          resp[0].students.forEach((studentid)=>{
-            count++;
-            Student.find({_id:studentid},(err,resp1)=>{
-              if(err){
-                console.log('cannot find students of this class in managestudents/:class:- '+err);
-                res.render("somethingWrong")
-              }else{
-                students.push(resp1[0]);
-                if(count==resp[0].students.length){
-                  res.render('manageClass',{name:sess.user_data.user.username,class_Data:resp[0],students_Data:students,role:'educator',hide_manage_students:false,org_name:sess.user_data.role_Data.org_name});
+          console.log(resp[0]);
+          if(resp[0].students.length==0){
+            res.render('manageClass',{name:sess.user_data.user.username,class_Data:resp[0],students_Data:[],role:'educator',hide_manage_students:false,org_name:sess.user_data.role_Data.org_name});
+          }else{
+            let students=[];
+            let count=0;
+            resp[0].students.forEach((studentid)=>{
+              count++;
+              Student.find({_id:studentid},(err,resp1)=>{
+                if(err){
+                  console.log('cannot find students of this class in managestudents/:class:- '+err);
+                  res.render("somethingWrong")
+                }else{
+                  students.push(resp1[0]);
+                  if(count==resp[0].students.length){
+                    res.render('manageClass',{name:sess.user_data.user.username,class_Data:resp[0],students_Data:students,role:'educator',hide_manage_students:false,org_name:sess.user_data.role_Data.org_name});
+                  }
                 }
-              }
+              })
             })
-          })
-
+  
+          }
         }
-      }
-    })
-  }
+      })
+    }
+  }).catch(()=>{
+    res.render("noInternet")
+  })
 })
 /*##################################
   ####Editing Students details######
   ################################## */
 app.get('/editingStudent/:class/:id',function(req,res){
+ internetConnected().then(()=>{
   if(sess.user_data==undefined){
     res.redirect('/');
   }else{
@@ -950,6 +959,9 @@ app.get('/editingStudent/:class/:id',function(req,res){
       }
     })
   }
+ }).catch(()=>{
+   res.render("noInternet")
+ })
 })
 /*##################################
   #Handling Editing Student PostReq#
@@ -1446,10 +1458,14 @@ var generateOTP = ()=>{
 
 }
 app.get("/forgot-password",(req,res)=>{
+ internetConnected().then(()=>{
   if(sess.user_data==undefined){
     res.redirect('/');
   }else
   {res.render("SignIn-otp")}
+ }).catch(()=>{
+   res.render("noInternet")
+ })
 })
 
 app.post("/send-OTP",(req,res)=>{
