@@ -1,0 +1,1082 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        
+        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+        <link rel="stylesheet" href="lib/owlcarousel/assets/owl.carousel.min.css">
+        <link rel="stylesheet" href="lib/owlcarousel/assets/owl.theme.default.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+
+        <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/assignmentoverview.css">
+        <link rel="stylesheet" href="css/header.css">
+        <style>
+            #drop-area {
+                width: 100%;
+                margin-bottom: 50px;
+                font-family: sans-serif;
+            }
+
+            .my-form {
+                height: 200px;
+                text-align: center;
+                padding: 25px;
+                background: #FFFFFF 0% 0% no-repeat padding-box;
+                border: 1px dashed #707070;
+                border-radius: 4px;    
+            }
+
+            label {
+                margin: 0;
+                color: #FD585CCC;
+                font-size: 18px;
+                cursor: pointer;
+            }
+
+            #gallery {
+                margin-top: 10px;
+            }
+            #fileElem {
+                display: none;
+            }
+  
+        </style>
+        <style>
+            /* Tooltip */
+            .tooltip {
+                position: relative;
+                display: inline-block;
+            }
+            .tooltip > .tooltip-inner {
+                height: 35px !important;
+                padding: 5px;
+                text-align: justify;
+                color: #000000;
+                line-height: 1rem; 
+                
+                background: #FFFFFF 0% 0% no-repeat padding-box;
+                box-shadow: 0px 0px 3px #00000029;
+                border: 1px solid #FFDB64CC;
+                opacity: 1;
+            }
+            .border{
+                border: 1px solid grey;
+                margin: 1rem auto;
+                padding: 1rem;
+            }
+            
+        </style>
+        <title>10dem Education|Home</title>
+    </head>
+
+    <body>
+        <header id="header">
+                
+            <nav id="nav-menu-container">
+
+                <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-left">
+                        <!-- <div id="logo">
+                        
+                            <a class="navbar-brand" href="#"><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span></a>
+                            
+                        </div> -->
+                        <ul class="nav-menu">
+                            <li><a href="">Home</a></li>
+                            <li><a href="">Ongoing Project</a></li>
+                            <li class="menu-has-children dropdown-toggle"><a href="">Membership</a>
+                                <ul class="navbar-nav mr-auto">
+                                    <li class="nav-item navMember">
+                                        <h5 class="innerhead">Pro</h5>
+                                        <p class="innerpara">Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
+                                        <a href="#" class="innertag">View all</a>
+                                    </li>
+                                    <li class="nav-item navMember">
+                                        <h5 class="innerhead">Organization</h5>
+                                        <p class="innerpara">Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
+                                        <a href="#" class="innertag">View all</a>
+                                    </li>
+                                    <li class="nav-item navMember">
+                                        <h5 class="innerhead">Non Profits</h5>
+                                        <p class="innerpara">Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
+                                        <a href="#" class="innertag">View all</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li style="position: relative;top: -3px;"><a href="#"><i class="fas fa-crown" style="color: rgb(233, 233, 3);"></i>Try 10dem pro</a></li>
+                            <l1><a href="#"><img src="img/notifications.svg"><span style="position: relative;right: 10px;bottom: 10px;padding: 2px 6px;border-radius: 50%;background: red;font-size: 14px;">2</span></a></l1>
+                        </ul>
+                    </div>
+                    
+                    <ul class="nav-menu">
+                        <li><a class="btn-primary" style="border-radius: 5px;position: relative;top: -6px;padding: 4px 8px 6px 8px;" href="#"><i class="fas fa-plus" style="color: rgb(255, 255, 255);"></i>  Start Collaboration</a></li>
+                        <li class="menu-has-children dropdown-toggle navprofile" style="margin-top: 0;"><a href="#" style="color: #000;background: #FFFFFF;border-radius: 50%;height: 35px;width: 35px;text-align: center;padding: 7px;">S</a>
+                            <ul style="right: 0 !important;left: auto !important;width: fit-content;padding-left: 1px !important;padding-right: 1px !important;padding-inline-start: 0px;background: #fff !important;">
+                                <li><a href="#">My profile</a></li>
+                                <li><a href="#">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div>
+            
+            </nav><!-- #nav-menu-container -->
+
+        </header><!-- #header -->
+
+        <div class="wrapper">
+            <!-- Sidebar  -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <img src="img/10-dem@2x.png" alt="">
+                </div>
+
+                <button type="button" id="sidebarCollapse" class="btn bg-light sidebutton">
+                    <i id="collapse-icon" class="fas fa-angle-left" style="font-size: 50px;"></i>
+                </button>
+
+                <ul class="list-unstyled components">
+                    <li>
+                        <a href="#"><box-icon class="bx-fw" name="file"></box-icon> My Projects&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                    </li>
+                    <li>
+                        <a href="#"><box-icon class="bx-fw" name='bookmarks'></box-icon> Bookmarks&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                    </li>
+                    <!-- <li>
+                        <a href="#"><box-icon class="bx-fw" name='folder' ></box-icon>    My Folders</a>
+                    </li> -->
+                    <li>
+                        <a href="#"><box-icon class="bx-fw" name='chat' ></box-icon> Conversations&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                    </li>
+                    <li>
+                        <a href="#"><box-icon class="bx-fw" name='user-circle' ></box-icon> Manage Students&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                    </li>
+                    <li>
+                        <a href="#"><box-icon class="bx-fw" name='book-reader'></box-icon> ABC Organization&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                    </li>
+                </ul>
+
+                <div class="learnMore">
+                    <img src="img/explore.svg">
+                    <p>Hello John <br/> Explore <span style="color: #FD585C;cursor: pointer;">Pro account</span> with Premium features.</p>
+                    <button class="btn">Learn more</button>
+                </div>
+
+            </nav>
+            
+
+            <!-- Page Content  -->
+            <div id="content" class="container">
+                
+<!-- 
+                <button type="button" id="sidebarCollapse" class="btn bg-light sidebutton">
+                    <i id="collapse-icon" class="fas fa-angle-left" style="font-size: 60px;"></i>
+                </button>
+                 -->
+                <a href="#" class="float">
+                    <img src="img/help.svg" class="my-float" style="width: 30px;height: 30px;" alt="">
+                </a>
+
+
+
+                <div style="margin-left: 8%;">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="#">Home</a></li>
+                          <li class="breadcrumb-item"><a href="#">Projects</a></li>
+                          <li class="breadcrumb-item active" aria-current="page">Fundamental of Design</li>
+                        </ol>
+                    </nav>
+                </div>
+
+
+                <div class="row" style="margin-bottom: 5rem;">
+                    <div class="col-lg-1">
+                    
+                    </div>
+                    <div class="col-lg-10" style="box-shadow: 0px 3px 6px #00000029;">
+                        
+                        <div class="row">
+                            <div class="col-lg-1">
+                            
+                            </div>
+
+                            
+                            <div class="col-lg-10">
+                            
+                                <div style="height: 70px;"></div>
+
+                                <h1>Fundamental of Design</h1>
+                                <div class="row">
+                                    <div class="col-lg-11">
+                                        <p class="keywords">Art&nbsp;&nbsp;|&nbsp;&nbsp;Color Theory&nbsp;&nbsp;|&nbsp;&nbsp;Asthetics</p>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <div class="symbol" style="margin-top: 10px;" data-toggle="tooltip"><i class="far fa-bookmark" style="color: #FD585C;"></i></div>
+                                    </div>
+                                </div>
+                                
+                                <hr style="border: 2px solid #FFDB64;">
+
+
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <h3 style="margin: 0;padding: 20px 0;">Subject</h3>
+                                    </div>
+                                    <div class="col-lg-3 pad">
+                                        <p class="keywords" style="text-align: right;padding-right: 0;color: #FD585C"><a href="#" data-toggle="modal" data-target="#exampleModalCenter1">Assign to class</a></p>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <div class="symbol" style="margin-top: 10px;"><img src="img/assign.svg"></div>
+                                    </div>
+                                </div>
+                                <p class="keywords" style="padding: 0;">Design&nbsp;&nbsp;|&nbsp;&nbsp;Fundamental Theory&nbsp;&nbsp;|&nbsp;&nbsp;Human Computer Interaction</p>
+
+
+                                <h3>Grade</h3>
+                                <div style="margin: 40px 0;">
+                                    <a class="grades">7-8 grade</a>
+                                    <a class="grades">8-9 grade</a>
+                                    <a class="grades">9-10 grade</a>
+                                </div>
+                               
+
+                                <h3>Overview</h3>
+                                <p id="innerpara">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore eeut tedolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco labo nisi ut aliquip ext ea commodo consequat. Duis aute irure dolor inreprehenderit in fugia voluptate velit esse cillum dolore eu fugiat nulla pariatur dolor inreprehenderit in fugia ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud reeer exercitation ullamco labo nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor inreprehenderitr
+                                </p>
+
+
+                                <h3>Learning Outcome</h3>
+                                <p id="innerpara">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore etee dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco labo nisi ut aliquip ex ea commodo consequat. Duis
+                                </p>
+
+
+                                <h3>Key Contribution (Community & Planet)</h3>
+                                <p id="innerpara">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore eteee dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco labo nisi ut aliquip ex eatt commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiatrrr tynulla pariatur uis nostrud exercitation ullamco labo nisi ut aliquip ex ea commodo consequat.
+                                </p>
+
+
+                                <h3>Inquiry Question</h3>
+                                <p id="innerpara">
+                                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum ipsum do ?
+                                </p>
+
+
+                                <h3>Introductory Discussion Points</h3>
+                                <div style="margin: 40px 0px;">
+                                    <p id="innerpara2">
+                                        What was your idea behind the concept?
+                                    </p>
+                                    <p id="innerpara2">
+                                        What was your idea behind the concept?
+                                    </p>
+                                    <p id="innerpara2">
+                                        What was your idea behind the concept?
+                                    </p>
+                                </div>
+                                
+
+                                <h3>Activity</h3>
+        
+            
+                                <!-- Activities -->
+            
+                                <div class="row">
+            
+                                    <div class="col-lg-1">
+                                        <div class="symbol">1</div>
+                                    </div>
+                                    <div class="col-lg-11">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <p id="innerpara">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur lore eu fugiat nulla pariatur</p>
+                                            </div>
+                                            <div class="col-lg-1">
+                                                <div style="text-align: center;margin-top: 20px;">
+                                                    <img src="img/attachment.svg" alt="">
+                                                </div>
+                                            </div>                                          
+                                            <div class="col-lg-3">
+
+                                                <div style="margin: 10px;">
+                                                    <div class="row document">
+                                                        <div class="col-lg-11 p-0 d-flex justify-content-left">
+                                                            <img src="img/doc.png" style="height: 40px;width: 40px;margin-right: 10px;">
+                                                            <div>
+                                                                <p class="filename">Work plan.docx</p>
+                                                                <p class="filesize">2 MB</p>
+                                                            </div> 
+                                                        </div>
+                                                        <div class="col-lg-1 p-0">
+                                                            <img src="img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div style="margin: 10px;">
+                                                    <div class="row document">
+                                                        <div class="col-lg-11 p-0 d-flex justify-content-left">
+                                                            <img src="img/image.svg" style="height: 40px;width: 40px;margin-right: 10px;">
+                                                            <div>
+                                                                <p class="filename">Work plan.docx</p>
+                                                                <p class="filesize">2 MB</p>
+                                                            </div> 
+                                                        </div>
+                                                        <div class="col-lg-1 p-0">
+                                                            <img src="img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div style="margin: 10px;">
+                                                    <div class="row document">
+                                                        <div class="col-lg-11 p-0 d-flex justify-content-left">
+                                                            <img src="img/doc.png" style="height: 40px;width: 40px;margin-right: 10px;">
+                                                            <div>
+                                                                <p class="filename">Work plan.docx</p>
+                                                                <p class="filesize">2 MB</p>
+                                                            </div> 
+                                                        </div>
+                                                        <div class="col-lg-1 p-0">
+                                                            <img src="img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+            
+            
+                                    <div class="col-lg-12">&nbsp;</div>
+                                    <div class="col-lg-12">&nbsp;</div>
+            
+            
+                                    <div class="col-lg-1">
+                                        <div class="symbol">2</div>
+                                    </div>
+                                    <div class="col-lg-11">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <p id="innerpara">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur lore eu fugiat nulla pariatur</p>
+                                            </div>
+                                            <div class="col-lg-1">
+                                                <div style="text-align: center;margin-top: 20px;">
+                                                    <img src="img/attachment.svg" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div style="margin: 10px;">
+                                                    <div class="row document">
+                                                        <div class="col-lg-11 p-0 d-flex justify-content-left">
+                                                            <img src="img/pdf.png" style="height: 40px;width: 40px;margin-right: 10px;">
+                                                            <div>
+                                                                <p class="filename">Work plan.docx</p>
+                                                                <p class="filesize">2 MB</p>
+                                                            </div> 
+                                                        </div>
+                                                        <div class="col-lg-1 p-0">
+                                                            <img src="img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div style="margin: 10px;">
+                                                    <div class="row document">
+                                                        <div class="col-lg-11 p-0 d-flex justify-content-left">
+                                                            <img src="img/doc.png" style="height: 40px;width: 40px;margin-right: 10px;">
+                                                            <div>
+                                                                <p class="filename">Work plan.docx</p>
+                                                                <p class="filesize">2 MB</p>
+                                                            </div> 
+                                                        </div>
+                                                        <div class="col-lg-1 p-0">
+                                                            <img src="img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+            
+            
+                                    <div class="col-lg-12">&nbsp;</div>
+                                    <div class="col-lg-12">&nbsp;</div>
+            
+            
+                                    <div class="col-lg-1">
+                                        <div class="symbol">3</div>
+                                    </div>
+                                    <div class="col-lg-11">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <p id="innerpara">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur lore eu fugiat nulla pariatur</p>
+                                            </div>
+                                            <div class="col-lg-1">
+                                                <div style="text-align: center;margin-top: 20px;">
+                                                    <img src="img/attachment.svg" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div style="margin: 10px;">
+                                                    <div class="row document">
+                                                        <div class="col-lg-11 p-0 d-flex justify-content-left">
+                                                            <img src="img/image.svg" style="height: 40px;width: 40px;margin-right: 10px;">
+                                                            <div>
+                                                                <p class="filename">Work plan.docx</p>
+                                                                <p class="filesize">2 MB</p>
+                                                            </div> 
+                                                        </div>
+                                                        <div class="col-lg-1 p-0">
+                                                            <img src="img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div style="margin: 10px;">
+                                                    <div class="row document">
+                                                        <div class="col-lg-11 p-0 d-flex justify-content-left">
+                                                            <img src="img/doc.png" style="height: 40px;width: 40px;margin-right: 10px;">
+                                                            <div>
+                                                                <p class="filename">Work plan.docx</p>
+                                                                <p class="filesize">2 MB</p>
+                                                            </div> 
+                                                        </div>
+                                                        <div class="col-lg-1 p-0">
+                                                            <img src="img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+            
+                                    <div class="col-lg-12">&nbsp;</div>
+                                    <div class="col-lg-12">&nbsp;</div>
+            
+                                </div>
+
+                                <h3>Add Additional Information</h3>
+                                <hr style="border: 2px solid #FFDB64;">
+
+                                <h3 style="font-family: ProductB;"><img src="img/pin3.svg" style="padding: 15px;background: #FFF8DD 0% 0% no-repeat padding-box;border-radius: 50%;">&nbsp;&nbsp;&nbsp;&nbsp;Attach your files</h3>
+                                <div class="row">
+                                    <!-- module -->
+                                    <div class="col-lg-1">
+                                        <div style="width: 5px;height: 100%;position:absolute; left: 50%; border-left: 2px solid #e6e6e6;"></div>
+                                    </div>
+                                    <div class="col-lg-11" style="padding: 0;padding-right: 15px;padding-left: 10px;">
+                                        <div id="drop-area">
+                                            <form class="my-form">
+                                                <img src="img/upload.svg">
+                                                <p style="margin: 0;color: #272727;">Drag file to upload</p>
+                                                <p style="margin: 0;">Or</p>
+                                                <input type="file" id="fileElem" multiple accept=".doc,.docx,.xls,.xlsx,.csv,.ppt,.pptx,.pdf,.png,.jpeg,.jpg" onchange="handleFiles(this.files)">
+                                                <label for="fileElem">Browse</label>
+                                            </form>
+                                            <div id="gallery" class="row"></div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+
+                                <h3 style="font-family: ProductB;"><img src="img/comment.svg" style="padding: 15px;background: #E3EFFF 0% 0% no-repeat padding-box;border-radius: 50%;">&nbsp;&nbsp;&nbsp;&nbsp;Add Your comment</h3>
+                                <div style="height: 80px;margin-left: 40px;background: #F7F6F3 0% 0% no-repeat padding-box;border-radius: 10px;">
+                                    <p style="margin-left: 60px;color: #03293D;line-height: 1em;padding-top: 15px;">Mrs. Neeti</p>
+                                    <p style="margin-left: 60px;color: #ccccFF;line-height: 1em;padding-bottom: 15px;">Lorem ipsum</p>
+                                </div>
+
+                                <!-- Text Area -->
+                                
+                                <div class="row">
+                                    <!-- module -->
+                                    <div class="col-lg-1">
+                
+                                    </div>
+                                    <div class="col-lg-11" style="margin-top: 30px;">
+                                        <div class="texteditor">
+                                            <textarea id="editor"></textarea>
+                                        </div>
+                                    </div>
+                                    <!-- module -->
+                                    <div class="col-lg-1">
+                
+                                    </div>
+                                    <div class="col-lg-11">
+                                        <div style="text-align: center;">
+                                            <button class="classAssign" data-toggle="modal" data-target="#exampleModalCenter2"><img src="img/assign.svg">&nbsp;Assign To Class</button>
+                                        </div>
+                                    </div>
+                                     <!-- module -->
+                                    <div class="col-lg-12">
+                                        <hr style="border: 2px solid #e6e6e6;"> 
+                                    </div>   
+                                    <!-- module -->
+                                    <div class="col-lg-12 colouring">
+                                        <div style="text-align: left;">
+                                            <button class="disclaimer">Disclaimer</button>
+                                            <div class="disclaimerMessage" style="display: none;">
+                                                <p>10dem.cpm provides the project-based and inquiry-based ideas for informational purposes only. 10dem.com does not make any guarantee or representation regarding the ideas and is not responsible or liable for any loss or damage, directly or indirectly, caused by your use of such information. By accessing the 10dem project ideas, you waive and renounce any claims against 10dem.com that arise thereof.</p>
+                                                <p>Warning is hereby given that not all Project ideas are appropriate for all individuals or in all circumstances. 10dem.com also provides capability to add, remove, or modify any activity or project ideas to ensure educators, teachers, and supervisors are able to apply their own judgement to ensure that only those projects, ideas, or activities that are appropriate and safe for their students are assigned to their students. Implementation of any project, activity or idea should be undertaken only in appropriate settings and with appropriate educator, parental or other supervision. Reading and following the safety precautions of all materials used in a project is the sole responsibility of each individual. For further information, consult your own institution's policies and/or guidelines on project-based learning.</p>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style="height: 70px;"></div>
+
+                            </div>
+
+                            <div class="col-lg-1">
+                            
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-1">
+
+                    </div>
+
+                
+                    
+
+                </div>
+                <!-- Overview ends -->
+
+
+                <!-- Modal1 -->
+                <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="exampleModalLongTitle">Assign Project</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row justify-content-md-center">
+
+                                <!-- module -->
+                                <div class="dropdown" style="width: 100%;">
+                                    <div class="d-flex">
+                                        <input class="input100" id="subject" style="overflow-y: hidden;" placeholder="Select Class">
+                                        <img src="img/expand.svg" style="float: right;position: absolute;top: 14px;right: 8px;">
+                                    </div>
+                                    <div class="dropdown-content" style="width: 100%;background: #FFFFFF 0% 0% no-repeat padding-box;box-shadow: 0px 3px 14px #00000029;border-radius: 6px;opacity: 1;top: 50px;">
+                                        <div class="upcoming1" style="height: 300px;">
+
+                                            
+                                            <div id="custom-search-input2">
+                                                <div class="input-group col-lg-12">
+                                                    <input type="text" class="search-query form-control" placeholder="Search"/>
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-danger" type="button">
+                                                            <i class="fas fa-search"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        
+
+                                            <a class="memberfields">
+                                                <div class="d-flex justify-content-left">
+                                                    <div class="memberfieldname">Grade A</div>
+                                                </div>
+                                            </a>
+                                            <a class="memberfields">
+                                                <div class="d-flex justify-content-left">
+                                                    <div class="memberfieldname">Grade B</div>
+                                                </div>
+                                            </a>
+                                            <a class="memberfields">
+                                                <div class="d-flex justify-content-left">
+                                                    <div class="memberfieldname">
+                                                        Grade C
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a class="memberfields">
+                                                <div class="d-flex justify-content-left">
+                                                    <div class="memberfieldname">
+                                                        Grade D
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a class="memberfields">
+                                                <div class="d-flex justify-content-left">
+                                                    <div class="memberfieldname">
+                                                        Grade E
+                                                    </div>
+                                                </div>
+                                            </a>
+                                           
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+                                 <!-- module -->
+                                
+                                   <div class=".container-fluid border">
+                                       <h4 style="color: grey;">Activity 1</h4>
+                                    <div class="row">
+                                        <div class="col-lg-5">
+                                            <h4>Start Date</h4>
+                                        </div>
+                                        <div class="col-lg-2">
+                    
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <h4>Submission Date</h4>
+                                        </div>
+                                        
+                                        <div class="col-lg-5">
+                                            <input class="input100 flatpickr" name="startDate">
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <h4 style="text-align: center;margin-top: 10px;">To</h4>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <input class="input100 flatpickr" name="endDate">
+                                        </div>
+                                    
+                                    </div>
+                                   </div>
+
+                                   <div class=".container-fluid border">
+                                    <h4 style="color: grey;">Activity 2</h4>
+                                 <div class="row">
+                                     <div class="col-lg-5">
+                                         <h4>Start Date</h4>
+                                     </div>
+                                     <div class="col-lg-2">
+                 
+                                     </div>
+                                     <div class="col-lg-5">
+                                         <h4>Submission Date</h4>
+                                     </div>
+                                     
+                                     <div class="col-lg-5">
+                                         <input class="input100 flatpickr" name="startDate">
+                                     </div>
+                                     <div class="col-lg-2">
+                                         <h4 style="text-align: center;margin-top: 10px;">To</h4>
+                                     </div>
+                                     <div class="col-lg-5">
+                                         <input class="input100 flatpickr" name="endDate">
+                                     </div>
+                                 
+                                 </div>
+                                </div>
+
+                                <div class=".container-fluid border">
+                                    <h4 style="color: grey;">Activity 3</h4>
+                                 <div class="row">
+                                     <div class="col-lg-5">
+                                         <h4>Start Date</h4>
+                                     </div>
+                                     <div class="col-lg-2">
+                 
+                                     </div>
+                                     <div class="col-lg-5">
+                                         <h4>Submission Date</h4>
+                                     </div>
+                                     
+                                     <div class="col-lg-5">
+                                         <input type="date" class="input100 flatpickr" name="startDate">
+                                     </div>
+                                     <div class="col-lg-2">
+                                         <h4 style="text-align: center;margin-top: 10px;">To</h4>
+                                     </div>
+                                     <div class="col-lg-5">
+                                         <input type="date"  class="input100 flatpickr" name="endDate">
+                                     </div>
+                                 
+                                 </div>
+                                </div>
+
+                                
+                               
+                                
+                                <!-- module -->
+
+                                <div class="row">
+                                    <div class="col-lg-1">
+                                        <input type="checkbox" name="" id="" class="inputcheck">
+                                    </div>
+                                    <div class="col-lg-11">
+                                        <p style="font-size: 16px !important;">By signing below, I hereby acknowledge that I have completely read and fully understand the <span id="redheading">Disclaimer</span></p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="justify-content: center;">
+                            <button type="button" id="assigned" data-dismiss="modal" class="btn modalbutton1">Assign</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+
+                <!-- Modal2 -->
+                <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="exampleModalLongTitle">Assign Project</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="text-align: center;">
+                            <img src="img/assignProject.png">
+                            <p class="m1">Empty Class</p>
+                            <p class="m2">Looks like you haven't made your student list yet...</p>
+                            <p class="m3">Let's add students list now</p>
+                        </div>
+                        <div class="modal-footer" style="justify-content: center;">
+                            <button type="button" id="assigned" data-dismiss="modal" class="btn modalbutton1" style="border-radius: 50%;height: 60px;width: 60px;"><img src="img/arrow.svg"></button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                
+                <h2 style="margin-bottom: 40px;">Similar Projects</h2>
+
+                <!-- Testimonials Section -->
+                
+                <section id="testimonials" class="testimonials">
+                    <div class="main-content" data-aos="fade-up">
+
+            
+                        <div class="owl-carousel testimonials-carousel owl-theme">
+            
+                            <div class="testimonial-item">
+                                <img src="img/download.jpeg" class="testimonial-img" alt="">
+                                <h3>Project 1</h3>
+                                <p>Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
+                                <p id="innerp">
+                                    <a href="#" style="float:left;color: #fd585c;font-size: medium;padding-left: 5px;">View more</a>
+                                    <a href="#" style="float:right;padding-right: 10px;"><i class="far fa-bookmark"></i></a>&nbsp;
+                                </p>
+                            </div>
+
+                            <div class="testimonial-item">
+                                <img src="img/download.jpeg" class="testimonial-img" alt="">
+                                <h3>Project 2</h3>
+                                <p>Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
+                                <p id="innerp">
+                                    <a href="#" style="float:left;color: #fd585c;font-size: medium;padding-left: 2px;">View more</a>
+                                    <a href="#" style="float:right;padding-right: 10px;"><i class="far fa-bookmark"></i></a>&nbsp;
+                                </p>
+                                
+                            </div>
+
+                            <div class="testimonial-item">
+                                <img src="img/download.jpeg" class="testimonial-img" alt="">
+                                <h3>Project 3</h3>
+                                <p>Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
+                                <p id="innerp">
+                                    <a href="#" style="float:left;color: #fd585c;font-size: medium;padding-left: 2px;">View more</a>
+                                    <a href="#" style="float:right;padding-right: 10px;"><i class="far fa-bookmark"></i></a>&nbsp;
+                                </p>
+                            </div>
+
+                            <div class="testimonial-item">
+                                <img src="img/download.jpeg" class="testimonial-img" alt="">
+                                <h3>Project 4</h3>
+                                <p>Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
+                                <p id="innerp">
+                                    <a href="#" style="float:left;color: #fd585c;font-size: medium;padding-left: 2px;">View more</a>
+                                    <a href="#" style="float:right;padding-right: 10px;"><i class="far fa-bookmark"></i></a>&nbsp;
+                                </p>
+                            </div>
+
+                            <div class="testimonial-item">
+                                <img src="img/download.jpeg" class="testimonial-img" alt="">
+                                <h3>Project 5</h3>
+                                <p>Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
+                                <p id="innerp">
+                                    <a href="#" style="float:left;color: #fd585c;font-size: medium;padding-left: 2px;">View more</a>
+                                    <a href="#" style="float:right;padding-right: 10px;"><i class="far fa-bookmark"></i></a>&nbsp;
+                                </p>
+                            </div>
+
+                            <div class="testimonial-item">
+                                <img src="img/download.jpeg" class="testimonial-img" alt="">
+                                <h3>Project 6</h3>
+                                <p>Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
+                                <p id="innerp">
+                                    <a href="#" style="float:left;color: #fd585c;font-size: medium;padding-left: 2px;">View more</a>
+                                    <a href="#" style="float:right;padding-right: 10px;"><i class="far fa-bookmark"></i></a>&nbsp;
+                                </p>
+                            </div>
+                    
+                        </div>
+                        <div class="owl-theme">
+                            <div class="owl-controls">
+                                <div class="custom-nav owl-nav"></div>
+                            </div>
+                        </div>
+            
+                    </div>
+                </section>      
+                
+
+            </div>
+        </div>
+
+        <!-- Toast -->
+        <div class="toast" id="myToast" data-delay="3000">
+            <div class="toast-body d-flex justify-content-left">
+                <div class="toastSymbol">
+                    <img src="img/done.svg">
+                </div>
+                <div class="toastText">
+                    Assigned Successfully to Class 8A
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>10dem © 2020</p>
+        </footer>
+
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+        
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+        <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
+        <script src="https://kit.fontawesome.com/6f24662773.js" crossorigin="anonymous"></script>
+
+        <script src="js/index.js"></script>
+        <script>
+            let dropArea = document.getElementById('drop-area')
+
+            ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false)
+            })
+
+            function preventDefaults (e) {
+                e.preventDefault()
+                e.stopPropagation()
+            }
+
+
+            ;['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, highlight, false)
+            })
+
+            ;['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, unhighlight, false)
+            })
+
+            function highlight(e) {
+                dropArea.classList.add('highlight')
+            }
+
+            function unhighlight(e) {
+                dropArea.classList.remove('highlight')
+            }
+
+            dropArea.addEventListener('drop', handleDrop, false)
+
+            function handleDrop(e) {
+                let dt = e.dataTransfer
+                let files = dt.files
+
+                handleFiles(files)
+            }
+
+            function handleFiles(files) {
+                files = [...files]
+                files.forEach(uploadFile)
+                files.forEach(previewFile)
+            }
+
+            function uploadFile(file) {
+                let url = 'YOUR URL HERE'
+                let formData = new FormData()
+                formData.append('file', file)
+                fetch(url, {
+                method: 'POST',
+                body: formData
+                })
+                .then(() => { /* Done. Inform the user */ })
+                .catch(() => { /* Error. Inform the user */ })
+            }
+
+
+            function previewFile(file) {
+                // let reader = new FileReader()
+                // reader.readAsDataURL(file)
+                // reader.onloadend = function() {
+                // let img = document.createElement('img')
+                // img.src = reader.result
+                // document.getElementById('gallery').appendChild(img)
+                var src;
+                switch (file.type) {
+                    case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+                        src = 'img/doc.png'
+                        break;
+                    case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
+                        src = 'img/doc.png'
+                        break;
+                    case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+                        src = 'img/doc.png'
+                        break;
+                    case 'application/msword':
+                        src = 'img/doc.png'
+                        break;
+                    case 'application/vnd.ms-excel':
+                        src = 'img/doc.png'
+                        break; 
+                    case 'application/vnd.ms-powerpoint':
+                        src = 'img/doc.png'
+                        break;
+                    case 'text/csv':
+                        src = 'img/doc.png'
+                        break;
+                    case 'application/pdf':
+                        src = 'img/pdf.png'
+                        break;
+                    case 'image/jpg':
+                        src = 'img/image.svg'
+                        break;
+                    case 'image/png':
+                        src = 'img/image.svg'
+                        break;
+                    case 'image/jpeg':
+                        src = 'img/image.svg'
+                        break;  
+                }
+
+
+                let files=document.createElement('div')
+                files.classList.add('col-lg-3')
+                files.innerHTML=`
+                    <div style="margin: 10px;">
+                        <div class="row document">
+                            <div class="col-lg-10 p-0 d-flex justify-content-left">
+                                <img src="${src}" style="height: 40px;width: 40px;margin-right: 10px;">
+                                <div>
+                                    <p class="filename">${file.name}</p>
+                                    <p class="filesize">${((file.size)/1000).toFixed(0)}&nbsp;KB</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-1 p-0">
+                                <img src="img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 15px;">
+                            </div>
+                            <div class="col-lg-1 p-0">
+                                <img src="img/close.svg" style="height: 15px;width: 15px;margin-bottom: 8px;margin-left: 3px;">
+                            </div>
+                        </div>
+                    </div> 
+                    `
+                document.getElementById('gallery').appendChild(files)
+
+            }
+        </script>
+        <script src="js/build/ckeditor.js"></script>
+        <script>ClassicEditor
+			.create( document.querySelector( '#editor' ), {
+				
+				toolbar: {
+					items: [
+						'undo',
+						'redo',
+						'|',
+						'bold',
+						'italic',
+						'underline',
+						'|',
+						'fontColor',
+						'fontSize',
+						'fontFamily',
+						'|',
+						'bulletedList',
+						'numberedList',
+						'alignment',
+						'|',
+						'specialCharacters',
+						'pageBreak',
+						'exportPdf',
+					]
+				},
+				language: 'en',
+				licenseKey: '',
+                
+				
+			} )
+			.then( editor => {
+				window.editor = editor;
+		
+
+				
+			} )
+			.catch( error => {
+				console.error( 'Oops, something went wrong!' );
+				console.error( 'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:' );
+				console.warn( 'Build id: lx24fbxhq5yi-iz5wel70h9kx' );
+				console.error( error );
+			} );
+    </script>
+    
+    <!-- DatePicker -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        $('.flatpickr').flatpickr({
+            
+        });
+
+        $('#assigned').click(function(){
+            $("#myToast").toast('show');
+        });
+
+
+        $('.disclaimer').click(function(){
+            if ($('.disclaimerMessage').css('display')=='block'){
+                $('.disclaimerMessage').css('display','none');
+                $('.colouring').css('background','#FFFFFF');
+            }
+
+            else {
+            
+                $('.disclaimerMessage').css('display','block');
+                $('.colouring').css('background','#FAFBFD');
+            }
+        })
+        $(document).ready(function(){
+              $('[data-toggle="tooltip"]').tooltip({title: '<p style="color: #272727;">Add to My Project</p>', html: true, placement: "left"});
+        })
+    </script>
+       
+    </body>
+</html>
