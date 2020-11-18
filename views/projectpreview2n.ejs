@@ -14,8 +14,8 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 
-        <link rel="stylesheet" href="../public/css/myprojects.css">
-        <link rel="stylesheet" href="../public/css/droparea.css">
+        <link rel="stylesheet" href="/public/css/myprojects.css">
+        <link rel="stylesheet" href="/public/css/droparea.css">
 
 
         <title>10dem Education|My Projects</title>
@@ -497,12 +497,58 @@
                             <div class="col-lg-10">
                                 <h2>Attach Files</h2>
                                 <div id="drop-area">
-                                    <form class="my-form">
-                                      <input type="file" id="fileElem" multiple accept=".doc,.docx,.xls,.xlsx,.csv,.ppt,.pptx,.pdf,.png,.jpeg,.jpg" onchange="handleFiles(this.files)">
-                                      <label class="button" for="fileElem"><img src="/public/img/pin.svg"> <%=files%></label>
-                                    </form>
-                                    <div id="gallery" class="row"></div>
+                                      <input type="file" id="fileElem" multiple accept=".doc,.docx,.xls,.xlsx,.csv,.ppt,.pptx,.pdf,.png,.jpeg,.jpg">
+                                      <label class="button" for="fileElem"><img src="/public/img/pin.svg"> Add or drag file to upload</label>
                                 </div>
+                                      <div class="row">
+            
+                                    
+                                        <div class="col-lg-11">
+                                            <div class="row">
+                                                <div class="col-lg-1">
+                                                    <div style="text-align: center;margin-top: 20px;">
+                                                        <img src="../public/img/attachment.svg" alt="">
+                                                    </div>
+                                                </div>  
+                                                <%files.forEach(function(attached_files){%>  
+                                                    <%console.log(attached_files);%>                                    
+                                                <div class="col-lg-3">
+                                                    <div style="margin: 10px;">
+                                                        <div class="row document">
+                                                            <div class="col-lg-11 p-0 d-flex justify-content-left">
+                                                                <img src="../public/img/doc.png" style="height: 40px;width: 40px;margin-right: 10px;">
+                                                                <div>
+                                                                    <p class="filename"><%=attached_files.substr(15).split("-")[0]%></p>
+                                                                </div> 
+                                                            </div>
+                                                            <div class="col-lg-1 p-0">
+                                                                <a href="/download-file/<%=attached_files.substr(15)%>"><img src="/public/img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;"></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+    
+                                                </div>
+                                                <%})%>
+    
+                                            </div>
+                                        </div>
+                
+                
+                                        <div class="col-lg-12">&nbsp;</div>
+                                        <div class="col-lg-12">&nbsp;</div>
+                
+                
+                                        <div class="col-lg-12">&nbsp;</div>
+                                        <div class="col-lg-12">&nbsp;</div>
+                
+                
+                                        
+                
+                                        <div class="col-lg-12">&nbsp;</div>
+                                        <div class="col-lg-12">&nbsp;</div>
+                
+                                    </div>
+                                    <div id="gallery" class="row"></div>
                             </div>
                             <div class="col-lg-1">
         

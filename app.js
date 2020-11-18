@@ -48,7 +48,7 @@ var storage = multer.diskStorage({
     // let ext = ''; 
     // if (file.originalname.split(".").length>1) 
     //     ext = file.originalname.substring(file.originalname.lastIndexOf('.'), file.originalname.length);
-    cb(null,file.fieldname+'-'+Date.now())
+    cb(null,file.originalname+'-'+Date.now())
   }
 })
 var upload = multer({storage:storage});
@@ -83,7 +83,7 @@ mongoose.connect('mongodb+srv://ritik:BIGGBOss12@cluster0.m96r8.gcp.mongodb.net/
                         console.log('connected to db and public directory in' +__dirname + '/public');
                         }).catch(err=>{
                         console.log('error'.err);
-                        res.render("somethingWrong")
+                        res.render("somethingWrong",{error:err})
                         });
 var sess={};                         
 /*#################################### 
@@ -184,7 +184,7 @@ app.post('/savedatatomongo/:id',function(req,res){
         user.create(obj,function(err,user){
           if(err){
             console.log('There has been an error: '+err);
-            res.render("somethingWrong");
+            res.render("somethingWrong",{error:err});
           }else{
             sess=req.session;
             sess.user_data={user:user};
@@ -200,7 +200,7 @@ app.post('/savedatatomongo/:id',function(req,res){
             
             mail.sendMail(mailOptions, function(error, info){
               if (error) {
-                res.render("somethingWrong")
+                res.render("somethingWrong",{error:error})
               } else {
                 console.log('Email sent: ' + info.response);
                 res.redirect('/home/');
@@ -255,7 +255,7 @@ app.post('/checkdata/:id',function(req,res){
           PorNPORG.find({_id:user[0].Role_object_id},function(err,role){
             if(err){
               console.log('Cant find Non profit org because: '+err);
-              res.render("somethingWrong")
+              res.render("somethingWrong",{error:err})
             }else{
               sess.req=session;
               sess.user_data={user:user[0],role_Data:role[0]};
@@ -350,7 +350,7 @@ app.get("/superadmin/create-project",(req,res)=>{
           res.redirect("/superadmin/create-activity")
       }).catch(err=>{
         console.log(err)
-        res.render("somethingWrong")
+        res.render("somethingWrong",{error:err})
       })
     }
   })
@@ -393,7 +393,7 @@ app.post("/superadmin/create-activity",upload.array("files",4),(req,res)=>{
       })
       .catch(err=>{
         console.log(err)
-        res.render("somethingWrong")
+        res.render("somethingWrong",{error:err})
       })
 })
 /*####################################### 
@@ -613,7 +613,7 @@ app.get('/superadmin/dashboard',async function(req,res){
         user.find({},(err,resp)=>{
           if(err){
             console.log('Some kind of error loading users for superadmindashboard:- '+err);
-            res.render("somethingWrong")
+            res.render("somethingWrong",{error:err})
           }else{
             resp.forEach((user_from_array)=>{
               count++;
@@ -647,7 +647,7 @@ app.get('/superadmin/dashboard',async function(req,res){
                 project.find({},(err,resp1)=>{
                   if(err){
                     console.log('Cannot find projects for superadmin because:- '+err);
-                    res.render("somethingWrong")
+                    res.render("somethingWrong",{error:err})
                   }else{
                     resp1.forEach(async (project_from_array)=>{
                       count1++;
@@ -696,7 +696,7 @@ app.get('/superadmin/dashboard',async function(req,res){
         PorNPORG.find({},(err,resp)=>{
           if(err){
             console.log('Cannot find users in /superadmin/dashboard/orgmembership-Users because:- '+err);
-            res.render("somethingWrong")
+            res.render("somethingWrong",{error:err})
           }else{
             resp.forEach((users)=>{
               count++;
@@ -833,7 +833,7 @@ app.get('/educatordashboard',function(req,res){
             classes.findById(element,function(err,single_class){
               if(err){
                 console.log('Cant get any classes'+err);
-                res.render("somethingWrong")
+                res.render("somethingWrong",{error:err})
               }else{
                 classes_are.push(single_class);
                 console.log(single_class);
@@ -854,6 +854,50 @@ app.get('/educatordashboard',function(req,res){
   })
 });
 /*##################################
+  #######ADD CLASS################## 
+  ################################## */
+app.get('/addClass',function(req,res){
+  internetConnected().then(()=>{
+    if(sess.user_data==undefined){
+      res.redirect('/');
+    }else{
+      console.log(util.inspect(req.query));
+      let obj={
+        created_by_id:sess.user_data.user._id,
+        grade:req.query.class,
+        section:req.query.grade,
+        color:req.query.color,
+        classname:req.query.classname
+      }
+      classes.create(obj,(err,resp)=>{
+        if(err){
+          console.log('error creating classes for org admin because :- '+err);
+          res.render("somethingWrong",{error:err});
+        }else{
+          console.log('class created:- '+resp);
+          sess.user_data.role_Data.classes.push(resp._id);
+          let obj={
+            classes:sess.user_data.role_Data.classes,
+          }
+          console.log(obj);
+          PorNPORG.findOneAndUpdate({_id:sess.user_data.role_Data._id},{$set:obj},{new:true},(err,resp)=>{
+            if(err){
+              console.log('Error finding this class');
+              res.render("somethingWrong",{error:err});
+            }else{
+              sess.user_data.role_Data=resp;
+              console.log(sess.user_data.role_Data);
+              res.redirect('/classDetails');
+            }
+          })
+        }
+      })
+    }
+  }).catch(()=>{
+    res.render("noInternet");
+  })
+})
+/*##################################
   ##########EXPORT CLASSES##########
   ################################## */
   app.get('/exportclass/:id',function(req,res){
@@ -869,7 +913,7 @@ app.get('/educatordashboard',function(req,res){
       educatoror10dempro.findOneAndUpdate({_id:sess.user_data.user.Role_object_id},{$set:obj},{new:true},function(err,resp){
         if(err){
           console.log(err);
-          res.render("somethingWrong")
+          res.render("somethingWrong",{error:err})
         }else{
           sess.user_data.role_Data=resp;
           console.log('################################################\n            Current session data              \n #############################################\n '+util.inspect(sess.user_data));
@@ -898,7 +942,7 @@ app.get('/managestudents/:class',(req,res)=>{
       classes.find({_id:req.params.class},(err,resp)=>{
         if(err){
           console.log('Cannot find that class in /managestudent/ because:- '+err);
-          res.render("somethingWrong")
+          res.render("somethingWrong",{error:err})
         }else{
           console.log(resp[0]);
           if(resp[0].students.length==0){
@@ -911,7 +955,7 @@ app.get('/managestudents/:class',(req,res)=>{
               Student.find({_id:studentid},(err,resp1)=>{
                 if(err){
                   console.log('cannot find students of this class in managestudents/:class:- '+err);
-                  res.render("somethingWrong")
+                  res.render("somethingWrong",{error:err})
                 }else{
                   students.push(resp1[0]);
                   if(count==resp[0].students.length){
@@ -1028,7 +1072,7 @@ app.post('/addingstudent/:grade/:section/:id',(req,res)=>{
     Student.create(obj,function(err,resp){
       if(err){
         console.log('Cannot upload due to this error in /addingstudent/:grade/:section :- '+err);
-        res.render("somethingWrong")
+        res.render("somethingWrong",{error:err})
       }else{
         var mailOptions = {
           from: '10demdeveloper@gmail.com',
@@ -1039,7 +1083,7 @@ app.post('/addingstudent/:grade/:section/:id',(req,res)=>{
         mail.sendMail(mailOptions,(err,info)=>{
           if(err){
             console.log(err);
-            res.render("somethingWrong")
+            res.render("somethingWrong",{error:err})
           }
           else{
             console.log(info.response);
@@ -1054,7 +1098,7 @@ app.post('/addingstudent/:grade/:section/:id',(req,res)=>{
           classes.findOneAndUpdate({_id:req.params.id},{$set:obj},(err,resp)=>{
             if(err){
               console.log('Cannot upload new class data because:- '+err);
-              res.render("somethingWrong")
+              res.render("somethingWrong",{error:err})
             }else{
               res.redirect('/managestudents/'+req.params.id);
             }
@@ -1078,15 +1122,16 @@ app.post('/addingstudent/csv/:class',upload.single('csvfile'),(req,res)=>{
       lowerCaseHeaders:true
     },(error,response)=>{
       if(error)
-  {console.log('Cannot read csv because:- '+error)
-      res.render("somethingWrong");
-    }
+      {
+        console.log('Cannot read csv because:- '+error)
+        res.render("somethingWrong",{error:error});
+      }
       else{
         console.log(req.params.class);
         classes.find({_id:req.params.class},(err,resp)=>{
           if(err){
             console.log('Cannot find class while reading csv file:- '+err);
-            res.render("somethingWrong")
+            res.render("somethingWrong",{error:err})
           }else{
             let current_students=resp[0].students;
             let count=0;
@@ -1103,7 +1148,7 @@ app.post('/addingstudent/csv/:class',upload.single('csvfile'),(req,res)=>{
               Student.create(obj,function(err1,resp1){
                 if(err1){
                   console.log('Cannot create student while reading from csv:- '+err1);
-                  res.render("somethingWrong")
+                  res.render("somethingWrong",{error:err1})
                 }else{
                   var mailOptions = {
                     from: '10demdeveloper@gmail.com',
@@ -1114,7 +1159,7 @@ app.post('/addingstudent/csv/:class',upload.single('csvfile'),(req,res)=>{
                   mail.sendMail(mailOptions,(err,info)=>{
                     if(err){
                       console.log(err);
-                      res.render("somethingWrong")
+                      res.render("somethingWrong",{error:err})
                     }
                     else{
                       console.log(info.response);
@@ -1129,12 +1174,12 @@ app.post('/addingstudent/csv/:class',upload.single('csvfile'),(req,res)=>{
                     classes.findOneAndUpdate({_id:req.params.class},{$set:classupdobj},(err,resp)=>{
                       if(err){
                         console.log('Cannot update class after creating student while reading csv:- '+err);
-                        res.render("somethingWrong")
+                        res.render("somethingWrong",{error:err})
                       }else{
                         fs.remove(req.file.path,(err)=>{
                           if(err) 
                           {console.log('Couldnt delete the file because:- '+err)
-                          res.render("somethingWrong");}
+                          res.render("somethingWrong",{error:err});}
                           else{ console.log('Deleted!');}
                         })
                         res.redirect('/managestudents/'+req.params.class);
@@ -1160,8 +1205,8 @@ app.get('/orgDetails',function(req,res){
     }else{
       PorNPORG.find({org_name:sess.user_data.role_Data.org_name},function(err,resp){
         if(err){
-          console.log('Error in org details finding PorNPOrg:- '+resp);
-          res.render("somethingWrong")
+          console.log('Error in org details finding PorNPOrg:- '+err);
+          res.render("somethingWrong",{error:err})
         }else{
           let first_letter=sess.user_data.user.username.split('');
           classes_are=[];
@@ -1180,7 +1225,7 @@ app.get('/orgDetails',function(req,res){
              classes.find({_id:document},function(err,resp1){
                 if(err){
                   console.log('Cannot find other users');
-                  res.render("somethingWrong")
+                  res.render("somethingWrong",{error:err})
                 }else{
                   classes_are.push(resp1[0]);
                   count++;
@@ -1249,7 +1294,7 @@ app.get('/orgdashboard',function(req,res){
         classes.find({_id:String(document)},function(err,resp){
           if(err){
             console.log('inside /orgdashboard else loop cant find educators:- '+err);
-            res.render("somethingWrong")
+            res.render("somethingWrong",{error:err})
           }else{
             console.log('getting in here:- '+resp[0])
             classes1.push(resp[0]);
@@ -1299,7 +1344,7 @@ app.get("/all-classes",(req,res)=>{
           classes.find({_id:document},function(err,resp){
             if(err){
               console.log('error in else loop /classDetails cannot find classes:- '+err);
-              res.render("somethingWrong")
+              res.render("somethingWrong",{error:err})
             }else{
               classesare.push(resp[0]);
               count++;
@@ -1486,7 +1531,7 @@ app.post("/send-OTP",(req,res)=>{
     mail.sendMail(mailOptions,(err,success)=>{
       if(err){
         console.log(err)
-        res.render("somethingWrong")
+        res.render("somethingWrong",{error:err})
       }
       else{
         console.log(success)
@@ -1513,7 +1558,7 @@ app.post("/password-change",(req,res)=>{
     res.redirect("/")
   }).catch(err=>{
     console.log(err)
-    res.render("somethingWrong")
+    res.render("somethingWrong",{error:err})
   })}
 })
 
@@ -1616,7 +1661,7 @@ app.get('/classDetails',function(req,res){
           classes.find({_id:document},function(err,resp){
             if(err){
               console.log('error in else loop /classDetails cannot find classes:- '+err);
-              res.render("somethingWrong")
+              res.render("somethingWrong",{error:err})
             }else{
               classesare.push(resp[0]);
               count++;
@@ -1679,7 +1724,7 @@ app.post('/createEducator/:orgname',function(req,res){
             mail.sendMail(mailOptions, function(error, info){
               if (error) {
                 console.log(error);
-                res.render("somethingWrong")
+                res.render("somethingWrong",{error:error})
               } else {
                 console.log('Email sent: ' + info.response);
               }
@@ -1729,7 +1774,7 @@ app.get('/adminexternalcollabs',function(req,res){
                   count1++;
                   if(err){
                     console.log('Error while getting projects in /adminexternalcollabs in else else else:- '+err);
-                    res.render("somethingWrong")
+                    res.render("somethingWrong",{error:err})
                   }else{
                     console.log('###############################################\n###########INCOMING PROJECTS##################\n###############################################\n'+resp.collaboration.length!=0);
                     if(resp.collaboration.length!=0){
@@ -1989,7 +2034,7 @@ app.get('/home/createproject/:id',function(req,res){
   ###Create project post requests## 
   ################################# */
 var project_id='';
-app.post('/addproject/:id',function(req,res){
+app.post('/addproject/:id',upload.array('attachedfiles',5),function(req,res){
   
   if(sess.user_data==undefined){
     res.redirect('/');
@@ -2007,7 +2052,7 @@ app.post('/addproject/:id',function(req,res){
         project.create(projectdata,function(err,project){
           if(err){
             console.log('There has been an error: '+err);
-            res.render("somethingWrong")
+            res.render("somethingWrong",{error:err})
           }else{
             project_id=project._id;
             let finalproject=sess.user_data.user.Projects;
@@ -2034,7 +2079,7 @@ app.post('/addproject/:id',function(req,res){
       project.findOneAndUpdate({_id:project_id},{$set:data_to_be_updated},{new:true},function(err,resp){
         if(err){
           console.log('Inside post req from createproject2n and cant update project :- '+err);
-          res.render("somethingWrong")
+          res.render("somethingWrong",{error:err})
         }else{
           console.log('Project updated redirecting to createproject3n: '+util.inspect(resp));
           res.redirect('/home/createproject/3');
@@ -2043,11 +2088,16 @@ app.post('/addproject/:id',function(req,res){
     }
     else if(req.params.id==3){
       console.log(req.body);
+      console.log("##############################################\n"+util.inspect(req.files)+"\n#########################################\n");
       let attachedfiles=[];
-      attachedfiles.push({
-        userid:sess.user_data.user._id,
-        file:req.body.files,
-      });
+      req.files.forEach((file)=>{
+        console.log(file.path);
+        attachedfiles.push({
+          file:file.path,
+          userid:sess.user_data.user._id,
+        });
+      })
+      console.log("Attached files after for loop:- "+util.inspect(attachedfiles));
       let data_to_be_updated={
         details_activity:req.body.Detailsandactivity,
         attached_files:attachedfiles,
@@ -2059,7 +2109,7 @@ app.post('/addproject/:id',function(req,res){
       project.findOneAndUpdate({_id:project_id},{$set:data_to_be_updated},{new:true},function(err,resp){
         if(err){
           console.log('Inside post req from createproject3n and cant update project:- '+ err);
-          res.render("somethingWrong")
+          res.render("somethingWrong",{error:err})
         }else{
           console.log('Project created with all this data and then redirecting to preview page:- ' + resp);
           res.redirect('/projectpreview/'+project_id);
@@ -2083,7 +2133,7 @@ app.post('/updating/:id/:number',function(req,res){
       project.findOneAndUpdate({_id:req.params.id},{$set:req.body},{new:true},function(err,resp){
       if(err){
         console.log('Inside Updating Created Projects getting this error:- '+err);
-        res.render("somethingWrong")
+        res.render("somethingWrong",{error:err})
       }else{
         console.log('Redirecting from updating created projects to project preview.');
           res.redirect('/myprojects');  
@@ -2131,7 +2181,7 @@ app.get('/editproject/:id',function(req,res){
       project.find({_id:req.params.id},function(err,resp){
         if(err){
           console.log('In project preview got this error:- '+err);
-          res.render("somethingWrong")
+          res.render("somethingWrong",{error:err})
         }else{
           let first_letter=sess.user_data.user.username.split('');
           let attachedfiles=[];
@@ -2168,7 +2218,7 @@ app.get('/viewproject/:id',async function(req,res){
       project.find({_id:req.params.id},async function(err,resp){
         if(err){
           console.log('In project preview got this error:- '+err);
-          res.render("somethingWrong")
+          res.render("somethingWrong",{error:err})
         }else{
           var data = await user.find({_id:resp[0].created_by})
           console.log("data is", data)
@@ -2207,7 +2257,7 @@ app.get('/projectpreview/:id',function(req,res){
       project.find({_id:req.params.id},function(err,resp){
         if(err){
           console.log('In project preview got this error:- '+err);
-          res.render("somethingWrong")
+          res.render("somethingWrong",{error:err})
         }else{
           let first_letter=sess.user_data.user.username.split('');
           let attachedfiles=[];
@@ -2260,7 +2310,7 @@ app.get('/bookmarks',function(req,res){
         project.find({_id:bookmark},function(err,resp){
           if(err){
             console.log('Cannot find bookmarks :- '+err);
-            res.render("somethingWrong")
+            res.render("somethingWrong",{error:err})
           }else{
             projects_to_be_shown[projects_to_be_shown.length]=resp[0];
             count++;
@@ -2301,7 +2351,7 @@ app.get('/addbookmark/:id',function(req,res){
       user.findOneAndUpdate({_id:sess.user_data.user._id},{$set:bookmark_update},{new:true},function(err,resp){
         if(err){
           console.log('Cannot update the user:- '+err);
-          res.render("somethingWrong")
+          res.render("somethingWrong",{error:err})
         }else{
           console.log('Bookmark added:- '+resp);
           sess.user_data.user=resp;
@@ -2327,7 +2377,7 @@ app.post('/sendinginvites',function(req,res){
     user.find({},function(err,resp){
       if(err){
         console.log('Inside sending invited cannot find users:- '+err);
-        res.render("somethingWrong")
+        res.render("somethingWrong",{error:err})
       }else{
         let collaborators=[];
         for(let i=0;i<resp.length;i++){
@@ -2349,7 +2399,7 @@ app.post('/sendinginvites',function(req,res){
             user.findOneAndUpdate({_id:resp[i]._id},{$set:notification_updates},{new:true},function(err,respo){
               if(err){
                 console.log('Error in finding and updating notifications:- '+err);
-                res.render("somethingWrong")
+                res.render("somethingWrong",{error:err})
               }else{
                 console.log('done');
               }
@@ -2363,7 +2413,7 @@ app.post('/sendinginvites',function(req,res){
         project.findOneAndUpdate({_id:project_id},{$set:collabs_to_be_updated},{new:true},function(err,resp){
           if(err){
             console.log('Cannot update project after finding it:- ' + err);
-            res.render("somethingWrong")
+            res.render("somethingWrong",{error:err})
           }else{
             console.log('Collaboration added:- '+resp);
             res.redirect('/externalcollab');
@@ -2468,7 +2518,7 @@ app.post('/role/:id',function(req,res){
       educatoror10dempro.create(obj,function(err,educatorordempro){
         if(err){
           console.log('In /role/:id creating educatoror10Dempro and error is: '+err);
-          res.render("somethingWrong")
+          res.render("somethingWrong",{error:err})
         }else{
           console.log('Educatoror10dempro user created! with this data:- '+educatorordempro);
           let update={
@@ -2480,7 +2530,7 @@ app.post('/role/:id',function(req,res){
           user.findOneAndUpdate({email:sess.user_data.user.email},{$set:update},{new:true},function(err,updatedresult){
             if(err){
               console.log('In /role/:id updating user and error is: '+util.inspect(err));
-              res.render("somethingWrong")
+              res.render("somethingWrong",{error:err})
             }else{
               user.find({_id:updatedresult._id},function(err,actual_data_of_user){
                 console.log('User updated after creating educatorordempro user '+actual_data_of_user);
@@ -2505,7 +2555,7 @@ app.post('/role/:id',function(req,res){
       PorNPORG.create(obj,function(err,Org){
         if(err){
           console.log('In /role/:id creating Org and error is: '+err);
-          res.render("somethingWrong")
+          res.render("somethingWrong",{error:err})
         }else{
           console.log('Org user created! with this data:- '+Org);
           let update={
@@ -2517,7 +2567,7 @@ app.post('/role/:id',function(req,res){
           user.findOneAndUpdate({username:sess.user_data.user.username},{$set:update},{new:true},function(err,updatedresult){
             if(err){
               console.log('In /role/:id updating user and error is: '+util.inspect(err));
-              res.render("somethingWrong")
+              res.render("somethingWrong",{error:err})
             }else{
               user.find({_id:updatedresult._id},function(err,actual_data_of_user){
                 console.log('User updated after creating Org user '+actual_data_of_user);
@@ -2542,7 +2592,7 @@ app.post('/role/:id',function(req,res){
       PorNPORG.create(obj,function(err,NPOrg){
         if(err){
           console.log('In /role/:id creating Non-Profit Org and error is: '+err);
-          res.render("somethingWrong")
+          res.render("somethingWrong",{error:err})
         }else{
           console.log('Non-Profit Org user created! with this data:- '+NPOrg);
           let update={
@@ -2554,7 +2604,7 @@ app.post('/role/:id',function(req,res){
           user.findOneAndUpdate({username:sess.user_data.user.username},{$set:update},{new:true},function(err,updatedresult){
             if(err){
               console.log('In /role/:id updating user and error is: '+util.inspect(err));
-              res.render("somethingWrong")
+              res.render("somethingWrong",{error:err})
             }else{
               user.find({_id:updatedresult._id},function(err,actual_data_of_user){
                 console.log('User updated after creating NPOrg user '+actual_data_of_user);
@@ -2585,7 +2635,7 @@ app.get('/previewofproject/:id',function(req,res){
       project.find({_id:req.params.id},function(err,resp){
         if(err){
           console.log('Cannot find any project error:- '+err);
-          res.render("somethingWrong")
+          res.render("somethingWrong",{error:err})
         }else{
           let first_letter=sess.user_data.user.username.split('');
           let attachedfiles=[];
@@ -2622,7 +2672,7 @@ app.get('/10DemProjectView/:id',(req,res)=>{
       superadminProject.find({_id:req.params.id},function(err,resp){
         if(err){
           console.log('Error finding superadmin project because:- '+err);
-          res.render("somethingWrong")
+          res.render("somethingWrong",{error:err})
         }else{
           console.log('Going project is :- '+resp);
           res.render('superadminViewProject',{projectdata:resp[0]});
@@ -2636,7 +2686,7 @@ app.get('/10DemProjectView/:id',(req,res)=>{
 /*##################################
   #########10 Dem Downloads#########
   ################################## */
-app.get('/download-file/public/uploads/:file',(req,res)=>{
+app.get('/download-file/:file',(req,res)=>{
  internetConnected().then(()=>{
   if(sess.user_data==undefined){
     res.redirect('/');

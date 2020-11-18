@@ -188,7 +188,7 @@
                         &nbsp;
                     </div>
                     <div class="col-lg-10">
-                        <form class="validate-form" action="/addproject/3" method="POST" >
+                        <form class="validate-form" action="/addproject/3" method="POST" enctype="multipart/form-data">
                         <div class="row" style="width: 100%;padding: 50px 25px;margin: 3rem 0;background: #FFFFFF 0% 0% no-repeat padding-box;box-shadow: 0px 0px 6px #00000024;border-radius: 4px;opacity: 1;">
                             <!-- module -->
                             <div class="disable col-lg-12 pad">
@@ -234,7 +234,7 @@
                             <div class="col-lg-10 pad">
                                 <div id="drop-area">
                                     <div class="my-form">
-                                      <input type="file" id="fileElem"  name="files" multiple accept=".doc,.docx,.xls,.xlsx,.csv,.ppt,.pptx,.pdf,.png,.jpeg,.jpg" onchange="handleFiles(this.files)">
+                                      <input type="file" id="fileElem"  name="attachedfiles" multiple>
                                       <label class="button" for="fileElem"><img src="/public/img/pin.svg"> Add or drag file to upload</label>
                                     </div>
                                     <div id="gallery" class="row"></div>

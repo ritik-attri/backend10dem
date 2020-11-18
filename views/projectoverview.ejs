@@ -323,12 +323,12 @@
                                                         <div class="col-lg-11 p-0 d-flex justify-content-left">
                                                             <img src="../public/img/doc.png" style="height: 40px;width: 40px;margin-right: 10px;">
                                                             <div>
-                                                                <p class="filename"><%=attached_files%></p>
+                                                                <p class="filename"><%=attached_files.substr(15).split("-")[0]%></p>
                                                                 <p class="filesize">2 MB</p>
                                                             </div> 
                                                         </div>
                                                         <div class="col-lg-1 p-0">
-                                                            <img src="../public/img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
+                                                            <a href="/download-file/<%=attached_files.substr(15)%>"><img src="../public/img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;"></a>
                                                         </div>
                                                     </div>
                                                 </div>
