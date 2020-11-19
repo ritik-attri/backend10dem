@@ -72,7 +72,7 @@ const blog = require('./models/blog');
 const { restart } = require('nodemon');
 const { profile, count } = require('console');
 const { ftruncate } = require('fs');
-const superadminProjects = require('./models/superadminProjects');
+// const superadminProjects = require('./models/superadminProjects');
 const internetConnected = require("check-internet-connected")
 mongoose.connect('mongodb+srv://ritik:BIGGBOss12@cluster0.m96r8.gcp.mongodb.net/testing?retryWrites=true&w=majority',{
                 useNewUrlParser:true,
@@ -229,13 +229,13 @@ app.post('/checkdata/:id',function(req,res){
     user.find(obj,function(err,user){
       console.log('user is'+user[0]);
       if(err||user[0]==undefined){
+        console.log('Cant find user so redirecting: '+err);
+        res.redirect('/');  
+      }
+      else if(user[0].Role.is10DemProuser==true&&user[0].Role.isEducator==true&&user[0].Role.isNPOrg==true&&user[0].Role.isOrg){
         sess.req=session;
         sess.user_data={user:user[0],role_Data:null};
         res.redirect('/superadmin/dashboard');
-      }
-      else if(user[0].Role.is10DemProuser==true&&user[0].Role.isEducator==true&&user[0].Role.isNPOrg==true&&user[0].Role.isOrg){
-        console.log('Cant find user so redirecting: '+err);
-        res.redirect('/');
       }else{
         console.log(user[0]);
         if(user[0].Role.is10DemProuser==true||user[0].Role.isEducator==true){
@@ -542,8 +542,10 @@ app.post("/")
 /*####################################### 
   ############Home##################
   #######################################*/
-app.get('/home/',function(req,res){
-  internetConnected().then(()=>{
+app.get('/home/',async function(req,res){
+  internetConnected().then(async ()=>{
+    const projects = await superadminProject.find({"activity.activity_title":{$exists:true}})
+    console.log("Projects are",projects)
     if(sess.user_data==undefined){
       res.redirect('/');
     }else{
@@ -551,20 +553,20 @@ app.get('/home/',function(req,res){
       if(sess.user_data.user.Role_object_id==''){
         console.log(sess.user_data.user['email']);
         let first_letter=sess.user_data.user.username.split('');
-        res.render('index',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'none'});
+        res.render('index',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'none',projects:projects});
         
       }else if(sess.user_data.role_Data.org_name!=''){
         console.log(sess.user_data.role_Data.org_name);
         let first_letter=sess.user_data.user.username.split('');
         if(sess.user_data.user.Role.isEducator==true){
-          res.render('index',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator'});
+          res.render('index',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:projects});
           
         }else if(sess.user_data.user.Role.is10DemProuser==true){
-          res.render('index',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator'});
+          res.render('index',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:projects});
           
         }
         else{
-          res.render('index',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org'});
+          res.render('index',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org',projects:projects});
           
         }
       }

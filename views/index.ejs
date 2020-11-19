@@ -203,66 +203,21 @@
             
                         <div class="owl-carousel testimonials-carousel owl-theme">
             
-                            <div class="testimonial-item">
-                                <img src="/public/img/download.jpeg" class="testimonial-img" alt="">
-                                <h3>Project 1</h3>
-                                <p>Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
-                                <p id="innerp">
-                                    <a href="#" style="float:left;color: #fd585c;font-size: medium;padding-left: 5px;">View more</a>
-                                    <a href="#" style="float:right;padding-right: 10px;"><i class="far fa-bookmark"></i></a>&nbsp;
-                                </p>
-                            </div>
+                            
+                            
+                            <%for(i of projects){%>
+                                <div class="testimonial-item">
+                                    <img src="/<%=i.projectCover%>" class="testimonial-img" alt="">
+                                    <h3><%=i.title%></h3>
+                                    <p><%=i.summary%></p>
+                                    <p id="innerp">
+                                        <a href="#" style="float:left;color: #fd585c;font-size: medium;padding-left: 5px;">View more</a>
+                                        <a href="#" style="float:right;padding-right: 10px;"><i class="far fa-bookmark"></i></a>&nbsp;
+                                    </p>
+                                </div>
+                            <%}%>
 
-                            <div class="testimonial-item">
-                                <img src="/public/img/download.jpeg" class="testimonial-img" alt="">
-                                <h3>Project 2</h3>
-                                <p>Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
-                                <p id="innerp">
-                                    <a href="#" style="float:left;color: #fd585c;font-size: medium;padding-left: 2px;">View more</a>
-                                    <a href="#" style="float:right;padding-right: 10px;"><i class="far fa-bookmark"></i></a>&nbsp;
-                                </p>
-                                
-                            </div>
-
-                            <div class="testimonial-item">
-                                <img src="/public/img/download.jpeg" class="testimonial-img" alt="">
-                                <h3>Project 3</h3>
-                                <p>Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
-                                <p id="innerp">
-                                    <a href="#" style="float:left;color: #fd585c;font-size: medium;padding-left: 2px;">View more</a>
-                                    <a href="#" style="float:right;padding-right: 10px;"><i class="far fa-bookmark"></i></a>&nbsp;
-                                </p>
-                            </div>
-
-                            <div class="testimonial-item">
-                                <img src="/public/img/download.jpeg" class="testimonial-img" alt="">
-                                <h3>Project 4</h3>
-                                <p>Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
-                                <p id="innerp">
-                                    <a href="#" style="float:left;color: #fd585c;font-size: medium;padding-left: 2px;">View more</a>
-                                    <a href="#" style="float:right;padding-right: 10px;"><i class="far fa-bookmark"></i></a>&nbsp;
-                                </p>
-                            </div>
-
-                            <div class="testimonial-item">
-                                <img src="/public/img/download.jpeg" class="testimonial-img" alt="">
-                                <h3>Project 5</h3>
-                                <p>Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
-                                <p id="innerp">
-                                    <a href="#" style="float:left;color: #fd585c;font-size: medium;padding-left: 2px;">View more</a>
-                                    <a href="#" style="float:right;padding-right: 10px;"><i class="far fa-bookmark"></i></a>&nbsp;
-                                </p>
-                            </div>
-
-                            <div class="testimonial-item">
-                                <img src="/public/img/download.jpeg" class="testimonial-img" alt="">
-                                <h3>Project 6</h3>
-                                <p>Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
-                                <p id="innerp">
-                                    <a href="#" style="float:left;color: #fd585c;font-size: medium;padding-left: 2px;">View more</a>
-                                    <a href="#" style="float:right;padding-right: 10px;"><i class="far fa-bookmark"></i></a>&nbsp;
-                                </p>
-                            </div>
+                            
                     
                         </div>
                         <div class="owl-theme">
