@@ -553,20 +553,20 @@ app.get('/home/',async function(req,res){
       if(sess.user_data.user.Role_object_id==''){
         console.log(sess.user_data.user['email']);
         let first_letter=sess.user_data.user.username.split('');
-        res.render('index',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'none',projects:projects});
+        res.render('index',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'none',projects:projects,notifications:sess.user_data.user.notifications});
         
       }else if(sess.user_data.role_Data.org_name!=''){
         console.log(sess.user_data.role_Data.org_name);
         let first_letter=sess.user_data.user.username.split('');
         if(sess.user_data.user.Role.isEducator==true){
-          res.render('index',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:projects});
+          res.render('index',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:projects,notifications:sess.user_data.user.notifications});
           
         }else if(sess.user_data.user.Role.is10DemProuser==true){
-          res.render('index',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:projects});
+          res.render('index',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:projects,notifications:sess.user_data.user.notifications});
           
         }
         else{
-          res.render('index',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org',projects:projects});
+          res.render('index',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org',projects:projects,notifications:sess.user_data.user.notifications});
           
         }
       }
@@ -2126,13 +2126,32 @@ app.post('/addproject/:id',upload.array('attachedfiles',5),function(req,res){
 /*#################################
   ####Updating Created Project#####
   ################################# */
-app.post('/updating/:id/:number',function(req,res){
+app.post('/updating/:id/:number',upload.array('attachedfiles',5),function(req,res){
   if(sess.user_data==undefined){
     res.redirect('/');
   }else{
     if(req.params.number==1){
-      console.log('Inside updating created project number 1:- '+util.inspect(req.body));
-      project.findOneAndUpdate({_id:req.params.id},{$set:req.body},{new:true},function(err,resp){
+      console.log('Inside updating created project number 1:- '+util.inspect(req.body)+"\n############################\n"+util.inspect(req.files));
+      let attachedfiles=[];
+      let count=0;
+      req.files.forEach((files)=>{
+        attachedfiles.push({
+          userid:sess.user_data.user._id,
+          file:files.path,
+        });
+      })
+      let obj={
+        status:true,
+        project_title:req.body.project_title,
+        project_summary:req.body.project_summary,
+        learning_outcome:req.body.learning_outcome,
+        key_contribution:req.body.key_contribution,
+        details_activity:req.body.details_activity,
+        start_date:req.body.startDate,
+        end_date:req.body.endDate,
+        attached_files:attachedfiles,
+      }
+      project.findOneAndUpdate({_id:req.params.id},{$set:obj},{new:true},function(err,resp){
       if(err){
         console.log('Inside Updating Created Projects getting this error:- '+err);
         res.render("somethingWrong",{error:err})
@@ -2194,13 +2213,13 @@ app.get('/editproject/:id',function(req,res){
           })
           if(sess.user_data.user.Role_object_id==''){
             console.log('Project data:- '+resp[0]);
-            res.render('editproject',{firstletter:first_letter[0],projectidforurl:req.params.id,hide_manage_students:true,role:'none',title:resp[0].project_title,subject:resp[0].subject,grade:resp[0].grade,summary:resp[0].project_summary,learningoutcome:resp[0].learning_outcome,keycontri:resp[0].key_contribution,detailsactivity:resp[0].details_activity,files:attachedfiles,startdate:resp[0].start_date,enddate:resp[0].end_date});
+            res.render('editproject',{firstletter:first_letter[0],projectidforurl:req.params.id,hide_manage_students:true,role:'none',org_name:sess.user_data.role_Data.org_name,title:resp[0].project_title,subject:resp[0].subject,grade:resp[0].grade,summary:resp[0].project_summary,learningoutcome:resp[0].learning_outcome,keycontri:resp[0].key_contribution,detailsactivity:resp[0].details_activity,files:attachedfiles,startdate:resp[0].start_date,enddate:resp[0].end_date});
           }else if(sess.user_data.user.Role.is10DemProuser==true||sess.user_data.user.Role.isEducator==true){
             console.log('Project data:- '+resp[0]);
-            res.render('editproject',{firstletter:first_letter[0],projectidforurl:req.params.id,hide_manage_students:false,role:'educator',title:resp[0].project_title,subject:resp[0].subject,grade:resp[0].grade,summary:resp[0].project_summary,learningoutcome:resp[0].learning_outcome,keycontri:resp[0].key_contribution,detailsactivity:resp[0].details_activity,files:attachedfiles,startdate:resp[0].start_date,enddate:resp[0].end_date});
+            res.render('editproject',{firstletter:first_letter[0],projectidforurl:req.params.id,hide_manage_students:false,role:'educator',org_name:sess.user_data.role_Data.org_name,title:resp[0].project_title,subject:resp[0].subject,grade:resp[0].grade,summary:resp[0].project_summary,learningoutcome:resp[0].learning_outcome,keycontri:resp[0].key_contribution,detailsactivity:resp[0].details_activity,files:attachedfiles,startdate:resp[0].start_date,enddate:resp[0].end_date});
           }else{
             console.log('Project data:- '+resp[0]);
-            res.render('editproject',{firstletter:first_letter[0],projectidforurl:req.params.id,hide_manage_students:false,role:'org',title:resp[0].project_title,subject:resp[0].subject,grade:resp[0].grade,summary:resp[0].project_summary,learningoutcome:resp[0].learning_outcome,keycontri:resp[0].key_contribution,detailsactivity:resp[0].details_activity,files:attachedfiles,startdate:resp[0].start_date,enddate:resp[0].end_date});
+            res.render('editproject',{firstletter:first_letter[0],projectidforurl:req.params.id,hide_manage_students:false,role:'org',org_name:sess.user_data.role_Data.org_name,title:resp[0].project_title,subject:resp[0].subject,grade:resp[0].grade,summary:resp[0].project_summary,learningoutcome:resp[0].learning_outcome,keycontri:resp[0].key_contribution,detailsactivity:resp[0].details_activity,files:attachedfiles,startdate:resp[0].start_date,enddate:resp[0].end_date});
           }
         }
       })

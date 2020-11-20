@@ -14,8 +14,8 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
  
-        <link rel="stylesheet" href="../public/css/index.css">
-        <link rel="stylesheet" href="../public/css/assignmentoverview.css">
+        <link rel="stylesheet" href="/public/css/index.css">
+        <link rel="stylesheet" href="/public/css/assignmentoverview.css">
         <style>
             #drop-area {
                 width: 100%;
@@ -86,9 +86,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/myprojects">Ongoing Project</a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="#">Resources</a>
-                    </li>
+                    </li> -->
                     <%if(hide_manage_students==true){%>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -139,13 +139,6 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
                         <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#">My Profile</a>
-                            <%if(role=='educator'){%>
-                                <a class="dropdown-item" href="/educatordashboard">Dashboard</a>
-                                <%}else if(role=='org'){%>
-                                <a class="dropdown-item" href="/orgdashboard">Dashboard</a>
-                                <%}else{%>
-                                
-                                <%}%>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/">Logout</a>
                         </div>
@@ -159,43 +152,63 @@
             <!-- Sidebar  -->
             <nav id="sidebar">
                 <div class="sidebar-header">
-                    <img src="/../public/img/logo.jpeg" alt="">
+                    <img src="/public/img/10-dem@2x.png" alt="">
                 </div>
+
+                <button type="button" id="sidebarCollapse" class="btn bg-light sidebutton">
+                    <i id="collapse-icon" class="fas fa-angle-left" style="font-size: 50px;"></i>
+                </button>
 
                 <ul class="list-unstyled components">
                     <li>
-                        <a href="/myprojects"><box-icon class="bx-fw" name="laptop"></box-icon>  My Projects</a>
+                        <a href="/myprojects"><box-icon class="bx-fw" name="file"></box-icon> My Projects&nbsp;&nbsp;&nbsp;&nbsp;</a>
                     </li>
                     <li>
-                        <a href="/bookmarks"><box-icon class="bx-fw" name='bookmark'></box-icon>  Bookmarks</a>
+                        <a href="/bookmarks"><box-icon class="bx-fw" name='bookmarks'></box-icon> Bookmarks&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                    </li>
+                    <!-- <li>
+                        <a href="#"><box-icon class="bx-fw" name='folder' ></box-icon>    My Folders</a>
+                    </li> -->
+                    <li>
+                        <a href="#"><box-icon class="bx-fw" name='chat' ></box-icon> Conversations&nbsp;&nbsp;&nbsp;&nbsp;</a>
                     </li>
                     <li>
-                        <a href="#"><box-icon class="bx-fw" name='folder' ></box-icon>  My Folders</a>
-                    </li>
-                    <%if(hide_manage_students!=true){%>
+                    <%if(role=='educator'){%>
                     <li>
-                        <a href="#"><box-icon class="bx-fw" name='user-check' ></box-icon>  Manage Students</a>
+                        <a href="/educatordashboard"><box-icon class="bx-fw" name='user-circle' ></box-icon> Manage Students&nbsp;&nbsp;&nbsp;&nbsp;</a>
                     </li>
+                    <%}else if(role=='org'){%>
+                        <li>
+                            <a href="/orgdashboard"><box-icon class="bx-fw" name='user-circle' ></box-icon> Manage Org&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        </li>
+                    <%}else{%>
+
                     <%}%>
                     <%if(org_name!=''){%>
                         <li>
-                            <p style="color: black;"><%=org_name%></p>
+                            <a href="/orgDetails"><box-icon class="bx-fw" name='book-reader'></box-icon><%=org_name%></a>
                         </li>
                         <%}%>
                 </ul>
+                    <!--<li>
+                        <a href="#"><box-icon class="bx-fw" name='book-reader'></box-icon> ABC Organization&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                    </li>-->
+                </ul>
+
+                <div class="learnMore">
+                    <img src="/public/img/explore.svg">
+                    <p>Hello John <br/> Explore <span style="color: #FD585C;cursor: pointer;">Pro account</span> with Premium features.</p>
+                    <button class="btn">Learn more</button>
+                </div>
+
             </nav>
             
 
             <!-- Page Content  -->
             <div id="content" class="container">
                 
-
-                <button type="button" id="sidebarCollapse" class="btn bg-light sidebutton">
-                    <i id="collapse-icon" class="fas fa-angle-left" style="font-size: 60px;"></i>
-                </button>
-                
                 <a href="#" class="float">
-                    <img src="../public/img/help.svg" class="my-float" style="width: 30px;height: 30px;" alt="">
+                    <img src="/public/img/help.svg" class="my-float" style="width: 30px;height: 30px;" alt="">
                 </a>
 
 
