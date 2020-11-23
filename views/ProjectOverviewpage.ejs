@@ -14,9 +14,9 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 
-        <link rel="stylesheet" href="css/index.css">
-        <link rel="stylesheet" href="css/assignmentoverview.css">
-        <link rel="stylesheet" href="css/header.css">
+        <link rel="stylesheet" href="/public/css/index.css">
+        <link rel="stylesheet" href="/public/css/assignmentoverview.css">
+        <link rel="stylesheet" href="/public/css/header.css">
         <style>
             #drop-area {
                 width: 100%;
@@ -111,7 +111,7 @@
                                 </ul>
                             </li>
                             <li style="position: relative;top: -3px;"><a href="#"><i class="fas fa-crown" style="color: rgb(233, 233, 3);"></i>Try 10dem pro</a></li>
-                            <l1><a href="#"><img src="img/notifications.svg"><span style="position: relative;right: 10px;bottom: 10px;padding: 2px 6px;border-radius: 50%;background: red;font-size: 14px;">2</span></a></l1>
+                            <l1><a href="#"><img src="/public/img/notifications.svg"><span style="position: relative;right: 10px;bottom: 10px;padding: 2px 6px;border-radius: 50%;background: red;font-size: 14px;">2</span></a></l1>
                         </ul>
                     </div>
                     
@@ -135,7 +135,7 @@
             <!-- Sidebar  -->
             <nav id="sidebar">
                 <div class="sidebar-header">
-                    <img src="img/10-dem@2x.png" alt="">
+                    <img src="/public/img/10-dem@2x.png" alt="">
                 </div>
 
                 <button type="button" id="sidebarCollapse" class="btn bg-light sidebutton">
@@ -164,7 +164,7 @@
                 </ul>
 
                 <div class="learnMore">
-                    <img src="img/explore.svg">
+                    <img src="/public/img/explore.svg">
                     <p>Hello John <br/> Explore <span style="color: #FD585C;cursor: pointer;">Pro account</span> with Premium features.</p>
                     <button class="btn">Learn more</button>
                 </div>
@@ -181,7 +181,7 @@
                 </button>
                  -->
                 <a href="#" class="float">
-                    <img src="img/help.svg" class="my-float" style="width: 30px;height: 30px;" alt="">
+                    <img src="/public/img/help.svg" class="my-float" style="width: 30px;height: 30px;" alt="">
                 </a>
 
 
@@ -234,35 +234,30 @@
                                         <p class="keywords" style="text-align: right;padding-right: 0;color: #FD585C"><a href="#" data-toggle="modal" data-target="#exampleModalCenter1">Assign to class</a></p>
                                     </div>
                                     <div class="col-lg-1">
-                                        <div class="symbol" style="margin-top: 10px;"><img src="img/assign.svg"></div>
+                                        <div class="symbol" style="margin-top: 10px;"><img src="/public/img/assign.svg"></div>
                                     </div>
                                 </div>
-                                <p class="keywords" style="padding: 0;">Design&nbsp;&nbsp;|&nbsp;&nbsp;Fundamental Theory&nbsp;&nbsp;|&nbsp;&nbsp;Human Computer Interaction</p>
+                                <p class="keywords" style="padding: 0;"><%=project.subject%></p>
 
 
                                 <h3>Grade</h3>
                                 <div style="margin: 40px 0;">
-                                    <a class="grades">7-8 grade</a>
-                                    <a class="grades">8-9 grade</a>
-                                    <a class="grades">9-10 grade</a>
+                                    <%=project.grade%>
                                 </div>
                                
 
                                 <h3>Overview</h3>
                                 <p id="innerpara">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore eeut tedolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco labo nisi ut aliquip ext ea commodo consequat. Duis aute irure dolor inreprehenderit in fugia voluptate velit esse cillum dolore eu fugiat nulla pariatur dolor inreprehenderit in fugia ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud reeer exercitation ullamco labo nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor inreprehenderitr
-                                </p>
+                                    <%=project.summary%></p>
 
 
                                 <h3>Learning Outcome</h3>
-                                <p id="innerpara">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore etee dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco labo nisi ut aliquip ex ea commodo consequat. Duis
-                                </p>
+                                <p id="innerpara"><%=project.learningOutcome%></p>
 
 
                                 <h3>Key Contribution (Community & Planet)</h3>
                                 <p id="innerpara">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore eteee dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco labo nisi ut aliquip ex eatt commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiatrrr tynulla pariatur uis nostrud exercitation ullamco labo nisi ut aliquip ex ea commodo consequat.
+                                    <%=project.keyContribution%>
                                 </p>
 
 
@@ -292,189 +287,54 @@
                                 <!-- Activities -->
             
                                 <div class="row">
-            
-                                    <div class="col-lg-1">
-                                        <div class="symbol">1</div>
-                                    </div>
-                                    <div class="col-lg-11">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <p id="innerpara">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur lore eu fugiat nulla pariatur</p>
-                                            </div>
-                                            <div class="col-lg-1">
-                                                <div style="text-align: center;margin-top: 20px;">
-                                                    <img src="img/attachment.svg" alt="">
-                                                </div>
-                                            </div>                                          
-                                            <div class="col-lg-3">
-
-                                                <div style="margin: 10px;">
-                                                    <div class="row document">
-                                                        <div class="col-lg-11 p-0 d-flex justify-content-left">
-                                                            <img src="img/doc.png" style="height: 40px;width: 40px;margin-right: 10px;">
-                                                            <div>
-                                                                <p class="filename">Work plan.docx</p>
-                                                                <p class="filesize">2 MB</p>
-                                                            </div> 
-                                                        </div>
-                                                        <div class="col-lg-1 p-0">
-                                                            <img src="img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <div style="margin: 10px;">
-                                                    <div class="row document">
-                                                        <div class="col-lg-11 p-0 d-flex justify-content-left">
-                                                            <img src="img/image.svg" style="height: 40px;width: 40px;margin-right: 10px;">
-                                                            <div>
-                                                                <p class="filename">Work plan.docx</p>
-                                                                <p class="filesize">2 MB</p>
-                                                            </div> 
-                                                        </div>
-                                                        <div class="col-lg-1 p-0">
-                                                            <img src="img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <div style="margin: 10px;">
-                                                    <div class="row document">
-                                                        <div class="col-lg-11 p-0 d-flex justify-content-left">
-                                                            <img src="img/doc.png" style="height: 40px;width: 40px;margin-right: 10px;">
-                                                            <div>
-                                                                <p class="filename">Work plan.docx</p>
-                                                                <p class="filesize">2 MB</p>
-                                                            </div> 
-                                                        </div>
-                                                        <div class="col-lg-1 p-0">
-                                                            <img src="img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
+                                    <%for(i of project.activity){%>
+                                        <div class="col-lg-1">
+                                            <div class="symbol">1</div>
                                         </div>
-                                    </div>
-            
-            
-                                    <div class="col-lg-12">&nbsp;</div>
-                                    <div class="col-lg-12">&nbsp;</div>
-            
-            
-                                    <div class="col-lg-1">
-                                        <div class="symbol">2</div>
-                                    </div>
-                                    <div class="col-lg-11">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <p id="innerpara">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur lore eu fugiat nulla pariatur</p>
-                                            </div>
-                                            <div class="col-lg-1">
-                                                <div style="text-align: center;margin-top: 20px;">
-                                                    <img src="img/attachment.svg" alt="">
+                                        <div class="col-lg-11">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <p id="innerpara"> <%=i.activity_desc%></p>
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <div style="margin: 10px;">
-                                                    <div class="row document">
-                                                        <div class="col-lg-11 p-0 d-flex justify-content-left">
-                                                            <img src="img/pdf.png" style="height: 40px;width: 40px;margin-right: 10px;">
-                                                            <div>
-                                                                <p class="filename">Work plan.docx</p>
-                                                                <p class="filesize">2 MB</p>
-                                                            </div> 
-                                                        </div>
-                                                        <div class="col-lg-1 p-0">
-                                                            <img src="img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
+                                                <div class="col-lg-1">
+                                                    <div style="text-align: center;margin-top: 20px;">
+                                                        <img src="/public/img/attachment.svg" alt="">
+                                                    </div>
+                                                </div>  
+                                                <%for(j of i.attached_files){%>
+                                                    <div class="col-lg-3">
+                                                        <div style="margin: 10px;">
+                                                            <div class="row document">
+                                                                <div class="col-lg-11 p-0 d-flex justify-content-left">
+                                                                    <img src="/public/img/image.svg" style="height: 40px;width: 40px;margin-right: 10px;">
+                                                                    <div>
+                                                                        <p class="filename"><%=j%>></p>
+                                                                        <p class="filesize">2 MB</p>
+                                                                    </div> 
+                                                                </div>
+                                                                <div class="col-lg-1 p-0">
+                                                                    <img src="/public/img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <div style="margin: 10px;">
-                                                    <div class="row document">
-                                                        <div class="col-lg-11 p-0 d-flex justify-content-left">
-                                                            <img src="img/doc.png" style="height: 40px;width: 40px;margin-right: 10px;">
-                                                            <div>
-                                                                <p class="filename">Work plan.docx</p>
-                                                                <p class="filesize">2 MB</p>
-                                                            </div> 
-                                                        </div>
-                                                        <div class="col-lg-1 p-0">
-                                                            <img src="img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <%}%>                                        
+                                                
+                                                
+                                                
+    
                                             </div>
                                         </div>
-                                    </div>
-            
-            
+                                        <div class="col-lg-12">&nbsp;</div>
                                     <div class="col-lg-12">&nbsp;</div>
-                                    <div class="col-lg-12">&nbsp;</div>
-            
-            
-                                    <div class="col-lg-1">
-                                        <div class="symbol">3</div>
-                                    </div>
-                                    <div class="col-lg-11">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <p id="innerpara">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur lore eu fugiat nulla pariatur</p>
-                                            </div>
-                                            <div class="col-lg-1">
-                                                <div style="text-align: center;margin-top: 20px;">
-                                                    <img src="img/attachment.svg" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <div style="margin: 10px;">
-                                                    <div class="row document">
-                                                        <div class="col-lg-11 p-0 d-flex justify-content-left">
-                                                            <img src="img/image.svg" style="height: 40px;width: 40px;margin-right: 10px;">
-                                                            <div>
-                                                                <p class="filename">Work plan.docx</p>
-                                                                <p class="filesize">2 MB</p>
-                                                            </div> 
-                                                        </div>
-                                                        <div class="col-lg-1 p-0">
-                                                            <img src="img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
-                                                        </div>
-                                                    </div>
-                                                </div> 
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <div style="margin: 10px;">
-                                                    <div class="row document">
-                                                        <div class="col-lg-11 p-0 d-flex justify-content-left">
-                                                            <img src="img/doc.png" style="height: 40px;width: 40px;margin-right: 10px;">
-                                                            <div>
-                                                                <p class="filename">Work plan.docx</p>
-                                                                <p class="filesize">2 MB</p>
-                                                            </div> 
-                                                        </div>
-                                                        <div class="col-lg-1 p-0">
-                                                            <img src="img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-            
-                                    <div class="col-lg-12">&nbsp;</div>
-                                    <div class="col-lg-12">&nbsp;</div>
+                                    <%}%>
             
                                 </div>
 
                                 <h3>Add Additional Information</h3>
                                 <hr style="border: 2px solid #FFDB64;">
 
-                                <h3 style="font-family: ProductB;"><img src="img/pin3.svg" style="padding: 15px;background: #FFF8DD 0% 0% no-repeat padding-box;border-radius: 50%;">&nbsp;&nbsp;&nbsp;&nbsp;Attach your files</h3>
+                                <h3 style="font-family: ProductB;"><img src="/public/img/pin3.svg" style="padding: 15px;background: #FFF8DD 0% 0% no-repeat padding-box;border-radius: 50%;">&nbsp;&nbsp;&nbsp;&nbsp;Attach your files</h3>
                                 <div class="row">
                                     <!-- module -->
                                     <div class="col-lg-1">
@@ -483,7 +343,7 @@
                                     <div class="col-lg-11" style="padding: 0;padding-right: 15px;padding-left: 10px;">
                                         <div id="drop-area">
                                             <form class="my-form">
-                                                <img src="img/upload.svg">
+                                                <img src="/public/img/upload.svg">
                                                 <p style="margin: 0;color: #272727;">Drag file to upload</p>
                                                 <p style="margin: 0;">Or</p>
                                                 <input type="file" id="fileElem" multiple accept=".doc,.docx,.xls,.xlsx,.csv,.ppt,.pptx,.pdf,.png,.jpeg,.jpg" onchange="handleFiles(this.files)">
@@ -495,7 +355,7 @@
                                     
                                 </div>
 
-                                <h3 style="font-family: ProductB;"><img src="img/comment.svg" style="padding: 15px;background: #E3EFFF 0% 0% no-repeat padding-box;border-radius: 50%;">&nbsp;&nbsp;&nbsp;&nbsp;Add Your comment</h3>
+                                <h3 style="font-family: ProductB;"><img src="/public/img/comment.svg" style="padding: 15px;background: #E3EFFF 0% 0% no-repeat padding-box;border-radius: 50%;">&nbsp;&nbsp;&nbsp;&nbsp;Add Your comment</h3>
                                 <div style="height: 80px;margin-left: 40px;background: #F7F6F3 0% 0% no-repeat padding-box;border-radius: 10px;">
                                     <p style="margin-left: 60px;color: #03293D;line-height: 1em;padding-top: 15px;">Mrs. Neeti</p>
                                     <p style="margin-left: 60px;color: #ccccFF;line-height: 1em;padding-bottom: 15px;">Lorem ipsum</p>
@@ -519,7 +379,7 @@
                                     </div>
                                     <div class="col-lg-11">
                                         <div style="text-align: center;">
-                                            <button class="classAssign" data-toggle="modal" data-target="#exampleModalCenter2"><img src="img/assign.svg">&nbsp;Assign To Class</button>
+                                            <button class="classAssign" data-toggle="modal" data-target="#exampleModalCenter2"><img src="/public/img/assign.svg">&nbsp;Assign To Class</button>
                                         </div>
                                     </div>
                                      <!-- module -->
@@ -576,147 +436,60 @@
                             <div class="row justify-content-md-center">
 
                                 <!-- module -->
+                                <form action="/assign-project/<%=project._id%>" method="POST">
                                 <div class="dropdown" style="width: 100%;">
                                     <div class="d-flex">
-                                        <input class="input100" id="subject" style="overflow-y: hidden;" placeholder="Select Class">
-                                        <img src="img/expand.svg" style="float: right;position: absolute;top: 14px;right: 8px;">
+                                        <select name="class" class="input100" id="subject" style="overflow-y: hidden;">
+                                        <img src="/public/img/expand.svg" style="float: right;position: absolute;top: 14px;right: 8px;">
                                     </div>
                                     <div class="dropdown-content" style="width: 100%;background: #FFFFFF 0% 0% no-repeat padding-box;box-shadow: 0px 3px 14px #00000029;border-radius: 6px;opacity: 1;top: 50px;">
-                                        <div class="upcoming1" style="height: 300px;">
+                                        <div class="upcoming1" style="height: auto;">
+                                            <option value="">Select Class</option>
+                                            <%for(i of classes){%>
+                                                <option value="<%=i._id%>"><%=i.grade%>-<%=i.section%></option>
+                                            <%}%>
 
-                                            
-                                            <div id="custom-search-input2">
-                                                <div class="input-group col-lg-12">
-                                                    <input type="text" class="search-query form-control" placeholder="Search"/>
-                                                    <span class="input-group-btn">
-                                                        <button class="btn btn-danger" type="button">
-                                                            <i class="fas fa-search"></i>
-                                                        </button>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        
-
-                                            <a class="memberfields">
-                                                <div class="d-flex justify-content-left">
-                                                    <div class="memberfieldname">Grade A</div>
-                                                </div>
-                                            </a>
-                                            <a class="memberfields">
-                                                <div class="d-flex justify-content-left">
-                                                    <div class="memberfieldname">Grade B</div>
-                                                </div>
-                                            </a>
-                                            <a class="memberfields">
-                                                <div class="d-flex justify-content-left">
-                                                    <div class="memberfieldname">
-                                                        Grade C
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="memberfields">
-                                                <div class="d-flex justify-content-left">
-                                                    <div class="memberfieldname">
-                                                        Grade D
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="memberfields">
-                                                <div class="d-flex justify-content-left">
-                                                    <div class="memberfieldname">
-                                                        Grade E
-                                                    </div>
-                                                </div>
-                                            </a>
-                                           
                                         </div>
+
+                                    </div>
+                                    
+                                </select>
 
                                     </div>
                                 </div>
                                 
                                  <!-- module -->
-                                
-                                   <div class=".container-fluid border">
-                                       <h4 style="color: grey;">Activity 1</h4>
-                                    <div class="row">
-                                        <div class="col-lg-5">
-                                            <h4>Start Date</h4>
-                                        </div>
-                                        <div class="col-lg-2">
-                    
-                                        </div>
-                                        <div class="col-lg-5">
-                                            <h4>Submission Date</h4>
-                                        </div>
-                                        
-                                        <div class="col-lg-5">
-                                            <input class="input100 flatpickr" name="startDate">
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <h4 style="text-align: center;margin-top: 10px;">To</h4>
-                                        </div>
-                                        <div class="col-lg-5">
-                                            <input class="input100 flatpickr" name="endDate">
-                                        </div>
-                                    
+                                 <%for(i=1; i<=project.activity.length; i++){%>
+                                    <div class=".container-fluid border">
+                                        <h4 style="color: grey;">Activity <%=i%></h4>
+                                     <div class="row">
+                                         <div class="col-lg-5">
+                                             <h4>Start Date</h4>
+                                         </div>
+                                         <div class="col-lg-2">
+                     
+                                         </div>
+                                         <div class="col-lg-5">
+                                             <h4>Submission Date</h4>
+                                         </div>
+                                         
+                                         <div class="col-lg-5">
+                                             <input class="input100 flatpickr" name="startDate<%=i%>">
+                                         </div>
+                                         <div class="col-lg-2">
+                                             <h4 style="text-align: center;margin-top: 10px;">To</h4>
+                                         </div>
+                                         <div class="col-lg-5">
+                                             <input class="input100 flatpickr" name="endDate<%=i%>">
+                                         </div>
+                                     
+                                     </div>
                                     </div>
-                                   </div>
-
-                                   <div class=".container-fluid border">
-                                    <h4 style="color: grey;">Activity 2</h4>
-                                 <div class="row">
-                                     <div class="col-lg-5">
-                                         <h4>Start Date</h4>
-                                     </div>
-                                     <div class="col-lg-2">
-                 
-                                     </div>
-                                     <div class="col-lg-5">
-                                         <h4>Submission Date</h4>
-                                     </div>
-                                     
-                                     <div class="col-lg-5">
-                                         <input class="input100 flatpickr" name="startDate">
-                                     </div>
-                                     <div class="col-lg-2">
-                                         <h4 style="text-align: center;margin-top: 10px;">To</h4>
-                                     </div>
-                                     <div class="col-lg-5">
-                                         <input class="input100 flatpickr" name="endDate">
-                                     </div>
-                                 
-                                 </div>
-                                </div>
-
-                                <div class=".container-fluid border">
-                                    <h4 style="color: grey;">Activity 3</h4>
-                                 <div class="row">
-                                     <div class="col-lg-5">
-                                         <h4>Start Date</h4>
-                                     </div>
-                                     <div class="col-lg-2">
-                 
-                                     </div>
-                                     <div class="col-lg-5">
-                                         <h4>Submission Date</h4>
-                                     </div>
-                                     
-                                     <div class="col-lg-5">
-                                         <input type="date" class="input100 flatpickr" name="startDate">
-                                     </div>
-                                     <div class="col-lg-2">
-                                         <h4 style="text-align: center;margin-top: 10px;">To</h4>
-                                     </div>
-                                     <div class="col-lg-5">
-                                         <input type="date"  class="input100 flatpickr" name="endDate">
-                                     </div>
-                                 
-                                 </div>
-                                </div>
-
                                 
-                               
+                                 <%}%>
                                 
+                                
+            
                                 <!-- module -->
 
                                 <div class="row">
@@ -731,11 +504,12 @@
                             </div>
                         </div>
                         <div class="modal-footer" style="justify-content: center;">
-                            <button type="button" id="assigned" data-dismiss="modal" class="btn modalbutton1">Assign</button>
+                            <button type="submit" id="assigned"  class="btn modalbutton1">Assign</button>
                         </div>
                     </div>
                     </div>
                 </div>
+            </form>
 
 
                 <!-- Modal2 -->
@@ -749,7 +523,7 @@
                             </button>
                         </div>
                         <div class="modal-body" style="text-align: center;">
-                            <img src="img/assignProject.png">
+                            <img src="/public/img/assignProject.png">
                             <p class="m1">Empty Class</p>
                             <p class="m2">Looks like you haven't made your student list yet...</p>
                             <p class="m3">Let's add students list now</p>
@@ -770,10 +544,10 @@
                     <div class="main-content" data-aos="fade-up">
 
             
-                        <div class="owl-carousel testimonials-carousel owl-theme">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;  grid-gap: 1rem;" class="owl-carousel testimonials-carousel owl-theme">
             
                             <div class="testimonial-item">
-                                <img src="img/download.jpeg" class="testimonial-img" alt="">
+                                <img src="/public/img/download.jpeg" class="testimonial-img" alt="">
                                 <h3>Project 1</h3>
                                 <p>Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
                                 <p id="innerp">
@@ -783,7 +557,7 @@
                             </div>
 
                             <div class="testimonial-item">
-                                <img src="img/download.jpeg" class="testimonial-img" alt="">
+                                <img src="/public/img/download.jpeg" class="testimonial-img" alt="">
                                 <h3>Project 2</h3>
                                 <p>Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
                                 <p id="innerp">
@@ -794,7 +568,7 @@
                             </div>
 
                             <div class="testimonial-item">
-                                <img src="img/download.jpeg" class="testimonial-img" alt="">
+                                <img src="/public/img/download.jpeg" class="testimonial-img" alt="">
                                 <h3>Project 3</h3>
                                 <p>Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
                                 <p id="innerp">
@@ -804,7 +578,7 @@
                             </div>
 
                             <div class="testimonial-item">
-                                <img src="img/download.jpeg" class="testimonial-img" alt="">
+                                <img src="/public/img/download.jpeg" class="testimonial-img" alt="">
                                 <h3>Project 4</h3>
                                 <p>Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
                                 <p id="innerp">
@@ -814,7 +588,7 @@
                             </div>
 
                             <div class="testimonial-item">
-                                <img src="img/download.jpeg" class="testimonial-img" alt="">
+                                <img src="/public/img/download.jpeg" class="testimonial-img" alt="">
                                 <h3>Project 5</h3>
                                 <p>Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
                                 <p id="innerp">
@@ -824,7 +598,7 @@
                             </div>
 
                             <div class="testimonial-item">
-                                <img src="img/download.jpeg" class="testimonial-img" alt="">
+                                <img src="/public/img/download.jpeg" class="testimonial-img" alt="">
                                 <h3>Project 6</h3>
                                 <p>Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
                                 <p id="innerp">
@@ -851,7 +625,7 @@
         <div class="toast" id="myToast" data-delay="3000">
             <div class="toast-body d-flex justify-content-left">
                 <div class="toastSymbol">
-                    <img src="img/done.svg">
+                    <img src="/public/img/done.svg">
                 </div>
                 <div class="toastText">
                     Assigned Successfully to Class 8A

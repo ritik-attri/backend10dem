@@ -2212,11 +2212,41 @@ app.post('/addproject/:id',upload.array('attachedfiles',5),function(req,res){
           res.render("projectoverview2",{project:project})
         }
         else if(users.Role.is10DemProuser==true||users.Role.isEducator==true ||users.Role.isNPOrg==true||users.Role.isOrg==true){
-          res.render("projectpreview2",{project:project})
+          var classData =[]
+          for(i of sess.user_data.role_Data.classes){
+            const data = await classes.findOne({_id:i})
+            classData.push(data)
+          }
+          res.render("ProjectOverviewpage",{project:project,classes:classData})
         }
       }
     })
   })
+
+  /*#################################
+  ####Assign Project to class#####
+  ################################# */
+
+  app.post("/assign-project/:id",((req,res)=>{
+    console.log(req.body)
+    const projectDetails = {
+      project:req.params.id,
+      actitvities:[
+        {activity_1:
+          {
+            stardate:req.body.startDate1,
+            enddate:req.body.endDate1
+        }
+      }
+      ]
+    }
+    console.log(projectDetails)
+    classes.update({_id:req.body.class},{$push:{projects:projectDetails}}).then(result=>{
+      res.redirect("/home/")
+    })
+  }))
+
+
 
 
 

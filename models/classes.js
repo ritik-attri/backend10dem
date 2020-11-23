@@ -23,7 +23,7 @@ const classesSchema=Schema({
         type:String,
     },
     projects:[{
-        type:String,
+        type:Object,
     }],
     color:{
         type:String,
