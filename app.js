@@ -2196,6 +2196,27 @@ app.post('/addproject/:id',upload.array('attachedfiles',5),function(req,res){
     }
   }
 })
+/*#################################
+  ###Project Preview via home##
+  ################################# */
+  app.get("/project-preview/:id",(req,res)=>{
+    internetConnected().then(async ()=>{
+      if(sess.user_data==undefined){
+        res.redirect('/');
+      }
+      else{
+        const project = await superadminProject.findOne({_id:req.params.id})
+        console.log(project)
+        var users = sess.user_data.user
+        if(users.Role.is10DemProuser==false&&users.Role.isEducator==false&&users.Role.isNPOrg==false&&users.Role.isOrg==false){
+          res.render("projectoverview2",{project:project})
+        }
+        else if(users.Role.is10DemProuser==true||users.Role.isEducator==true ||users.Role.isNPOrg==true||users.Role.isOrg==true){
+          res.render("projectpreview2",{project:project})
+        }
+      }
+    })
+  })
 
 
 
