@@ -462,7 +462,7 @@
                             </div>
                             <div class="col-lg-10">
                                
-                                <h2>Summary</h2>
+                                <h2>Overview</h2>
                             
                                 <textarea class="textinput100" type="text" name="project_summary" placeholder="Overview of project.."><%=summary%></textarea>
                             
@@ -478,7 +478,7 @@
                                
                                 <h2>Learning Outcome</h2>
                             
-                                <textarea class="textinput100 learn-input" type="text" name="learning_outcome" placeholder="Student learning at the end of the project.."><%=learningoutcome%></textarea>
+                                <textarea class="textinput100 learn-input" type="text" name="learning_outcome" placeholder="Student learning at the end of the project.." required><%=learningoutcome%></textarea>
                             
                             </div>
                             <div class="col-lg-1">
@@ -490,9 +490,9 @@
                             </div>
                             <div class="col-lg-10">
                         
-                                <h2>Key Contribution (Community & Planet)</h2>
+                                <h2>Key Contribution</h2>
                             
-                                <textarea class="textinput100 key-input" type="text" name="key_contribution" placeholder="Eg. SDG alignment , community, impact etc"><%=keycontri%></textarea>
+                                <textarea class="textinput100 key-input" type="text" name="key_contribution" placeholder="Eg. SDG alignment , community, impact etc" required><%=keycontri%></textarea>
                             
                             </div>
                             <div class="col-lg-1">
@@ -506,7 +506,7 @@
                                 
                                 <h2>Details and Activity</h2>
                             
-                                <textarea id="myTextarea" class="textinput100" type="text" name="details_activity" placeholder="Activity Details..." style="height: 280px;margin-bottom: 10px;"><%=detailsactivity%></textarea>
+                                <textarea id="myTextarea" class="textinput100" type="text" name="details_activity" placeholder="Activity Details..." style="height: 280px;margin-bottom: 10px;" required><%=detailsactivity%></textarea>
                             
                                 <p style="float: right;">maximum 2000 characters(<span id="characterCount"></span> remaining)</p>
                             
@@ -527,7 +527,7 @@
                             <div class="col-lg-10 pad">
                                 <div id="drop-area">
                                     <div class="my-form">
-                                      <input type="file" id="fileElem"  name="attachedfiles" multiple>
+                                      <input type="file" id="fileElem"  name="attachedfiles" multiple required>
                                       <label class="button" for="fileElem"><img src="/public/img/pin.svg"> Add or drag file to upload</label>
                                     </div>
                                     <div id="gallery" class="row"></div>
@@ -573,13 +573,13 @@
                                     </div>
                                     
                                     <div class="col-lg-3">
-                                        <input class="input100 flatpickr" name="startDate" placeholder="<%=startdate%>" value="<%=startdate%>">
+                                        <input class="input100 flatpickr" name="startDate" placeholder="<%=startdate%>" value="<%=startdate%>" required>
                                     </div>
                                     <div class="col-lg-2">
                                         <h2 style="text-align: center;margin: 15px;">To</h2>
                                     </div>
                                     <div class="col-lg-3">
-                                        <input class="input100 flatpickr" name="endDate" placeholder="<%=enddate%>" value="<%=enddate%>">
+                                        <input class="input100 flatpickr" name="endDate" placeholder="<%=enddate%>" value="<%=enddate%>" required>
                                     </div>
                                     <div class="col-lg-4">
                 
@@ -597,7 +597,7 @@
                             </div>
                             <div class="col-lg-3">
                                 
-                                <button class="btn savebutton" style="margin: 40px 0;float: left;" type="submit">Save</button> 
+                                <button class="btn savebutton" style="margin: 40px 0;float: left;" type="submit">Submit</button> 
                                 
                             </div>
                             <div class="col-lg-2">

@@ -104,11 +104,22 @@
                         <button class="uploadCSV btn" data-toggle="modal" data-target="#exampleModalCenter1"><img src="/public/img/pluswhite.svg">Add Educator</button>
                     </div>
                     <div class="col-lg-2 pad">
-                        <button class="uploadCSV btn">Upload CSV File</button>
+                        <button class="uploadCSV btn" data-toggle="modal" data-target="#uploadmodal">Upload XLSX File</button>
                     </div>
                 </div>
 
-                
+                <!-- Modal -->
+                <form action="/orgdashboard/educators/uploadcsv" method="POST" enctype="multipart/form-data">
+                    <div class="modal fade" id="uploadmodal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="modal-title">Upload XLSX file</div>
+                                <input type="file" accept=".xlsx" name="xlsxfile">
+                                <button type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">

@@ -61,7 +61,7 @@
                     </div>
                     
                     <ul class="nav-menu">
-                        <li><a class="btn-primary" style="border-radius: 5px;position: relative;top: -6px;padding: 4px 8px 6px 8px;" href="#"><i class="fas fa-plus" style="color: rgb(255, 255, 255);"></i>  Start Collaboration</a></li>
+                        <li><a class="btn-primary" style="border-radius: 5px;position: relative;top: -6px;padding: 4px 8px 6px 8px;" href="#"><i class="fas fa-plus" style="color: rgb(255, 255, 255);"></i>  Create A New Project!</a></li>
                         <li class="menu-has-children dropdown-toggle navprofile" style="margin-top: 0;"><a href="#" style="color: #000;background: #FFFFFF;border-radius: 50%;height: 35px;width: 35px;text-align: center;padding: 7px;"><%=firstletter%></a>
                             <ul style="right: 0 !important;left: auto !important;width: fit-content;padding-left: 1px !important;padding-right: 1px !important;padding-inline-start: 0px;background: #fff !important;">
                                
@@ -99,10 +99,10 @@
 
                 <ul class="list-unstyled components">
                     <li>
-                        <a href="#"><box-icon class="bx-fw" name="file"></box-icon> My Projects&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        <a href="/myprojects"><box-icon class="bx-fw" name="file"></box-icon> My Projects&nbsp;&nbsp;&nbsp;&nbsp;</a>
                     </li>
                     <li>
-                        <a href="#"><box-icon class="bx-fw" name='bookmarks'></box-icon> Bookmarks&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        <a href="/bookmarks"><box-icon class="bx-fw" name='bookmarks'></box-icon> Bookmarks&nbsp;&nbsp;&nbsp;&nbsp;</a>
                     </li>
                     <!-- <li>
                         <a href="#"><box-icon class="bx-fw" name='folder' ></box-icon>    My Folders</a>
@@ -110,25 +110,27 @@
                     <li>
                         <a href="#"><box-icon class="bx-fw" name='chat' ></box-icon> Conversations&nbsp;&nbsp;&nbsp;&nbsp;</a>
                     </li>
+                    <%if(role=='educator'){%>
                     <li>
-                         <%if(hide_manage_students!=true){%>
-                        <a href="#"><box-icon class="bx-fw" name='user-circle' ></box-icon> Manage Students&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        <a href="/educatordashboard"><box-icon class="bx-fw" name='user-circle' ></box-icon> Manage Students&nbsp;&nbsp;&nbsp;&nbsp;</a>
                     </li>
-                     <%}%>
-                    <%if(org_name!=''){%>
+                    <%}else if(role=='org'){%>
                         <li>
-                            <a href="#"><box-icon class="bx-fw" name='book-reader'></box-icon><%=org_name%></a>
+                            <a href="/orgdashboard"><box-icon class="bx-fw" name='user-circle' ></box-icon> Manage Org&nbsp;&nbsp;&nbsp;&nbsp;</a>
                         </li>
-                        <%}%>
-                </ul>
-                    <!--<li>
-                        <a href="#"><box-icon class="bx-fw" name='book-reader'></box-icon> ABC Organization&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                    </li>-->
+                    <%}else{%>
+
+                    <%}%>
+                    <%if(org_name!=''){%>
+                    <li>
+                        <a href="/orgDetails"><box-icon class="bx-fw" name='book-reader'></box-icon> <%=org_name%>&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                    </li>
+                    <%}%>
                 </ul>
 
                 <div class="learnMore">
-                    <img src="/../public/img/explore.svg">
-                    <p>Hello John <br/> Explore <span style="color: #FD585C;cursor: pointer;">Pro account</span> with Premium features.</p>
+                    <img src="/public/img/explore.svg">
+                    <p>Hello <%=name%> <br/> Explore <span style="color: #FD585C;cursor: pointer;">Pro account</span> with Premium features.</p>
                     <button class="btn">Learn more</button>
                 </div>
 
@@ -210,9 +212,9 @@
                 <div class="row">
                     <div class="col-lg-2 col-md-3 col-sm-6">
                         <div class="card" style="box-shadow: black;">
-                            <box-icon name='plus' size="xl" border='circle' id="create"></box-icon>
+                            <a href="/home/createproject/1"><box-icon name='plus' size="xl" border='circle' id="create"  style="height: 8rem; width: 11rem;"></box-icon></a>
                             <div class="card-body" style="padding: 0rem;">
-                                <a href="#"><h5 class="card-title" id="createproject" style="text-align: center;padding-bottom: 2rem;margin: 0;background: #FFFFFF 0% 0% no-repeat padding-box;border-radius: 25px;opacity: 1;color: #272727;font-weight: 500;">Start External Collaboration</h5></a>
+                                <h5 class="card-title" id="createproject" style="text-align: center;padding-bottom: 2rem;margin: 0;background: #FFFFFF 0% 0% no-repeat padding-box;border-radius: 25px;opacity: 1;color: #272727;font-weight: 500;">Start External Collaboration</h5>
                             </div>
                         </div>
     
@@ -227,7 +229,7 @@
                     <img src="/../public/img/assignProject.png" style="margin: 80px auto 20px auto">
                     <p style="font-size: 28px;font-family: ProductB;color: #4A4A4A;margin: 0;">You have no projects yet</p>
                     <p>Start creating your projects</p>
-                    <button class="btn savebutton" style="width: 210px;float: none;font-size: 18px;font-family: ProductR;letter-spacing: 0;">Create a new project</button>
+                    <a href="/home/createproject/1"><button class="btn savebutton" style="width: 210px;float: none;font-size: 18px;font-family: ProductR;letter-spacing: 0;">Create a new project</button></a>
                 </div>
                 <%}else{%>
                 <!-- ongoing projects -->

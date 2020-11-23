@@ -105,39 +105,56 @@
             <!-- Sidebar  -->
             <nav id="sidebar">
                 <div class="sidebar-header">
-                    <img src="/../public/img/logo.jpeg" alt="">
+                    <img src="/public/img/10-dem@2x.png" alt="">
                 </div>
+
+                <button type="button" id="sidebarCollapse" class="btn bg-light sidebutton">
+                    <i id="collapse-icon" class="fas fa-angle-left" style="font-size: 50px;"></i>
+                </button>
 
                 <ul class="list-unstyled components">
                     <li>
-                        <a href="/myprojects"><box-icon class="bx-fw" name="laptop"></box-icon>  My Projects</a>
+                        <a href="/myprojects"><box-icon class="bx-fw" name="file"></box-icon> My Projects&nbsp;&nbsp;&nbsp;&nbsp;</a>
                     </li>
                     <li>
-                        <a href="/bookmarks"><box-icon class="bx-fw" name='bookmark'></box-icon>  Bookmarks</a>
+                        <a href="/bookmarks"><box-icon class="bx-fw" name='bookmarks'></box-icon> Bookmarks&nbsp;&nbsp;&nbsp;&nbsp;</a>
                     </li>
+                    <!-- <li>
+                        <a href="#"><box-icon class="bx-fw" name='folder' ></box-icon>    My Folders</a>
+                    </li> -->
                     <li>
-                        <a href="#"><box-icon class="bx-fw" name='folder' ></box-icon>  My Folders</a>
+                        <a href="#"><box-icon class="bx-fw" name='chat' ></box-icon> Conversations&nbsp;&nbsp;&nbsp;&nbsp;</a>
                     </li>
-                    <%if(hide_manage_students!=true){%>
+                    <%if(role=='educator'){%>
                     <li>
-                        <a href="#"><box-icon class="bx-fw" name='user-check' ></box-icon>  Manage Students</a>
+                        <a href="/educatordashboard"><box-icon class="bx-fw" name='user-circle' ></box-icon> Manage Students&nbsp;&nbsp;&nbsp;&nbsp;</a>
                     </li>
+                    <%}else if(role=='org'){%>
+                        <li>
+                            <a href="/orgdashboard"><box-icon class="bx-fw" name='user-circle' ></box-icon> Manage Org&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        </li>
+                    <%}else{%>
+
                     <%}%>
                     <%if(org_name!=''){%>
-                        <li>
-                            <p style="color: black;"><%=org_name%></p>
-                        </li>
-                        <%}%>
+                    <li>
+                        <a href="/orgDetails"><box-icon class="bx-fw" name='book-reader'></box-icon> <%=org_name%>&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                    </li>
+                    <%}%>
                 </ul>
+
+                <div class="learnMore">
+                    <img src="/public/img/explore.svg">
+                    <p>Hello <%=name%> <br/> Explore <span style="color: #FD585C;cursor: pointer;">Pro account</span> with Premium features.</p>
+                    <button class="btn">Learn more</button>
+                </div>
+
             </nav>
             
 
             <!-- Page Content  -->
             <div id="content" class="container">
 
-                <button type="button" id="sidebarCollapse" class="btn bg-light sidebutton" style='margin-left:-15rem; z-index: 999999;'>
-                    <i id="collapse-icon" class="fas fa-angle-left" style="font-size: 60px;"></i>
-                </button>
                 
                 <a href="#" class="float">
                     <img src="/../public/img/help.svg" class="my-float" style="width: 30px;height: 30px;" alt="">
@@ -193,15 +210,17 @@
 
                  <!-- Create Project -->
                     
-                <div class="row">
-
-                    <div class="card col-lg-2 col-md-2 col-sm-12" style="box-shadow: black;">
-                        <box-icon name='plus' size="xl" border='circle' id="create"></box-icon>
-                        <div class="card-body" style="padding: 0rem;">
-                            <a href="#"><h5 class="card-title" id="createproject" style="text-align: center;padding-bottom: 2rem;margin: 0;background: #FFFFFF 0% 0% no-repeat padding-box;border-radius: 25px;opacity: 1;color: #272727">Create Project</h5></a>
+                 <div class="row">
+                    <div class="col-lg-2 col-md-3 col-sm-6">
+                        <div class="card" style="box-shadow: black;">
+                            <a href="/home/createproject/1"><box-icon name='plus' size="xl" border='circle' id="create"  style="height: 6rem; width: 10rem;"></box-icon></a>
+                            <div class="card-body" style="padding: 0rem;">
+                                <h5 class="card-title" id="createproject" style="text-align: center;padding-bottom: 2rem;margin: 0;background: #FFFFFF 0% 0% no-repeat padding-box;border-radius: 25px;opacity: 1;color: #272727;font-weight: 500;">Start External Collaboration</h5>
+                            </div>
                         </div>
+    
                     </div>
-
+                   
                 </div>
 
 

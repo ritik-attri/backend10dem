@@ -1113,7 +1113,7 @@ app.post('/addingstudent/:grade/:section/:id',(req,res)=>{
 /*##################################
   #Handling csv upload manage class#
   ################################## */
-app.post('/addingstudent/csv/:class',upload.single('csvfile'),(req,res)=>{
+app.post('/addingstudent/csv/:class',upload.single('xlsxfile'),(req,res)=>{
   if(sess.user_data==undefined){
     res.redirect('/');
   }else{
@@ -1406,6 +1406,82 @@ app.get('/orgdashboard/educators',function(req,res){
     res.render("noInternet")
   })
 })
+/*################################
+  ######Upload Educators CSV######
+  ################################ */
+app.post('/orgdashboard/educators/uploadcsv',upload.single('xlsxfile'),(req,res)=>{
+  if(sess.user_data==undefined){
+    res.redirect('/');
+  }else{
+    console.log(req.file.path);
+    xlsxreader({
+      input:req.file.path,
+      output:null,
+      lowerCaseHeaders:true
+    },(error,response)=>{
+      if(error){
+        console.log("Couldnt read xlsx file because:-"+error);
+        res.render('somethingWrong',{error:error});
+      }else{
+        let count=0;
+        response.forEach((row)=>{
+          console.log(util.inspect(row)+"\n");
+          console.log("Phone Number:- "+row['phone number']+" name:- "+row['name']+" email:- "+row['email']);
+          let obj={
+            org_name:sess.user_data.role_Data.org_name,
+            phone_number:row['phone number'],
+            country:sess.user_data.role_Data.country,
+          }
+          educatoror10dempro.create(obj,(err,resp)=>{
+            if(err){
+              console.log('Couldnt create educator with this data because:- '+err);
+              res.render('somethingWrong',{error:err});
+            }else{
+              console.log('Educator created:- '+resp);
+              let innerobj={
+                'Role.isEducator':true,
+                Role_object_id:resp._id,
+                username:row['name'],
+                email:row['email'],
+                social_email:row['email'],
+                password:row['name']+Math.random(),
+              }
+              user.create(innerobj,(err,resp)=>{
+                if(err){
+                  console.log('Error while creating educator user because:- '+err);
+                  res.render("somethingWrong",{error:err});
+                }else{
+                  count++;
+                  console.log('Created user for this educator:- '+resp);
+                  var mailOptions = {
+                    from: '10demdeveloper@gmail.com',
+                    to: resp.email,
+                    subject: `Your Educator account was created by ${sess.user_data.role_Data.org_name}`,
+                    text: `Your Email Id is  ${resp.email}\n And your password is ${resp.password}`
+                  };
+                  mail.sendMail(mailOptions,(err,success)=>{
+                    if(err){
+                      console.log(err)
+                      res.render("somethingWrong",{error:err})
+                    }
+                    else{
+                      console.log(success)
+                      req.session.temp = req.body.email
+                    }
+                  })
+                  if(count==response.length){
+                    res.redirect('/orgdashboard/educators');
+                  }
+                }
+              })
+            }
+          })
+        })
+      }
+    })
+  }
+})
+
 /*################################
   ######ALL EDUCATORS ADMIN#######
   ################################ */
@@ -2213,7 +2289,7 @@ app.get('/editproject/:id',function(req,res){
           })
           if(sess.user_data.user.Role_object_id==''){
             console.log('Project data:- '+resp[0]);
-            res.render('editproject',{firstletter:first_letter[0],projectidforurl:req.params.id,hide_manage_students:true,role:'none',org_name:sess.user_data.role_Data.org_name,title:resp[0].project_title,subject:resp[0].subject,grade:resp[0].grade,summary:resp[0].project_summary,learningoutcome:resp[0].learning_outcome,keycontri:resp[0].key_contribution,detailsactivity:resp[0].details_activity,files:attachedfiles,startdate:resp[0].start_date,enddate:resp[0].end_date});
+            res.render('editproject',{firstletter:first_letter[0],projectidforurl:req.params.id,hide_manage_students:true,role:'none',org_name:'',title:resp[0].project_title,subject:resp[0].subject,grade:resp[0].grade,summary:resp[0].project_summary,learningoutcome:resp[0].learning_outcome,keycontri:resp[0].key_contribution,detailsactivity:resp[0].details_activity,files:attachedfiles,startdate:resp[0].start_date,enddate:resp[0].end_date});
           }else if(sess.user_data.user.Role.is10DemProuser==true||sess.user_data.user.Role.isEducator==true){
             console.log('Project data:- '+resp[0]);
             res.render('editproject',{firstletter:first_letter[0],projectidforurl:req.params.id,hide_manage_students:false,role:'educator',org_name:sess.user_data.role_Data.org_name,title:resp[0].project_title,subject:resp[0].subject,grade:resp[0].grade,summary:resp[0].project_summary,learningoutcome:resp[0].learning_outcome,keycontri:resp[0].key_contribution,detailsactivity:resp[0].details_activity,files:attachedfiles,startdate:resp[0].start_date,enddate:resp[0].end_date});
@@ -2585,7 +2661,7 @@ app.post('/role/:id',function(req,res){
             'Role.isOrg':true,
             Role_object_id:Org._id,
           };
-          user.findOneAndUpdate({username:sess.user_data.user.username},{$set:update},{new:true},function(err,updatedresult){
+          user.findOneAndUpdate({_id:sess.user_data.user._id},{$set:update},{new:true},function(err,updatedresult){
             if(err){
               console.log('In /role/:id updating user and error is: '+util.inspect(err));
               res.render("somethingWrong",{error:err})
