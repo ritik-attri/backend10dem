@@ -555,17 +555,16 @@ app.get('/home/',async function(req,res){
         let first_letter=sess.user_data.user.username.split('');
         res.render('index',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'none',projects:projects,notifications:sess.user_data.user.notifications});
         
+      }else if(sess.user_data.user.Role.is10DemProuser==true){
+        let first_letter=sess.user_data.user.username.split('');
+        res.render('index',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:projects,notifications:sess.user_data.user.notifications});
       }else if(sess.user_data.role_Data.org_name!=''){
         console.log(sess.user_data.role_Data.org_name);
         let first_letter=sess.user_data.user.username.split('');
         if(sess.user_data.user.Role.isEducator==true){
           res.render('index',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:projects,notifications:sess.user_data.user.notifications});
           
-        }else if(sess.user_data.user.Role.is10DemProuser==true){
-          res.render('index',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:projects,notifications:sess.user_data.user.notifications});
-          
-        }
-        else{
+        }else{
           res.render('index',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org',projects:projects,notifications:sess.user_data.user.notifications});
           
         }
@@ -2061,10 +2060,13 @@ app.get('/home/createproject/:id',function(req,res){
             console.log(sess.user_data.user['email']);
             let first_letter=sess.user_data.user.username.split('');
             res.render('createproject1n',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'none'});
+          }else if(sess.user_data.user.Role.is10DemProuser==true){
+            let first_letter=sess.user_data.user.username.split('');
+            res.render('createproject1n',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator'});
           }else if(sess.user_data.role_Data.org_name!=''){
             console.log(sess.user_data.role_Data.org_name);
             let first_letter=sess.user_data.user.username.split('');
-            if(sess.user_data.user.Role.is10DemProuser==true||sess.user_data.user.Role.isEducator==true){
+            if(sess.user_data.user.Role.isEducator==true){
               res.render('createproject1n',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator'});
             }
             else{
@@ -2077,10 +2079,13 @@ app.get('/home/createproject/:id',function(req,res){
             console.log(sess.user_data.user['email']);
             let first_letter=sess.user_data.user.username.split('');
             res.render('createproject2n',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'none'});
+          }else if(sess.user_data.user.Role.is10DemProuser==true){
+            let first_letter=sess.user_data.user.username.split('');
+            res.render('createproject2n',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator'});
           }else if(sess.user_data.role_Data.org_name!=''){
             console.log(sess.user_data.role_Data.org_name);
             let first_letter=sess.user_data.user.username.split('');
-            if(sess.user_data.user.Role.is10DemProuser==true||sess.user_data.user.Role.isEducator==true){
+            if(sess.user_data.user.Role.isEducator==true){
               res.render('createproject2n',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator'});
             }
             else{
@@ -2092,10 +2097,13 @@ app.get('/home/createproject/:id',function(req,res){
             console.log(sess.user_data.user['email']);
             let first_letter=sess.user_data.user.username.split('');
             res.render('createproject3n',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'none'});
+          }else if(sess.user_data.user.Role.is10DemProuser==true){
+            let first_letter=sess.user_data.user.username.split('');
+            res.render('createproject3n',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator'});
           }else if(sess.user_data.role_Data.org_name!=''){
             console.log(sess.user_data.role_Data.org_name);
             let first_letter=sess.user_data.user.username.split('');
-            if(sess.user_data.user.Role.is10DemProuser==true||sess.user_data.user.Role.isEducator==true){
+            if(sess.user_data.user.Role.isEducator==true){
               res.render('createproject3n',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator'});
             }
             else{
@@ -2259,34 +2267,37 @@ app.post('/updating/:id/:number',upload.array('attachedfiles',5),function(req,re
   }else{
     if(req.params.number==1){
       console.log('Inside updating created project number 1:- '+util.inspect(req.body)+"\n############################\n"+util.inspect(req.files));
-      let attachedfiles=[];
-      let count=0;
-      req.files.forEach((files)=>{
-        attachedfiles.push({
-          userid:sess.user_data.user._id,
-          file:files.path,
-        });
+      project.find({_id:req.params.id},(err,resp)=>{
+        if(err){
+          console.log("Can't find the project by this id because:- "+err);
+          res.render("somethingWrong",{error:err});
+        }else{
+          let attached_files=resp[0].attached_files;
+          req.files.forEach((files)=>{
+            attached_files.push({
+              userid:sess.user_data.user._id,
+              file:files.path,
+            });
+          })
+          if(req.body.project_title!=''&&req.body.project_summary!=''&&req.body.grade!=''&&req.body.learning_outcome!=''&&req.body.key_contribution!=''&&req.body.details_activity!=''&&req.body.start_date!=''&&req.body.end_date!=''&&attached_files!=[]){
+            req.body.status=true;
+            req.body.attached_files=attached_files;
+          }else{
+            req.body.status=false; 
+            req.body.attached_files=attached_files;
+          }
+          console.log('the object before updating:- '+util.inspect(req.body));
+          project.findOneAndUpdate({_id:req.params.id},{$set:req.body},{new:true},function(err,resp){
+            if(err){
+              console.log('Inside Updating Created Projects getting this error:- '+err);
+              res.render("somethingWrong",{error:err})
+            }else{
+              console.log('Redirecting from updating created projects to project preview.');
+              res.redirect('/myprojects');  
+            }
+          })
+        }
       })
-      let obj={
-        status:true,
-        project_title:req.body.project_title,
-        project_summary:req.body.project_summary,
-        learning_outcome:req.body.learning_outcome,
-        key_contribution:req.body.key_contribution,
-        details_activity:req.body.details_activity,
-        start_date:req.body.startDate,
-        end_date:req.body.endDate,
-        attached_files:attachedfiles,
-      }
-      project.findOneAndUpdate({_id:req.params.id},{$set:obj},{new:true},function(err,resp){
-      if(err){
-        console.log('Inside Updating Created Projects getting this error:- '+err);
-        res.render("somethingWrong",{error:err})
-      }else{
-        console.log('Redirecting from updating created projects to project preview.');
-          res.redirect('/myprojects');  
-      }
-    })
     }
     else if(req.params.number==2){
       console.log('Inside updating created project number 2:- '+util.inspect(req.body));
