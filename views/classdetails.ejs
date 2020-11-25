@@ -12,7 +12,7 @@
         
         <link rel="stylesheet" href="/public/css/index.css">
         <link rel="stylesheet" href="/public/css/projectdetails.css">
-
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <title>10dem Education|Home</title>
     </head>
 
@@ -172,209 +172,220 @@
                     <div class="col-lg-3" style="box-shadow: 0px 2px 2px #00000029;border: 2px solid #70707029;">
 
                         <div class="row" style="text-align: center;">
-                           <%for(i of data){%>
-                            <div class="col-lg-12 tabButton" id="T2">
-                                <div class="d-flex justify-content-around">
-                                    <h4>Grade <%=i.grade%>-<%=i.section%></h4>
-                                    <i class="fas fa-angle-right" id="tabButtonT2" style="display: none;font-size: 24px;margin-left: 38px;"></i>
+                           <%if(data){%>
+                            <%for(i of data){%>
+                                <div onclick="classDetails('<%=i._id%>')" class="col-lg-12 tabButton" id="T2">
+                                    <div class="d-flex justify-content-around">
+                                        <h4>Grade <%=i.grade%>-<%=i.section%></h4>
+                                        <i class="fas fa-angle-right" id="tabButtonT2" style="display: none;font-size: 24px;margin-left: 38px;"></i>
+                                    </div>
                                 </div>
-                            </div>
-
+    
+                               <%}%>
                            <%}%>
                         </div>
 
                     </div>
-
-
-                    <div class="col-lg-9" style="padding: 0;">
-                        <div class="upcoming1">
-                            <div style="margin: 20px 30px;">
-
-                                <h3>Project Status</h3>
-                                <div class="row projectStatus">
-                                    <div class="col-lg-4" style="height: 80px;">
-
-                                        <div class="d-flex justify-content-center">
-                                            <div class="symbolIcon" style="background: #CCF8FE 0% 0% no-repeat padding-box;">
-                                                <img src="/public/img/students.svg">
+                        <%if(students.length!=0){%>
+                            <div class="col-lg-9" style="padding: 0;">
+                                <div class="upcoming1">
+                                    <div style="margin: 20px 30px;">
+        
+                                        <h3>Project Status</h3>
+                                        <div class="row projectStatus">
+                                            <div class="col-lg-4" style="height: 80px;">
+        
+                                                <div class="d-flex justify-content-center">
+                                                    <div class="symbolIcon" style="background: #CCF8FE 0% 0% no-repeat padding-box;">
+                                                        <img src="/public/img/students.svg">
+                                                    </div>
+                                                    <div class="status">
+                                                        <h1><%=students.length%></h1>
+                                                        <p>Total Student</p>
+                                                    </div>
+                                                </div>
+                                                
                                             </div>
-                                            <div class="status">
-                                                <h1><%=data[0].students.length%></h1>
-                                                <p>Total Student</p>
+                                            <div class="col-lg-4" style="height: 80px;border-left: 1px solid #cccccc;border-right: 1px solid #cccccc;">
+                                                <div class="d-flex justify-content-center">
+                                                    <div class="symbolIcon" style="background: #E2FBD7 0% 0% no-repeat padding-box;">
+                                                        <img src="/public/img/submitted.svg">
+                                                    </div>
+                                                    <div class="status">
+                                                        <h1><%=submitted.length%></h1>
+                                                        <p>Submitted</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4" style="height: 80px;">
+                                                <div class="d-flex justify-content-center">
+                                                    <div class="symbolIcon" style="background: #FFE5D3 0% 0% no-repeat padding-box;">
+                                                        <img src="/public/img/dues.svg">
+                                                    </div>
+                                                    <div class="status">
+                                                        <h1><%=pending.length%></h1>
+                                                        <p>Submission Due</p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+        
+                                        <div class="row" style="margin: 0 60px 0 0;">
+                                            <div class="col-lg-10">
+                                                <h3>All</h3>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="dropdown" id="dropdownright">
+                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Sort
+                                                    </button>
+                                                    <div class="dropdown-content">
+                                                        <a class="dropdown-item" href="#">Submission Status</a>
+                                                        <a class="dropdown-item" href="#">Name</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+        
+        
+                                        <div class="row" style="margin: 25px 60px 0 0;">
+                                            <div class="col-lg-3">
+                                                <div class="entity">
+                                                    <div class="container1">
+                                                        <label>
+                                                            <input type="checkbox" checked="checked">
+                                                            <span class="checkmark"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="d-flex justify-content-left mt-5">
+                                                             
+                                                        <div class="memberfieldimage1">
+                                                            <p>JD</p>
+                                                        </div>
+                                                        <div class="memberfieldname">
+                                                            <p>John Doe</p>
+                                                        </div>
+                                                            
+                                                    </div>
+                                                    <p class="submissionDate">Submission Date</p>
+                                                    <div class="submissionDateDetails mb-3">
+                                                        29/08/2020
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="entity">
+                                                    <div class="container1">
+                                                        <label>
+                                                            <input type="checkbox" checked="checked">
+                                                            <span class="checkmark"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="d-flex justify-content-left mt-5">
+                                                             
+                                                        <div class="memberfieldimage1">
+                                                            <p>JD</p>
+                                                        </div>
+                                                        <div class="memberfieldname">
+                                                            <p>John Doe</p>
+                                                        </div>
+                                                            
+                                                    </div>
+                                                    <p class="submissionDate">Submission Date</p>
+                                                    <div class="submissionDateDetails mb-3">
+                                                        29/08/2020
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="entity">
+                                                    <div class="container1">
+                                                        <label>
+                                                            <input type="checkbox" checked="checked">
+                                                            <span class="checkmark"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="d-flex justify-content-left mt-5">
+                                                             
+                                                        <div class="memberfieldimage1">
+                                                            <p>JD</p>
+                                                        </div>
+                                                        <div class="memberfieldname">
+                                                            <p>John Doe</p>
+                                                        </div>
+                                                            
+                                                    </div>
+                                                    <p class="submissionDate">Submission Date</p>
+                                                    <div class="submissionDateDetails mb-3">
+                                                        29/08/2020
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="entity">
+                                                    <div class="container1">
+                                                        <label>
+                                                            <input type="checkbox">
+                                                            <span class="checkmark"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="d-flex justify-content-left mt-5">
+                                                             
+                                                        <div class="memberfieldimage1">
+                                                            <p>JD</p>
+                                                        </div>
+                                                        <div class="memberfieldname">
+                                                            <p>John Doe</p>
+                                                        </div>
+                                                            
+                                                    </div>
+                                                    <p class="submissionDate">Submission Date</p>
+                                                    <div class="submissionDateDetails mb-3">
+                                                        29/08/2020
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="entity">
+                                                    <div class="container1">
+                                                        <label>
+                                                            <input type="checkbox">
+                                                            <span class="checkmark"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="d-flex justify-content-left mt-5">
+                                                             
+                                                        <div class="memberfieldimage1">
+                                                            <p>JD</p>
+                                                        </div>
+                                                        <div class="memberfieldname">
+                                                            <p>John Doe</p>
+                                                        </div>
+                                                            
+                                                    </div>
+                                                    <p class="submissionDate">Submission Date</p>
+                                                    <div class="submissionDateDetails mb-3">
+                                                        29/08/2020
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                 
                                         
                                     </div>
-                                    <div class="col-lg-4" style="height: 80px;border-left: 1px solid #cccccc;border-right: 1px solid #cccccc;">
-                                        <div class="d-flex justify-content-center">
-                                            <div class="symbolIcon" style="background: #E2FBD7 0% 0% no-repeat padding-box;">
-                                                <img src="/public/img/submitted.svg">
-                                            </div>
-                                            <div class="status">
-                                                <h1>25</h1>
-                                                <p>Submitted</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4" style="height: 80px;">
-                                        <div class="d-flex justify-content-center">
-                                            <div class="symbolIcon" style="background: #FFE5D3 0% 0% no-repeat padding-box;">
-                                                <img src="/public/img/dues.svg">
-                                            </div>
-                                            <div class="status">
-                                                <h1>10</h1>
-                                                <p>Submission Due</p>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
-
-                                <div class="row" style="margin: 0 60px 0 0;">
-                                    <div class="col-lg-10">
-                                        <h3>All</h3>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <div class="dropdown" id="dropdownright">
-                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Sort
-                                            </button>
-                                            <div class="dropdown-content">
-                                                <a class="dropdown-item" href="#">Submission Status</a>
-                                                <a class="dropdown-item" href="#">Name</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="row" style="margin: 25px 60px 0 0;">
-                                    <div class="col-lg-3">
-                                        <div class="entity">
-                                            <div class="container1">
-                                                <label>
-                                                    <input type="checkbox" checked="checked">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="d-flex justify-content-left mt-5">
-                                                     
-                                                <div class="memberfieldimage1">
-                                                    <p>JD</p>
-                                                </div>
-                                                <div class="memberfieldname">
-                                                    <p>John Doe</p>
-                                                </div>
-                                                    
-                                            </div>
-                                            <p class="submissionDate">Submission Date</p>
-                                            <div class="submissionDateDetails mb-3">
-                                                29/08/2020
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="entity">
-                                            <div class="container1">
-                                                <label>
-                                                    <input type="checkbox" checked="checked">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="d-flex justify-content-left mt-5">
-                                                     
-                                                <div class="memberfieldimage1">
-                                                    <p>JD</p>
-                                                </div>
-                                                <div class="memberfieldname">
-                                                    <p>John Doe</p>
-                                                </div>
-                                                    
-                                            </div>
-                                            <p class="submissionDate">Submission Date</p>
-                                            <div class="submissionDateDetails mb-3">
-                                                29/08/2020
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="entity">
-                                            <div class="container1">
-                                                <label>
-                                                    <input type="checkbox" checked="checked">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="d-flex justify-content-left mt-5">
-                                                     
-                                                <div class="memberfieldimage1">
-                                                    <p>JD</p>
-                                                </div>
-                                                <div class="memberfieldname">
-                                                    <p>John Doe</p>
-                                                </div>
-                                                    
-                                            </div>
-                                            <p class="submissionDate">Submission Date</p>
-                                            <div class="submissionDateDetails mb-3">
-                                                29/08/2020
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="entity">
-                                            <div class="container1">
-                                                <label>
-                                                    <input type="checkbox">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="d-flex justify-content-left mt-5">
-                                                     
-                                                <div class="memberfieldimage1">
-                                                    <p>JD</p>
-                                                </div>
-                                                <div class="memberfieldname">
-                                                    <p>John Doe</p>
-                                                </div>
-                                                    
-                                            </div>
-                                            <p class="submissionDate">Submission Date</p>
-                                            <div class="submissionDateDetails mb-3">
-                                                29/08/2020
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="entity">
-                                            <div class="container1">
-                                                <label>
-                                                    <input type="checkbox">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="d-flex justify-content-left mt-5">
-                                                     
-                                                <div class="memberfieldimage1">
-                                                    <p>JD</p>
-                                                </div>
-                                                <div class="memberfieldname">
-                                                    <p>John Doe</p>
-                                                </div>
-                                                    
-                                            </div>
-                                            <p class="submissionDate">Submission Date</p>
-                                            <div class="submissionDateDetails mb-3">
-                                                29/08/2020
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                         
-                                
                             </div>
-                        </div>
-                    </div>
-
+                        <%}else{%>
+                            <div class="col-lg-9" style="padding: 0;">
+                                <div class="upcoming1">
+                                    <div style="margin: 20px 30px;">
+        
+                                        <h3>This class has no students!</h3>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        <%}%>
                 </div>
                 <!-- Overview ends -->
 
@@ -416,6 +427,22 @@
             })
 
         </script>
+        <script>
+            function classDetails(id){
+                const data ={id:id}
+                axios.post("/class-details",data).then((res)=>{
+                console.log(res.data)
+                var html = res.data
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(html, 'text/html');
+                var ContainerData = doc.querySelector(".col-lg-9").innerHTML
+                console.log(ContainerData)
+                var container = document.querySelector(".col-lg-9")
+                container.innerHTML = ContainerData
+                })
+                
+            }
+            </script>
        
     </body>
 </html>

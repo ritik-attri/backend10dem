@@ -26,12 +26,9 @@ const StudentSchema=Schema({
             type:String,
             required:true,
         },
-        startDate:{
-            type:Date
-        },
-        endDate:{
-            type:Date
-        },
+        activities:[{
+            type:Object
+        }],
         status:{
             type:Boolean,
             default: false

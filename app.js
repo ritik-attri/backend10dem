@@ -3068,28 +3068,29 @@ app.get("/project-preview/:id", (req, res) => {
 
 app.post("/assign-project/:id",async (req, res) => {
   console.log(req.body);
+  var activities = []
+  for(i=0; i<req.body.startDate.length; i++){
+    const activity = {
+      [`activity_${i+1}`]: {
+        stardate: req.body.startDate[i],
+        enddate: req.body.endDate[i],
+      },
+    }
+    activities.push(activity)
+  }
   const projectDetails = {
     by: sess.user_data.user._id,
     project: req.params.id,
-    activities: [
-      {
-        activity_1: {
-          stardate: req.body.startDate1,
-          enddate: req.body.endDate1,
-        },
-      },
-    ],
+    activities: activities,
   };
   const assignedProjects = {
     project_id: req.params.id,
     class: req.body.class,
-    startDate:req.body.startDate1,
-    endDate:req.body.endDate1,
+    activities:activities
 
   }
   const StudentProjectdetails = {project_id: req.params.id,
-              startDate:req.body.startDate1,
-              endDate:req.body.endDate1}
+              activities:activities}
   const notification = {
     message:"You have been assigned new Project",
     time: Date.now(),
@@ -3097,8 +3098,8 @@ app.post("/assign-project/:id",async (req, res) => {
     project_id:req.params.id
 
   } 
+  
   console.log("Notification is",notification)
-  console.log(projectDetails);
   const classData = await classes.findOne({_id:req.body.class})
   classes
     .update({ _id: req.body.class }, { $push: { projects: projectDetails } })
@@ -3106,7 +3107,18 @@ app.post("/assign-project/:id",async (req, res) => {
       await user.updateOne({_id:sess.user_data.user._id},{$push:{assigned_projects:assignedProjects}})
       if(classData.students){
         for(i of classData.students){
-            await Student.updateOne({_id:i},{$push:{notifications:notification,projects_assigned:StudentProjectdetails}})
+          var stuData = await Student.findOne({_id:i})
+          var mailData = 
+          {
+            from: "10demdeveloper@gmail.com",
+            to: stuData.email,
+            subject: "New Project!",
+            text:'You have been assigned a new Project!'
+          };
+          const mailResult = await mail.sendMail(mailData)
+          console.log(mailResult)
+          await Student.updateOne({_id:i},{$push:{notifications:notification,projects_assigned:StudentProjectdetails}})
+            
         }
       }
       res.redirect("/home/");
@@ -3122,17 +3134,70 @@ app.get("/student-progress",async (req,res)=>{
     if (sess.user_data == undefined) {
       res.redirect("/");
     }
-     else{
-       var data = []
-      for(i of sess.user_data.role_Data.classes){
-        const classData =await classes.findOne({_id:i})
-        data.push(classData)
-      }
-      console.log(data)
-      res.render("classdetails",{data:data})
+    else{
+      var data = []
+    for(i of sess.user_data.role_Data.classes){
+      const classData =await classes.findOne({_id:i})
+      data.push(classData)
     }
+    var submitData= []
+    var pending =[]
+    if(data[0].students){
+      for(i of data[0].students){
+        var stuData = await Student.findOne({_id:i})
+        console.log("student data is",stuData)
+        if(stuData.projects_assigned){
+          if(stuData.projects_assigned[0].status===true){
+            submitData.push(stuData)
+          }
+          else if(stuData.projects_assigned[0].status===false){
+            pending.push(stuData)
+          }
+        }
+      }
+    }
+    console.log(data)
+    res.render("classdetails",{data:data,submitted:submitData,pending:pending,students:data[0].students})
+  }
   })
 })
+/*########################################
+  ####Students project progress(classes)#####
+  ####################################### */
+app.post("/class-details", (req, res) => {
+  internetConnected().then(async () => {
+    console.log(req.body);
+    if (sess.user_data == undefined) {
+      res.redirect("/");
+    } else {
+      const classData = await classes.findOne({ _id: req.body.id });
+      console.log(classData);
+      var submitData = [];
+      var pending = [];
+      if (classData.students) {
+        for (i of classData.students) {
+          var stuData = await Student.findOne({ _id: i });
+          console.log("student data is",stuData)
+          if(stuData.projects_assigned.length!=0){
+            if (stuData.projects_assigned[0].status === true) {
+              submitData.push(stuData);
+            } else if (stuData.projects_assigned[0].status === false) {
+              pending.push(stuData);
+            }
+          }
+        }
+      }
+      var data;
+      res.render("classdetails", {
+        data:data,
+        submitted: submitData,
+        pending: pending,
+        students: classData.students,
+      });
+    }
+  });
+});
+
 
 /*#################################
   ####Updating Created Project#####
