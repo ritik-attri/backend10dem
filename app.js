@@ -490,7 +490,7 @@ app.get("/superadmin/projects", (req, res) => {
         res.redirect("/");
       } else {
         superadminProject
-          .find({ "activity.activity_title": { $exists: true } })
+          .find({published:true })
           .then((result) => {
             console.log(result);
             res.render("superadminProjects", { projects: result });
@@ -512,7 +512,7 @@ app.get("/superadmin/draft-projects", async (req, res) => {
       if (sess.user_data == undefined) {
         res.redirect("/");
       } else {
-        var data = await superadminProject.find({ activity: [] });
+        var data = await superadminProject.find({published:false });
         console.log(data);
         res.render("superadminDrafts", { data: data });
       }
@@ -603,7 +603,7 @@ app.get("/home/", async function (req, res) {
   internetConnected()
     .then(async () => {
       const projects = await superadminProject.find({
-        "activity.activity_title": { $exists: true },
+        published:true,
       });
       console.log("Projects are", projects);
       if (sess.user_data == undefined) {
@@ -789,10 +789,9 @@ app.get("/superadmin/dashboard", async function (req, res) {
                       if (count1 == resp1.length) {
                         console.log("NOPM:- " + notifications_of_pro_members);
                         var Sprojects = await superadminProject.find({
-                          "activity.activity_title": { $exists: true },
-                        });
+                          published:true });
                         var drafts = await superadminProject.find({
-                          activity: [],
+                          published:false,
                         });
                         console.log("Draft projects are", drafts);
                         console.log("Superadminprojects are", Sprojects);
