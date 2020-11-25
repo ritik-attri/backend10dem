@@ -61,6 +61,9 @@ const userSchema = Schema({
         user_id:String,
         project_id:String
     }],
+    assigned_projects:[{
+        type:Object
+    }]
     
 });
 
