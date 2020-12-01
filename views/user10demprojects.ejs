@@ -164,11 +164,11 @@
                         <div class="col-xs-12">
                             <nav>
                                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                    <a class="nav-item nav-link active" id="nav-home-tab" href="/myprojects" role="tab" aria-controls="nav-home" aria-selected="true"><img src="/../public/img/loading.svg" style="width: 60px;height: 60px;margin: 15px;padding: 15px;border: 3px solid #A3C0F5;border-radius: 50%;" alt="">Ongoing Project <span></span></a>
+                                    <a class="nav-item nav-link" id="nav-home-tab" href="/myprojects" role="tab" aria-controls="nav-home" aria-selected="false"><img src="/../public/img/loading.svg" style="width: 60px;height: 60px;margin: 15px;padding: 15px;border: 3px solid #A3C0F5;border-radius: 50%;" alt="">Ongoing Project <span></span></a>
                                     <a class="nav-item nav-link" id="nav-profile-tab" href="/drafts" role="tab" aria-controls="nav-profile" aria-selected="false"><img src="/../public/img/drafts.svg" style="width: 60px;height: 60px;margin: 15px;padding: 15px;border: 3px solid #FFDB64;border-radius: 50%;" alt="">Drafts<span></span></a>
                                     <a class="nav-item nav-link" id="nav-contact-tab" href="/completed" role="tab" aria-controls="nav-contact" aria-selected="false"><img src="/../public/img/completed.svg" style="width: 60px;height: 60px;margin: 15px;padding: 15px;border: 3px solid #A8CF94;border-radius: 50%;" alt="">Completed <span></span></a>
                                     <a class="nav-item nav-link" id="nav-contact-tab" href="/externalcollab" role="tab" aria-controls="nav-contact" aria-selected="false"><img src="/../public/img/collaboration2.svg" style="width: 60px;height: 60px;margin: 15px;padding: 15px;border: 3px solid rgb(255, 182, 210);border-radius: 50%;" alt="">External collaboration<span></span></a>
-                                    <a class="nav-item nav-link" id="nav-contact-tab" href="/user10demprojects" role="tab" aria-controls="nav-contact" aria-selected="false"><img src="/../public/img/completed.svg" style="width: 60px;height: 60px;margin: 15px;padding: 15px;border: 3px solid #A8CF94;border-radius: 50%;" alt="">Your 10 Dem Projects <span></span></a>
+                                    <a class="nav-item nav-link active" id="nav-contact-tab" href="/user10demprojects" role="tab" aria-controls="nav-contact" aria-selected="true"><img src="/../public/img/completed.svg" style="width: 60px;height: 60px;margin: 15px;padding: 15px;border: 3px solid #A8CF94;border-radius: 50%;" alt="">Your 10 Dem Projects <span></span></a>
                                 </div>
                             </nav>
                             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
@@ -254,7 +254,7 @@
                         <div class="card">
                             <a href="/previewofproject/<%=document._id%>"><img src="/../public/img/download.jpeg" class="card-img-top" alt="..."></a>
                             <div class="card-body">
-                                <h5 class="card-title"><%=document.project_title%></h5>
+                                <h5 class="card-title"><%=document.title%></h5>
                                 <a href="#" style="float:left;"><img src="/../public/img/topic.svg" style="width: 40px;height: 40px;margin-right: 15px;padding: 5px;background: #1553C3C2;border-radius: 50%;" alt=""></a>
                                 <a href="#" style="float:left;"><img src="/../public/img/language.svg" style="width: 25px;height: 25px;margin-top: 8px;" alt=""></a>
                                 <div class="dropdown" style="float:right;">
@@ -297,13 +297,13 @@
                                 <div class="card">
                                     <a href="/previewofproject/<%=document._id%>"><img src="/../public/img/download.jpeg" class="card-img-top" alt="..."></a>
                                     <div class="card-body">
-                                        <h5 class="card-title"><%=document.project_title%></h5>
+                                        <h5 class="card-title"><%=document.title%></h5>
                                         <a href="#" style="float:left;"><img src="/../public/img/topic.svg" style="width: 40px;height: 40px;margin-right: 15px;padding: 5px;background: #1553C3C2;border-radius: 50%;" alt=""></a>
                                         <a href="#" style="float:left;"><img src="/../public/img/language.svg" style="width: 25px;height: 25px;margin-top: 8px;" alt=""></a>
                                         <div class="dropdown" style="float:right;">
                                             <img src="/../public/img/more_ver.svg" style="width: 30px;height: 30px;" alt="">
                                             <div class="dropdown-content">
-                                                <a href="/sendinginvites/user/<%=document._id%>">Start Collaboration</a>
+                                                <a href="/sendinginvites/10Dem-<%=document.price%>/<%=document._id%>">Start Collaboration</a>
                                             </div>
                                         </div>
                                     </div>

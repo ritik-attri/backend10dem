@@ -32,7 +32,6 @@
             }
         </style>
     </head>
-
     <body>
         <!-- Navbar -->
         <nav class="navbar navbar-expand-xl navbar-light">
@@ -499,9 +498,62 @@
 
                             </div>
                             <!-- module -->
+                            <div class="col-lg-12 pad">
+                                <div class="row">
+                                    <div class="col-lg-1">
+        
+                                    </div>
+                                    <div class="col-lg-11">
+                                        <h2>Inquiry Question <span id="star">*<span id="starcomment" style="left: 22%;">Enter an inquiry question.</span></span></h2>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        
+                                    </div>
+                                    <div class="col-lg-10">
+                                        <textarea class="textinput100 learn-input" type="text" name="iquestion" placeholder="Common inquiry question.."><%=inquiryquestion%></textarea>
+                                    </div>
+                                    <div class="col-lg-1">
+                
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- module -->
+                            <div class="disable col-lg-12 pad">
+                                <div class="row">
+                                    <div class="col-lg-1">
+
+                                    </div>
+                                    <div class="col-lg-11">
+                                        <h2>Introductory Discussion Point</h2>
+                                    </div>
+                                    <div class="col-lg-1">
+
+                                    </div>
+                                    <div class="col-lg-10">
+                                        <textarea name="fdp" id="fidp" class="textinput100" placeholder="Write your first introductory discussion points........." type="text" style="height: 100px;margin-bottom: 10px;"><%=firstidp%></textarea>
+                                    </div>
+                                    <div class="col-lg-1">
+
+                                    </div>
+                                    <div class="col-lg-10" id="ssidp" style="display:inline;">
+                                        <textarea name="sdp" id="sidp" class="textinput100" placeholder="Write your second introductory discussion points........." type="text" style="margin-left: 6.3rem;height: 100px;margin-bottom: 10px;display:block;"><%=secondidp%></textarea>
+                                    </div>
+                                    <div class="col-lg-1">
+
+                                    </div>
+                                    <div class="col-lg-10" id="ttidp" style="display:inline;">
+                                        <textarea name="tdp" id="tidp" class="textinput100" placeholder="Write your third introductory discussion points........." type="text" style="margin-left: 6.3rem;height: 100px;margin-bottom: 10px;display:block;"><%=thirdidp%></textarea>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                            <!-- module -->
                             <div class="col-lg-1">
 
                             </div>
+                            
                             <div class="col-lg-10">
                                 
                                 <h2>Details and Activity</h2>
@@ -573,13 +625,13 @@
                                     </div>
                                     
                                     <div class="col-lg-3">
-                                        <input class="input100 flatpickr" name="start_date" placeholder="<%=startdate%>" value="<%=startdate%>" >
+                                        <input class="input100 flatpickrsd" name="start_date" placeholder="<%=startdate%>" value="<%=startdate%>">
                                     </div>
                                     <div class="col-lg-2">
                                         <h2 style="text-align: center;margin: 15px;">To</h2>
                                     </div>
                                     <div class="col-lg-3">
-                                        <input class="input100 flatpickr" name="end_date" placeholder="<%=enddate%>" value="<%=enddate%>" >
+                                        <input class="input100 flatpickred" name="end_date" placeholder="<%=enddate%>" value="<%=enddate%>">
                                     </div>
                                     <div class="col-lg-4">
                 
@@ -885,9 +937,12 @@
         <!-- DatePicker -->
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
         <script>
-            $('.flatpickr').flatpickr({
-                
+            $('.flatpickrsd').flatpickr({
+                minDate:"today"
             });
+            $('.flatpickred').flatpickr({
+                minDate:new Date().fp_incr(1)
+            })
         </script>
 
     </body>

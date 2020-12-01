@@ -26,9 +26,22 @@ const superadminProjectSchema = Schema({
         type:String,
         
     },
+    collaboration:[{
+        user_id:{
+            type:String,
+        },
+        status:{
+            type:Boolean,
+            default:false
+        },
+    }],
     learningOutcome:{
         type:String,
     }, 
+    price:{
+        type:String,
+        default:"free"
+    },
     keyContribution:{
         type:String,
     },

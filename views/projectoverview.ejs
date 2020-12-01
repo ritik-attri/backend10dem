@@ -292,21 +292,27 @@
 
                                 <h3>Inquiry Question</h3>
                                 <p id="innerpara">
-                                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum ipsum do ?
+                                    <%=inquiryquestion%>
                                 </p>
 
 
                                 <h3>Introductory Discussion Points</h3>
                                 <div style="margin: 40px 0px;">
-                                    <p id="innerpara2">
-                                        What was your idea behind the concept?
-                                    </p>
-                                    <p id="innerpara2">
-                                        What was your idea behind the concept?
-                                    </p>
-                                    <p id="innerpara2">
-                                        What was your idea behind the concept?
-                                    </p>
+                                    <%if(firstidp!=''){%>
+                                        <p id="innerpara2">
+                                            <%=firstidp%>
+                                        </p>
+                                    <%}%>
+                                    <%if(secondidp!=''){%>
+                                        <p id="innerpara2">
+                                            <%=secondidp%>
+                                        </p>
+                                    <%}%>
+                                    <%if(thirdidp!=''){%>
+                                        <p id="innerpara2">
+                                            <%=thirdidp%>
+                                        </p>
+                                    <%}%>
                                 </div>
                                 
 

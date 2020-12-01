@@ -19,7 +19,20 @@
         <title>10dem Education|My Projects</title>
        
     </head>
-
+    <script>
+        let count=0;
+        function createanotheridpfield(){
+            count++;
+            console.log("Getting in here on click:- "+count);
+            if(count==1){
+                document.getElementById('ssidp').setAttribute("style","display:inline");
+            }else if(count==2){
+                document.getElementById('ttidp').setAttribute("style","display:inline");
+                document.getElementById('addidpb').setAttribute("style","display:none");
+            }else{
+            }
+        }
+    </script>
     <body>
         <!-- Navbar -->
         <nav class="navbar navbar-expand-xl navbar-light">
@@ -194,7 +207,37 @@
                             <div class="disable col-lg-12 pad">
                                 <div class="row">
                                     <div class="col-lg-1">
-        
+
+                                    </div>
+                                    <div class="col-lg-11">
+                                        <h2>Introductory Discussion Point</h2>
+                                    </div>
+                                    <div class="col-lg-1">
+
+                                    </div>
+                                    <div class="col-lg-10">
+                                        <textarea name="fidp" id="fidp" class="textinput100" placeholder="Write your first introductory discussion points........." type="text" style="height: 100px;margin-bottom: 10px;"></textarea>
+                                    </div>
+                                    <div class="col-lg-1">
+
+                                    </div>
+                                    <div class="col-lg-10" id="ssidp" style="display:none;">
+                                        <textarea name="sidp" id="sidp" class="textinput100" placeholder="Write your second introductory discussion points........." type="text" style="margin-left: 6.3rem;height: 100px;margin-bottom: 10px;"></textarea>
+                                    </div>
+                                    <div class="col-lg-1">
+
+                                    </div>
+                                    <div class="col-lg-10" id="ttidp" style="display:none;">
+                                        <textarea name="tidp" id="tidp" class="textinput100" placeholder="Write your third introductory discussion points........." type="text" style="margin-left: 6.3rem;height: 100px;margin-bottom: 10px;"></textarea>
+                                    </div>
+                                    <div class="col-lg-1">
+
+                                    </div>
+                                    <div class="col-lg-10" id="addidpb">
+                                        <button class="btn" style="border-radius: 50%;color:#FD585C;height:4rem;width: 4rem;font-size: xx-large;border-color:black;" onclick="createanotheridpfield()" type="button">+</button>
+                                    </div>
+                                    <div class="col-lg-1">
+
                                     </div>
                                     <div class="col-lg-11">
                                         <h2>Details and Activity <span id="star">*<span id="starcomment" style="left: 21%;">Enter details and activities</span></span></h2>

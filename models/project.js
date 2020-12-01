@@ -39,6 +39,18 @@ const projectSchema = Schema({
     assigned_to:{
         type:String
     },
+    iquestion:{
+        type:String,
+    },
+    fdp:{
+        type:String,
+    },
+    sdp:{
+        type:String,
+    },
+    tdp:{
+        type:String,
+    },
     start_date:{
         type:Date
     },

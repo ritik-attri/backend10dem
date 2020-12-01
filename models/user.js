@@ -57,13 +57,13 @@ const userSchema = Schema({
     Projects:[{
         type:String,
     }],
+    user10demprojects:[{
+        type:String,
+    }],
     global_cllb:[{
         user_id:String,
         project_id:String
     }],
-    assigned_projects:[{
-        type:Object
-    }]
     
 });
 

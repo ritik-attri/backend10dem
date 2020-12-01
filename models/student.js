@@ -26,19 +26,11 @@ const StudentSchema=Schema({
             type:String,
             required:true,
         },
-        activities:[{
-            type:Object
-        }],
         status:{
             type:Boolean,
-            default: false
-        }
-    }],
-    notifications:[{
-        message:String,
-        time:Date,
-        user_id:String,
-        project_id:String
-    }],
+            default:false,
+        },
+        attached_files:Array,
+    }]
 })
 module.exports = mongoose.model('Student',StudentSchema);

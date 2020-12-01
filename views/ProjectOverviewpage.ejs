@@ -9,8 +9,8 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
         
         <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
-        <link rel="stylesheet" href="lib/owlcarousel/assets/owl.carousel.min.css">
-        <link rel="stylesheet" href="lib/owlcarousel/assets/owl.theme.default.min.css">
+        <link rel="stylesheet" href="/public/lib/owlcarousel/assets/owl.carousel.min.css">
+        <link rel="stylesheet" href="/public/lib/owlcarousel/assets/owl.theme.default.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 
@@ -215,8 +215,11 @@
 
                                 <h1><%=project.title%></h1>
                                 <div class="row">
-                                    <div class="col-lg-11">
+                                    <div class="col-lg-10">
                                         <p class="keywords">Art&nbsp;&nbsp;|&nbsp;&nbsp;Color Theory&nbsp;&nbsp;|&nbsp;&nbsp;Asthetics</p>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <div class="symbol" style="margin-top: 10px;" data-toggle="tooltip1"><a href="/add10demproject/<%=project._id%>"><i class="far fa-file-image" style="color: #FD585C;"></a></i></div>
                                     </div>
                                     <div class="col-lg-1">
                                         <div class="symbol" style="margin-top: 10px;" data-toggle="tooltip"><i class="far fa-bookmark" style="color: #FD585C;"></i></div>
@@ -474,13 +477,13 @@
                                          </div>
                                          
                                          <div class="col-lg-5">
-                                             <input class="input100 flatpickr" name="startDate">
+                                             <input class="input100 flatpickr" name="startDate<%=i%>">
                                          </div>
                                          <div class="col-lg-2">
                                              <h4 style="text-align: center;margin-top: 10px;">To</h4>
                                          </div>
                                          <div class="col-lg-5">
-                                             <input class="input100 flatpickr" name="endDate">
+                                             <input class="input100 flatpickr" name="endDate<%=i%>">
                                          </div>
                                      
                                      </div>
@@ -529,7 +532,7 @@
                             <p class="m3">Let's add students list now</p>
                         </div>
                         <div class="modal-footer" style="justify-content: center;">
-                            <button type="button" id="assigned" data-dismiss="modal" class="btn modalbutton1" style="border-radius: 50%;height: 60px;width: 60px;"><img src="img/arrow.svg"></button>
+                            <button type="button" id="assigned" data-dismiss="modal" class="btn modalbutton1" style="border-radius: 50%;height: 60px;width: 60px;"><img src="/public/img/arrow.svg"></button>
                         </div>
                     </div>
                     </div>
@@ -650,7 +653,7 @@
         <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
         <script src="https://kit.fontawesome.com/6f24662773.js" crossorigin="anonymous"></script>
 
-        <script src="js/index.js"></script>
+        <script src="/public/js/index.js"></script>
         <script>
             let dropArea = document.getElementById('drop-area')
 
@@ -766,10 +769,10 @@
                                 </div>
                             </div>
                             <div class="col-lg-1 p-0">
-                                <img src="img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 15px;">
+                                <img src="/public/img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 15px;">
                             </div>
                             <div class="col-lg-1 p-0">
-                                <img src="img/close.svg" style="height: 15px;width: 15px;margin-bottom: 8px;margin-left: 3px;">
+                                <img src="/public/img/close.svg" style="height: 15px;width: 15px;margin-bottom: 8px;margin-left: 3px;">
                             </div>
                         </div>
                     </div> 
@@ -778,7 +781,7 @@
 
             }
         </script>
-        <script src="js/build/ckeditor.js"></script>
+        <script src="/public/js/build/ckeditor.js"></script>
         <script>ClassicEditor
 			.create( document.querySelector( '#editor' ), {
 				
@@ -848,7 +851,8 @@
             }
         })
         $(document).ready(function(){
-              $('[data-toggle="tooltip"]').tooltip({title: '<p style="color: #272727;">Add to My Project</p>', html: true, placement: "left"});
+              $('[data-toggle="tooltip"]').tooltip({title: '<p style="color: #272727;">Add to your Bookmarks!</p>', html: true, placement: "left"});
+              $('[data-toggle="tooltip1"]').tooltip({title:'<p style="color: #272727;">Add to your Projects!</p> ', html:true, placement: "left"});
         })
     </script>
        
