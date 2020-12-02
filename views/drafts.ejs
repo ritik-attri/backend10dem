@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="/public/css/header.css">
 
 
-        <title>10dem Education|Drafts</title>
+        <title>10dem Education|My Projects</title>
     </head>
 
     <body>
@@ -31,7 +31,7 @@
                         </div> -->
                         <ul class="nav-menu">
                             <li><a href="/home/">Home</a></li>
-                            <li><a href="/myprojects">Ongoing Project</a></li>
+                            <li><a href="#">Ongoing Project</a></li>
                               <%if(hide_manage_students==true){%>
                             <li class="menu-has-children dropdown-toggle"><a href="">Membership</a>
 
@@ -54,14 +54,12 @@
                                 </ul>
                             </li>
                             <li style="position: relative;top: -3px;"><a href="#"><i class="fas fa-crown" style="color: rgb(233, 233, 3);"></i>Try 10dem pro</a></li>
-
-                            <l1><a href="#"><img src="img/notifications.svg"><span style="position: relative;right: 10px;bottom: 10px;padding: 2px 6px;border-radius: 50%;background: red;font-size: 14px;">2</span></a></l1>
+                            <%}%>
                         </ul>
-                        <%}%>
                     </div>
                     
                     <ul class="nav-menu">
-                        <li><a class="btn-primary" style="border-radius: 5px;position: relative;top: -6px;padding: 4px 8px 6px 8px;" href="#"><i class="fas fa-plus" style="color: rgb(255, 255, 255);"></i>  Create A New Project!</a></li>
+                        <li><a class="btn-primary" style="border-radius: 5px;position: relative;top: -6px;padding: 4px 8px 6px 8px;" href="/home/createproject/1"><i class="fas fa-plus" style="color: rgb(255, 255, 255);"></i>  Create A New Project!</a></li>
                         <li class="menu-has-children dropdown-toggle navprofile" style="margin-top: 0;"><a href="#" style="color: #000;background: #FFFFFF;border-radius: 50%;height: 35px;width: 35px;text-align: center;padding: 7px;"><%=firstletter%></a>
                             <ul style="right: 0 !important;left: auto !important;width: fit-content;padding-left: 1px !important;padding-right: 1px !important;padding-inline-start: 0px;background: #fff !important;">
                                
@@ -110,7 +108,6 @@
                     <li>
                         <a href="#"><box-icon class="bx-fw" name='chat' ></box-icon> Conversations&nbsp;&nbsp;&nbsp;&nbsp;</a>
                     </li>
-                    <li>
                     <%if(role=='educator'){%>
                     <li>
                         <a href="/educatordashboard"><box-icon class="bx-fw" name='user-circle' ></box-icon> Manage Students&nbsp;&nbsp;&nbsp;&nbsp;</a>
@@ -123,19 +120,15 @@
 
                     <%}%>
                     <%if(org_name!=''){%>
-                        <li>
-                            <a href="/orgDetails"><box-icon class="bx-fw" name='book-reader'></box-icon><%=org_name%></a>
-                        </li>
-                        <%}%>
-                </ul>
-                    <!--<li>
-                        <a href="#"><box-icon class="bx-fw" name='book-reader'></box-icon> ABC Organization&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                    </li>-->
+                    <li>
+                        <a href="/orgDetails"><box-icon class="bx-fw" name='book-reader'></box-icon> <%=org_name%>&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                    </li>
+                    <%}%>
                 </ul>
 
                 <div class="learnMore">
                     <img src="/public/img/explore.svg">
-                    <p>Hello John <br/> Explore <span style="color: #FD585C;cursor: pointer;">Pro account</span> with Premium features.</p>
+                    <p>Hello <%=name%> <br/> Explore <span style="color: #FD585C;cursor: pointer;">Pro account</span> with Premium features.</p>
                     <button class="btn">Learn more</button>
                 </div>
 
@@ -150,14 +143,14 @@
                 </button> -->
                 
                 <a href="#" class="float">
-                    <img src="/../public/img/help.svg" class="my-float" style="width: 30px;height: 30px;" alt="">
+                    <img src="/public/img/help.svg" class="my-float" style="width: 30px;height: 30px;" alt="">
                 </a>
 
                 <div style="margin-left: 1%;">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                          <li class="breadcrumb-item"><a href="/home/">Home</a></li>
-                          <li class="breadcrumb-item active"><a href="/myprojects">My Projects</a></li>
+                          <li class="breadcrumb-item"><a href="#">Home</a></li>
+                          <li class="breadcrumb-item active"><a href="#">My Projects</a></li>
                         </ol>
                     </nav>
                 </div>
@@ -173,6 +166,7 @@
                                     <a class="nav-item nav-link active" id="nav-profile-tab" href="/drafts" role="tab" aria-controls="nav-profile" aria-selected="true"><img src="/../public/img/drafts.svg" style="width: 60px;height: 60px;margin: 15px;padding: 15px;border: 3px solid #FFDB64;border-radius: 50%;" alt="">Drafts<span></span></a>
                                     <a class="nav-item nav-link" id="nav-contact-tab" href="/completed" role="tab" aria-controls="nav-contact" aria-selected="false"><img src="/../public/img/completed.svg" style="width: 60px;height: 60px;margin: 15px;padding: 15px;border: 3px solid #A8CF94;border-radius: 50%;" alt="">Completed <span></span></a>
                                     <a class="nav-item nav-link" id="nav-contact-tab" href="/externalcollab" role="tab" aria-controls="nav-contact" aria-selected="false"><img src="/../public/img/collaboration2.svg" style="width: 60px;height: 60px;margin: 15px;padding: 15px;border: 3px solid rgb(255, 182, 210);border-radius: 50%;" alt="">External collaboration<span></span></a>
+                                    <a class="nav-item nav-link" id="nav-contact-tab" href="/user10demprojects" role="tab" aria-controls="nav-contact" aria-selected="false"><img src="/../public/img/completed.svg" style="width: 60px;height: 60px;margin: 15px;padding: 15px;border: 3px solid #A8CF94;border-radius: 50%;" alt="">Your 10 Dem Projects <span></span></a>
                                 </div>
                             </nav>
                             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
@@ -215,25 +209,38 @@
                  <!-- Create Project -->
                     
                 <div class="row">
+                    <!-- Create Project -->
                     <div class="col-lg-2 col-md-3 col-sm-6">
-                        <a href="/home/createproject/1" ><div class="card" style="box-shadow: black;">
-                            <box-icon name='plus' size="xl" border='circle' id="create" style="height: 8rem;width: 11rem;"></box-icon>
+                        <div class="card" style="box-shadow: black;">
+                            <a data-toggle="modal" data-target="#modelextcollab"><box-icon name='plus' size="xl" border='circle' id="create"  style="height: 8rem; width: 11rem;"></box-icon></a>
                             <div class="card-body" style="padding: 0rem;">
-                                <h5 class="card-title" id="createproject" style="text-align: center;padding-bottom: 2rem;margin: 0;background: #FFFFFF 0% 0% no-repeat padding-box;border-radius: 25px;opacity: 1;color: #272727;font-weight: 500;">Start External Collaboration</h5>
-                            </div></a>
+                                <h5 class="card-title" id="createproject" style="text-align: center;padding-bottom: 2rem;margin: 0;background: #FFFFFF 0% 0% no-repeat padding-box;border-radius: 25px;opacity: 1;color: #272727;font-weight: 500;">Start Collaborating!</h5>
+                            </div>
+                        </div>
+    
+                    </div>
+                    
+                <!-- Start External Project -->
+                    <div class="col-lg-2 col-md-3 col-sm-6">
+                        <div class="card" style="box-shadow: black;">
+                            <a href="/home/createproject/1"><box-icon name='plus' size="xl" border='circle' id="create"  style="height: 8rem; width: 11rem;"></box-icon></a>
+                            <div class="card-body" style="padding: 0rem;">
+                                <h5 class="card-title" id="createproject" style="text-align: center;padding-bottom: 2rem;margin: 0;background: #FFFFFF 0% 0% no-repeat padding-box;border-radius: 25px;opacity: 1;color: #272727;font-weight: 500;">Create your own Project!</h5>
+                            </div>
                         </div>
     
                     </div>
                    
                 </div>
+                
 
 
-                <h3>Draft Projects</h3>
+                <h3>Your Drafts</h3>
                 <%if(projects.length==0){%>
                 <div style="text-align: center;">
-                    <img src="/../public/img/assignProject.png" style="margin: 80px auto 20px auto">
-                    <p style="font-size: 28px;font-family: ProductB;color: #4A4A4A;margin: 0;">You have no drafts! </p>
-                    <p>If you want, go ahead and buzz in your project!</p>
+                    <img src="/public/img/assignProject.png" style="margin: 80px auto 20px auto">
+                    <p style="font-size: 28px;font-family: ProductB;color: #4A4A4A;margin: 0;">You have no projects yet</p>
+                    <p>Start creating your projects</p>
                     <a href="/home/createproject/1"><button class="btn savebutton" style="width: 210px;float: none;font-size: 18px;font-family: ProductR;letter-spacing: 0;">Create a new project</button></a>
                 </div>
                 <%}else{%>
@@ -251,7 +258,7 @@
                                 <div class="dropdown" style="float:right;">
                                     <img src="/../public/img/more_ver.svg" style="width: 30px;height: 30px;" alt="">
                                     <div class="dropdown-content">
-                                        <a href="/editproject/<%=document._id%>">Edit Draft</a>
+                                        <a href="/editproject/<%=document._id%>">Edit Project</a>
                                         <a href="#">Rename</a>
                                         <a href="#">Mark as complete</a>
                                         <a href="#">Delete</a>
@@ -269,6 +276,42 @@
 
                
             </div> 
+        </div>
+        <div id="modelextcollab" class="modal" style="width:50%;margin-left:25%;margin-top:10%;height: 50%;overflow: hidden;">
+            <div class="toast-header">
+                <img src="/public/img/togglebutton.svg">
+                <strong class="mr-auto text-primary">Choose your collaborations project!</strong>
+                <button type="button" class="ml-2 mb-1 close" aria-label="Close" id="notificationClose" data-dismiss="modal" style="color: black;font-size: 30px;font-weight: 100;">&times;</button>
+            </div>
+            <div class="toast-body">
+                <div class="upcoming1">
+                    <%if(projects.length==undefined){%>
+                        <p>Please create some projects!</p>
+                        <a href="/home/createproject/1">Click here to create a new project!</a>
+                    <%}else{%>
+                        <div class="row">
+                        <%projects.forEach((document)=>{%> 
+                            <div class="col-4">
+                                <div class="card">
+                                    <a href="/previewofproject/<%=document._id%>"><img src="/../public/img/download.jpeg" class="card-img-top" alt="..."></a>
+                                    <div class="card-body">
+                                        <h5 class="card-title"><%=document.project_title%></h5>
+                                        <a href="#" style="float:left;"><img src="/../public/img/topic.svg" style="width: 40px;height: 40px;margin-right: 15px;padding: 5px;background: #1553C3C2;border-radius: 50%;" alt=""></a>
+                                        <a href="#" style="float:left;"><img src="/../public/img/language.svg" style="width: 25px;height: 25px;margin-top: 8px;" alt=""></a>
+                                        <div class="dropdown" style="float:right;">
+                                            <img src="/../public/img/more_ver.svg" style="width: 30px;height: 30px;" alt="">
+                                            <div class="dropdown-content">
+                                                <a href="/sendinginvites/user/<%=document._id%>">Start Collaboration</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                            
+                            </div> 
+                        <%})%> 
+                        </div>            
+                    <%}%>
+                </div>
+            </div>
         </div>
 
 

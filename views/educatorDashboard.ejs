@@ -61,7 +61,7 @@
                         </li>
                         <li style="position: relative;top: -3px;"><a href="#"><i class="fas fa-crown" style="color: rgb(233, 233, 3);"></i>Try 10dem pro</a></li>
                         <%}%>
-                        <l1><a href="#" id="notifications"><img src="/public/img/notifications.svg"><span style="position: relative;right: 10px;bottom: 10px;padding: 2px 6px;border-radius: 50%;background: red;font-size: 14px;">2</span></a></l1>
+                        <l1><a href="#" id="notifications"><img src="/public/img/notifications.svg"><span style="position: relative;right: 10px;bottom: 10px;padding: 2px 6px;border-radius: 50%;background: red;font-size: 14px;"><%=notifications.length%></span></a></l1>
                     </ul>
                 </div>
                 
@@ -427,66 +427,63 @@
 
 
     
-        <!-- Toast for notification panel-->
-        <div class="allNotifications" id="notificationpane" data-autohide="false" style="display: none;">
-            <div class="toast-header">
-                <!-- <div class="d-flex justify-content-center"> -->
-                    <img src="/public/img/togglebutton.svg">
-                    <strong class="mr-auto text-primary">Notifications</strong>
-                    <!-- <small class="text-muted">5 mins ago</small> -->
-                    <button type="button" class="ml-2 mb-1 close" id="notificationClose" style="color: black;font-size: 30px;font-weight: 100;">&times;</button>
-                <!-- </div>    -->
-            </div>
-            <div class="toast-body">
-    
-                <div class="upcoming1">
-                    <a href="#" style="float: right;margin: 10px;">View All</a>
-                    <p class="status">New</p>
-                    <hr>
-                    <%if(notifications.length==0){%>
-                        <div class="row">
-                            <div class="col-lg-1-pad">
-                                <div class="toastSymbol">
-                                    <img src="/public/img/group.svg">
-                                </div>
-                                <div class="col-lg-11-pad">
-                                    <div class="toastText">
-                                        <h5> No Notifications! Collaborate with<br> people to get notifications!</h5>
-                                    </div>
-                                    <div class="d-flex justify-content-left">
-                                        <a href="/home/createproject/1"><button class="btn toastbuttons">Create External Collaboration Project!</button></a>                                    
-                                    </div>
-                                </div>
+     <!-- Toast for notification panel-->
+     <div class="allNotifications" id="notificationpane" data-autohide="false" style="display: none;margin-right: 18rem;">
+        <div class="toast-header">
+            <!-- <div class="d-flex justify-content-center"> -->
+                <img src="/public/img/togglebutton.svg">
+                <strong class="mr-auto text-primary">Notifications</strong>
+                <!-- <small class="text-muted">5 mins ago</small> -->
+                <button type="button" class="ml-2 mb-1 close" id="notificationClose" style="color: black;font-size: 30px;font-weight: 100;">&times;</button>
+            <!-- </div>    -->
+        </div>
+        <div class="toast-body"   style="overflow-y:hidden;height: 25rem;overflow-x: hidden;">
+
+            <div class="upcoming1">
+                <%if(notifications.length==0){%>
+                    <div class="row">
+                        <div class="col-lg-1-pad">
+                            <div class="toastSymbol" style="margin-left:15rem;">
+                                <img src="/public/img/group.svg">
                             </div>
-                        </div>
-                    <%}else{%>
-                        <%notifications.forEach(function(notification){%>
-                        <div class="row">
-                            <div class="col-lg-1 pad">
-                                <div class="toastSymbol">
-                                    <img src="/public/img/person_circle.svg">
-                                </div>
-                            </div>
-                            <div class="col-lg-11 pad">
-                                <div class="toastText">
-                                    <%=notification.message%>
+                            <div class="col-lg-11-pad">
+                                <div class="toastText" style="margin-top:2.9rem;margin-left:5rem;">
+                                    <h5> &nbsp;&nbsp;&nbsp;&nbsp;No Notifications! Collaborate with<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;people to get notifications!</h5>
                                 </div>
                                 <div class="d-flex justify-content-left">
-                                    <a href="/previewofproject/<%=notification.project_id%>"><button class="btn toastbuttons">View Project</button></a>
-                                    <button class="btn toastbuttons">Accept</button>
-                                    <button class="btn toastbuttons">Deny</button>
+                                    <a href="/home/createproject/1"><button class="btn toastbuttons" style="width: 20rem;">Create External Collab Project!</button></a>                                    
                                 </div>
-                                <small class="text-muted"><%=notification.time%></small>
                             </div>
                         </div>
-                        <%})%>
+                    </div>
+                <%}else{%>
+                    <%for(let i=notifications.length-1;i>=0;i--){%>
+                    <div class="row">
+                        <div class="col-lg-1 pad">
+                            <div class="toastSymbol">
+                                <img src="/public/img/person_circle.svg">
+                            </div>
+                        </div>
+                        <div class="col-lg-11 pad">
+                            <div class="toastText">
+                                <%=notifications[i].message%>
+                            </div>
+                            <div class="d-flex justify-content-left">
+                                <a href="/previewofproject/<%=notifications[i].project_id%>"><button class="btn toastbuttons">View Project</button></a>
+                                <button class="btn toastbuttons">Accept</button>
+                                <button class="btn toastbuttons">Deny</button>
+                            </div>
+                            <small class="text-muted"><%=notifications[i].time%></small>
+                        </div>
+                    </div>
                     <%}%>
-    
-    
-                </div>
-                
+                <%}%>
+
+
             </div>
+            
         </div>
+    </div>
     <!-- toast ends -->
 
         <div style="position: fixed; top: 70px; right: 10px;height: 100%;">

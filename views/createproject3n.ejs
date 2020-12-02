@@ -215,38 +215,35 @@
                                     <div class="col-lg-1">
 
                                     </div>
-                                    <div class="col-lg-10">
-                                        <textarea name="fidp" id="fidp" class="textinput100" placeholder="Write your first introductory discussion points........." type="text" style="height: 100px;margin-bottom: 10px;"></textarea>
+                                    <div class="col-lg-11">
+                                        <textarea name="fidp" id="fidp" class="textinput100" placeholder="Write your first introductory discussion points........." type="text" style="width:60rem;height: 100px;margin-bottom: 10px;"></textarea>
                                     </div>
                                     <div class="col-lg-1">
 
                                     </div>
-                                    <div class="col-lg-10" id="ssidp" style="display:none;">
-                                        <textarea name="sidp" id="sidp" class="textinput100" placeholder="Write your second introductory discussion points........." type="text" style="margin-left: 6.3rem;height: 100px;margin-bottom: 10px;"></textarea>
+                                    <div class="col-lg-11" id="ssidp" style="display:none;">
+                                        <textarea name="sidp" id="sidp" class="textinput100" placeholder="Write your second introductory discussion points........." type="text" style="width:60rem;height: 100px;margin-bottom: 10px;"></textarea>
+                                    </div>
+                                    <div class="col-lg-1">
+
+                                    </div>                                 
+                                    <div class="col-lg-11" id="ttidp" style="display:none;">
+                                        <textarea name="tidp" id="tidp" class="textinput100" placeholder="Write your third introductory discussion points........." type="text" style="width:60rem;height: 100px;margin-bottom: 10px;"></textarea>
                                     </div>
                                     <div class="col-lg-1">
 
                                     </div>
-                                    <div class="col-lg-10" id="ttidp" style="display:none;">
-                                        <textarea name="tidp" id="tidp" class="textinput100" placeholder="Write your third introductory discussion points........." type="text" style="margin-left: 6.3rem;height: 100px;margin-bottom: 10px;"></textarea>
-                                    </div>
-                                    <div class="col-lg-1">
-
-                                    </div>
-                                    <div class="col-lg-10" id="addidpb">
+                                    <div class="col-lg-11" id="addidpb" style="margin-left:70rem;margin-top:-6rem;">
                                         <button class="btn" style="border-radius: 50%;color:#FD585C;height:4rem;width: 4rem;font-size: xx-large;border-color:black;" onclick="createanotheridpfield()" type="button">+</button>
                                     </div>
-                                    <div class="col-lg-1">
-
-                                    </div>
-                                    <div class="col-lg-11">
+                                    <div class="col-lg-12" style="margin-left: 7rem;">
                                         <h2>Details and Activity <span id="star">*<span id="starcomment" style="left: 21%;">Enter details and activities</span></span></h2>
                                     </div>
                                     <div class="col-lg-1">
 
                                     </div>
-                                    <div class="col-lg-10">
-                                        <textarea id="myTextarea" onclick="window.scrollTo(0, 300);" class="textinput100" type="text" name="Detailsandactivity" placeholder="Activity Details..." style="height: 280px;margin-bottom: 10px;"></textarea>
+                                    <div class="col-lg-11">
+                                        <textarea id="myTextarea" onclick="window.scrollTo(0, 300);" class="textinput100" type="text" name="Detailsandactivity" placeholder="Activity Details..." style="width:60rem;height: 280px;margin-bottom: 10px;"></textarea>
                                     </div>
                                     <div class="col-lg-1">
                 
@@ -329,13 +326,13 @@
         
                             </div>
                             <div class="col-lg-3 pad">
-                                <input class="input100 flatpickr" name="startDate">
+                                <input class="input100 flatpickrsd" name="startDate">
                             </div>
                             <div class="col-lg-1">
                                 <h2 style="text-align: center;margin: 15px;">To</h2>
                             </div>
                             <div class="col-lg-3 pad">
-                                <input class="input100 flatpickr" name="endDate">
+                                <input class="input100 flatpickred" name="endDate">
                             </div>
                             <div class="col-lg-4">
 
@@ -558,9 +555,12 @@
         <!-- DatePicker -->
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
         <script>
-            $('.flatpickr').flatpickr({
-                
+            $('.flatpickrsd').flatpickr({
+                minDate:"today"
             });
+            $('.flatpickred').flatpickr({
+                minDate:new Date().fp_incr(1)
+            })
         </script>
 
     </body>

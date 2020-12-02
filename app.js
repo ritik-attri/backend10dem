@@ -539,7 +539,42 @@ app.post("/superadmin/edit-projects",upload.single("projectCover"),(req,res)=>{
 })
 
 app.post("/")
-
+/*#######################################
+  ###########SEARCH HOME PAGE############
+  ####################################### */
+app.post("/searching",(req,res)=>{
+  if(sess.user_data==undefined){
+    res.redirect("/");
+  }else{
+    console.log(util.inspect(req.body));
+    superadminProject.find({title:req.body.projectsearch},(err,resp)=>{
+      if(err){
+        console.log("Cannot find that project because:- "+err);
+      }else{
+        console.log(resp);
+        if(sess.user_data.user.Role_object_id==''){
+          console.log(sess.user_data.user['email']);
+          let first_letter=sess.user_data.user.username.split('');
+          res.render('searching',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'none',search:req.body.projectsearch,projects:resp,notifications:sess.user_data.user.notifications});
+          
+        }else if(sess.user_data.user.Role.is10DemProuser==true){
+          let first_letter=sess.user_data.user.username.split('');
+          res.render('searching',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',search:req.body.projectsearch,projects:resp,notifications:sess.user_data.user.notifications});
+        }else if(sess.user_data.role_Data.org_name!=''){
+          console.log(sess.user_data.role_Data.org_name);
+          let first_letter=sess.user_data.user.username.split('');
+          if(sess.user_data.user.Role.isEducator==true){
+            res.render('searching',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',search:req.body.projectsearch,projects:resp,notifications:sess.user_data.user.notifications});
+            
+          }else{
+            res.render('searching',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org',search:req.body.projectsearch,projects:resp,notifications:sess.user_data.user.notifications});
+            
+          }
+        }
+      }
+    })
+  }
+})
 /*####################################### 
   ############Home##################
   #######################################*/
@@ -951,18 +986,19 @@ app.get('/managestudents/:class',(req,res)=>{
             res.render('manageClass',{name:sess.user_data.user.username,class_Data:resp[0],students_Data:[],role:'educator',hide_manage_students:false,org_name:sess.user_data.role_Data.org_name});
           }else{
             let students=[];
-            let count=0;
+            let count=1;
             resp[0].students.forEach((studentid)=>{
-              count++;
               Student.find({_id:studentid},(err,resp1)=>{
                 if(err){
                   console.log('cannot find students of this class in managestudents/:class:- '+err);
                   res.render("somethingWrong",{error:err})
                 }else{
                   students.push(resp1[0]);
+                  console.log(count+' '+resp[0].students.length);
                   if(count==resp[0].students.length){
                     res.render('manageClass',{name:sess.user_data.user.username,class_Data:resp[0],students_Data:students,role:'educator',hide_manage_students:false,org_name:sess.user_data.role_Data.org_name});
                   }
+                  count++;
                 }
               })
             })
@@ -1138,7 +1174,6 @@ app.post('/addingstudent/csv/:class',upload.single('xlsxfile'),(req,res)=>{
             let current_students=resp[0].students;
             let count=0;
             response.forEach((details)=>{
-              count++;
               let obj={
                 name:details.name,
                 email:details.email,
@@ -1168,8 +1203,8 @@ app.post('/addingstudent/csv/:class',upload.single('xlsxfile'),(req,res)=>{
                     }
                   })
                   current_students.push(resp1._id);
-                  console.log(count+' '+response.length)
-                  if(count==response.length){
+                  console.log(count+' '+response.length);
+                  if(count==response.length-1){
                     let classupdobj={
                       students:current_students,
                     }
@@ -1179,15 +1214,18 @@ app.post('/addingstudent/csv/:class',upload.single('xlsxfile'),(req,res)=>{
                         res.render("somethingWrong",{error:err})
                       }else{
                         fs.remove(req.file.path,(err)=>{
-                          if(err) 
-                          {console.log('Couldnt delete the file because:- '+err)
-                          res.render("somethingWrong",{error:err});}
-                          else{ console.log('Deleted!');}
+                          if(err){
+                            console.log('Couldnt delete the file because:- '+err)
+                            res.render("somethingWrong",{error:err});
+                          }else{ 
+                            console.log('Deleted!');
+                            res.redirect('/managestudents/'+req.params.class);                            
+                          }
                         })
-                        res.redirect('/managestudents/'+req.params.class);
                       }
                     })
                   }
+                  count++;
                 }
               })
             })
@@ -1889,20 +1927,20 @@ app.get('/myprojects',function(req,res){
       let first_letter=sess.user_data.user.username.split('');
       if(sess.user_data.user.Projects.length==0){
         if(sess.user_data.user.Role.is10DemProuser){
-          res.render('myprojects',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:'',role:'educator',projects:[]});
+          res.render('myprojects',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:'',role:'educator',projects:[],notifications:sess.user_data.user.notifications});
         }else if(sess.user_data.user.Role.isEducator){
-          res.render('myprojects',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:[]});
+          res.render('myprojects',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:[],notifications:sess.user_data.user.notifications});
         }else if(sess.user_data.user.Role.isNPOrg||sess.user_data.user.Role.isOrg){
-          res.render('myprojects',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org',projects:[]});
+          res.render('myprojects',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org',projects:[],notifications:sess.user_data.user.notifications});
         }else{
-          res.render('myprojects',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'',projects:[]});
+          res.render('myprojects',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'',projects:[],notifications:sess.user_data.user.notifications});
         }
       }
       else{
         sess.user_data.user.Projects.forEach(function(document_id){
           project.find({_id:document_id},function(err,resp){
             if(resp[0].status){
-              if(resp[0].start_date.valueOf()<resp[0].end_date.valueOf()){
+              if(resp[0].start_date.valueOf()<resp[0].end_date.valueOf()&&Date.now()<resp[0].end_date){
                 wholedata.push(resp[0]);
               }
             }
@@ -1911,13 +1949,13 @@ app.get('/myprojects',function(req,res){
             if(count==sess.user_data.user.Projects.length){
               console.log('All projects being sent to myprojects:- '+wholedata);
               if(sess.user_data.user.Role.is10DemProuser){
-                res.render('myprojects',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:'',role:'educator',projects:wholedata});
+                res.render('myprojects',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:'',role:'educator',projects:wholedata,notifications:sess.user_data.user.notifications});
               }else if(sess.user_data.user.Role.isEducator){
-                res.render('myprojects',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:wholedata});
+                res.render('myprojects',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:wholedata,notifications:sess.user_data.user.notifications});
               }else if(sess.user_data.user.Role.isNPOrg||sess.user_data.user.Role.isOrg){
-                res.render('myprojects',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org',projects:wholedata});
+                res.render('myprojects',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org',projects:wholedata,notifications:sess.user_data.user.notifications});
               }else{
-                res.render('myprojects',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'',projects:wholedata});
+                res.render('myprojects',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'',projects:wholedata,notifications:sess.user_data.user.notifications});
               }
             }
           })
@@ -1943,20 +1981,20 @@ app.get('/externalcollab',function(req,res){
       let first_letter=sess.user_data.user.username.split('');
       sess.user_data.user.Projects.forEach(function(document_id){
         project.find({_id:document_id},function(err,resp){
-          if(resp[0].collaboration[0]!=undefined){
+          if(resp[0].collaboration.length!=0){
             wholedata.push(resp[0]);
           }
           count+=1;
           if(count==sess.user_data.user.Projects.length){
             console.log('All projects being sent to myprojects:- '+wholedata);
             if(sess.user_data.user.Role.is10DemProuser){
-              res.render('externalcollaboration',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:'',role:'educator',ext_collb_proj:wholedata});
+              res.render('externalcollab',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:'',role:'educator',projects:wholedata,notifications:sess.user_data.user.notifications});
             }else if(sess.user_data.user.Role.isEducator){
-              res.render('externalcollaboration',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',ext_collb_proj:wholedata});
+              res.render('externalcollab',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:wholedata,notifications:sess.user_data.user.notifications});
             }else if(sess.user_data.user.Role.isNPOrg||sess.user_data.user.Role.isOrg){
-              res.render('externalcollaboration',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org',ext_collb_proj:wholedata});
+              res.render('externalcollab',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org',projects:wholedata,notifications:sess.user_data.user.notifications});
             }else{
-              res.render('externalcollaboration',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'',ext_collb_proj:wholedata});
+              res.render('externalcollab',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'',projects:wholedata,notifications:sess.user_data.user.notifications});
             }
           }
         })
@@ -1988,13 +2026,13 @@ app.get('/externalcollab',function(req,res){
           if(count==sess.user_data.user.Projects.length){
             console.log('All projects being sent to myprojects:- '+wholedata);
             if(sess.user_data.user.Role.is10DemProuser){
-              res.render('drafts',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:'',role:'educator',projects:wholedata});
+              res.render('drafts',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:'',role:'educator',projects:wholedata,notifications:sess.user_data.user.notifications});
             }else if(sess.user_data.user.Role.isEducator){
-              res.render('drafts',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:wholedata});
+              res.render('drafts',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:wholedata,notifications:sess.user_data.user.notifications});
             }else if(sess.user_data.user.Role.isNPOrg||sess.user_data.user.Role.isOrg){
-              res.render('drafts',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org',projects:wholedata});
+              res.render('drafts',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org',projects:wholedata,notifications:sess.user_data.user.notifications});
             }else{
-              res.render('drafts',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'',projects:wholedata});
+              res.render('drafts',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'',projects:wholedata,notifications:sess.user_data.user.notifications});
             }
           }
         })
@@ -2018,9 +2056,10 @@ app.get('/completed',function(req,res){
       let count=0;
       let first_letter=sess.user_data.user.username.split('');
       sess.user_data.user.Projects.forEach(function(document_id){
-        project.find({_id:document_id},function(err,resp){
+        project.find({_id:document_id},function(err,resp){          
           if(resp[0].status){
-            if(resp[0].start_date.valueOf()>resp[0].end_date.valueOf()){
+            if(Date.now()>resp[0].end_date){
+              console.log(resp[0]);
               wholedata.push(resp[0]);
             }
           }
@@ -2029,13 +2068,13 @@ app.get('/completed',function(req,res){
           if(count==sess.user_data.user.Projects.length){
             console.log('All projects being sent to myprojects:- '+wholedata);
             if(sess.user_data.user.Role.is10DemProuser){
-              res.render('completed',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:'',role:'educator',projects:wholedata});
+              res.render('completed',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:'',role:'educator',projects:wholedata,notifications:sess.user_data.user.notifications});
             }else if(sess.user_data.user.Role.isEducator){
-              res.render('completed',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:wholedata});
+              res.render('completed',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:wholedata,notifications:sess.user_data.user.notifications});
             }else if(sess.user_data.user.Role.isNPOrg||sess.user_data.user.Role.isOrg){
-              res.render('completed',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org',projects:wholedata});
+              res.render('completed',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org',projects:wholedata,notifications:sess.user_data.user.notifications});
             }else{
-              res.render('completed',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'',projects:wholedata});
+              res.render('completed',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'',projects:wholedata,notifications:sess.user_data.user.notifications});
             }
           }
         })
@@ -2619,7 +2658,7 @@ app.get('/sendinginvites/:createdby/:projectid',(req,res)=>{
                       }else{
                         console.log("Updated and count is:- "+count+" length:- "+resp.length);
                         if(count==resp.length-1){
-                          res.redirect('/home/');
+                          res.redirect('/externalcollab');
                         }
                         count++;                    
                       }
@@ -2677,6 +2716,52 @@ app.get('/sendinginvites/:createdby/:projectid',(req,res)=>{
   })
 })
 /*#################################
+  #####HANLDING POST INVITES#######
+  ################################# */
+app.post('/sendinginvites/user/:id',(req,res)=>{
+  if(sess.user_data==undefined){
+    res.redirect('/');
+  }else{
+    user.find({},(err,resp)=>{
+      if(err){
+        console.log("Can't find users because:- "+err);
+        res.render("somethingWrong",{error:err});
+      }else{
+        let obj={
+          message:req.body.message,
+          time:Date.now(),
+          user_id:sess.user_data.user._id,
+          project_id:req.params.projectid,
+        }
+        let count=0;
+        resp.forEach((peruser)=>{
+          if(peruser._id!=sess.user_data.user._id){
+            project.findOneAndUpdate({_id:req.params.id},{$push:{collaboration:{user_id:peruser._id}}},{new:true},(errorr,response)=>{
+              if(errorr){
+                console.log("Cannot find error:- "+errorr);
+                res.render("somethingWrong",{error:errorr});
+              }else{
+                user.findOneAndUpdate({_id:peruser._id},{$push:{notifications:obj}},{new:true},(erru,respu)=>{
+                  if(erru){
+                    console.log("Getting an error:- "+erru);
+                    res.render("somethingWrong",{error:erru});
+                  }else{
+                    console.log("Updated and count is:- "+count+" length:- "+resp.length);
+                    if(count==resp.length-1){
+                      res.redirect('/externalcollab');
+                    }
+                    count++;                    
+                  }
+                })
+              }
+            })
+          }
+        })
+      }
+    })
+  }
+})
+/*#################################
   #######Add 10 dem projects#######
   ################################# */
 app.get('/add10demproject/:id',(req,res)=>{
@@ -2698,63 +2783,6 @@ app.get('/add10demproject/:id',(req,res)=>{
   }).catch(()=>{
     res.render("noInternet");
   })
-})
-/*#################################
-  #########Sending Invites#########
-  ################################# */
-app.post('/sendinginvites',function(req,res){
-  if(sess.user_data==undefined){
-    res.redirect('/');
-  }else{
-    console.log('Incoming transmission:- '+util.inspect(req.body));
-    user.find({},function(err,resp){
-      if(err){
-        console.log('Inside sending invited cannot find users:- '+err);
-        res.render("somethingWrong",{error:err})
-      }else{
-        let collaborators=[];
-        for(let i=0;i<resp.length;i++){
-          console.log(resp[i]._id.equals(sess.user_data.user._id));
-          if(!resp[i]._id.equals(sess.user_data.user._id)){
-            let current_notifications=resp[i].notifications;
-            current_notifications.push({
-              message:req.body.message,
-              time:Date.now(),
-              user_id:sess.user_data.user._id,
-              project_id:project_id,
-            });
-            collaborators.push({
-              user_id:resp[i]._id
-            })
-            let notification_updates={
-              notifications:current_notifications,
-            };
-            user.findOneAndUpdate({_id:resp[i]._id},{$set:notification_updates},{new:true},function(err,respo){
-              if(err){
-                console.log('Error in finding and updating notifications:- '+err);
-                res.render("somethingWrong",{error:err})
-              }else{
-                console.log('done');
-              }
-            })
-          }
-        }
-        console.log('Current collabs with appending '+util.inspect(collaborators))
-        let collabs_to_be_updated={
-          collaboration:collaborators
-        }
-        project.findOneAndUpdate({_id:project_id},{$set:collabs_to_be_updated},{new:true},function(err,resp){
-          if(err){
-            console.log('Cannot update project after finding it:- ' + err);
-            res.render("somethingWrong",{error:err})
-          }else{
-            console.log('Collaboration added:- '+resp);
-            res.redirect('/externalcollab');
-          }
-        })
-      }
-    })
-  }
 })
 /*################################# 
   ##########MEMBERSHIPS############

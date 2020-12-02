@@ -590,13 +590,13 @@
                                     </div>
                                     
                                     <div class="col-lg-3">
-                                        <input class="input100 flatpickr" name="startDate" placeholder="<%=startdate%>">
+                                        <input class="input100 flatpickrsd" name="startDate" placeholder="<%=startdate%>">
                                     </div>
                                     <div class="col-lg-2">
                                         <h2 style="text-align: center;margin: 15px;">To</h2>
                                     </div>
                                     <div class="col-lg-3">
-                                        <input class="input100 flatpickr" name="endDate" placeholder="<%=enddate%>">
+                                        <input class="input100 flatpickred" name="endDate" placeholder="<%=enddate%>">
                                     </div>
                                     <div class="col-lg-4">
                 
@@ -621,7 +621,7 @@
                         
                             </div>
                             <div class="col-lg-2">
-                                <a class="skipPreview">Preview</a>
+                                
                             </div>
                             <div class="col-lg-3">
                                 <button class="btn savebutton" style="margin: 40px 0;" type="button" data-toggle="modal" data-target="#exampleModalCenter4">Collaborate</button>
@@ -709,7 +709,7 @@
 
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModalCenter4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <form action="/sendinginvites" method="POST">
+                <form action="/sendinginvites/user/<%=projectidforurl%>" method="POST">
                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     
                     <div class="modal-content" style="padding: 0;">
@@ -908,9 +908,12 @@
         <!-- DatePicker -->
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
         <script>
-            $('.flatpickr').flatpickr({
-                
+            $('.flatpickrsd').flatpickr({
+                minDate:"today",
             });
+            $('.flatpickred').flatpickr({
+                minDate:new Date().fp_incr(1),
+            })
         </script>
 
     </body>
