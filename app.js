@@ -627,6 +627,13 @@ app.get('/home/',async function(req,res){
       console.log('file rendered');
     } */
 })
+app.get('/conversations',(req,res)=>{
+  if(sess.user_data==undefined){
+    res.redirect('/');
+  }else{
+    res.render('conversation');
+  }
+})
 /*################################
   ######SUPER ADMIN DASHBOARD#####
   ################################ */
@@ -2315,7 +2322,8 @@ app.post('/addproject/:id',upload.array('attachedfiles',5),function(req,res){
         console.log(project)
         var users = sess.user_data.user
         if(users.Role.is10DemProuser==false&&users.Role.isEducator==false&&users.Role.isNPOrg==false&&users.Role.isOrg==false){
-          res.render("projectoverview2",{project:project})
+          let first_letter=sess.user_data.user.username.split('');
+            res.render('projectoverview2',{project:project,name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'none'});
         }
         else if(users.Role.is10DemProuser==true||users.Role.isEducator==true ||users.Role.isNPOrg==true||users.Role.isOrg==true){
           var classData =[]
@@ -2323,7 +2331,19 @@ app.post('/addproject/:id',upload.array('attachedfiles',5),function(req,res){
             const data = await classes.findOne({_id:i})
             classData.push(data)
           }
-          res.render("ProjectOverviewpage",{project:project,classes:classData})
+          if(sess.user_data.user.Role.is10DemProuser==true){
+            let first_letter=sess.user_data.user.username.split('');
+            res.render('ProjectOverviewpage',{project:project,classes:classData,name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator'});
+          }else if(sess.user_data.role_Data.org_name!=''){
+            console.log(sess.user_data.role_Data.org_name);
+            let first_letter=sess.user_data.user.username.split('');
+            if(sess.user_data.user.Role.isEducator==true){
+              res.render('ProjectOverviewpage',{project:project,classes:classData,name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator'});
+            }
+            else{
+              res.render('ProjectOverviewpage',{project:project,classes:classData,name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org'});
+            }
+          }
         }
       }
     })

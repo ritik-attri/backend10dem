@@ -131,7 +131,7 @@
                         <a href="#"><box-icon class="bx-fw" name='folder' ></box-icon>    My Folders</a>
                     </li> -->
                     <li>
-                        <a href="#"><box-icon class="bx-fw" name='chat' ></box-icon> Conversations&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        <a href="/conversations"><box-icon class="bx-fw" name='chat' ></box-icon> Conversations&nbsp;&nbsp;&nbsp;&nbsp;</a>
                     </li>
                     <li>
                     <%if(role=='educator'){%>
@@ -168,9 +168,6 @@
             <!-- Page Content  -->
             <div id="content" class="container">
 
-                <button type="button" id="sidebarCollapse" class="btn sidebutton">
-                    <i id="collapse-icon" class="fas fa-angle-left" style="font-size: 60px;"></i>
-                </button>
                 
                 <a href="#" class="float">
                     <img src="/public/img/help.svg" class="my-float" style="width: 30px;height: 30px;" alt="">
@@ -537,13 +534,13 @@
                                     <div class="col-lg-1">
 
                                     </div>
-                                    <div class="col-lg-10" id="ssidp" style="display:inline;">
+                                    <div class="col-lg-10" id="ssidp" style="display:inline;margin-left: 0.5%;">
                                         <textarea name="sdp" id="sidp" class="textinput100" placeholder="Write your second introductory discussion points........." type="text" style="margin-left: 6.3rem;height: 100px;margin-bottom: 10px;display:block;"><%=secondidp%></textarea>
                                     </div>
                                     <div class="col-lg-1">
 
                                     </div>
-                                    <div class="col-lg-10" id="ttidp" style="display:inline;">
+                                    <div class="col-lg-10" id="ttidp" style="display:inline;margin-left: 0.5%;">
                                         <textarea name="tdp" id="tidp" class="textinput100" placeholder="Write your third introductory discussion points........." type="text" style="margin-left: 6.3rem;height: 100px;margin-bottom: 10px;display:block;"><%=thirdidp%></textarea>
                                     </div>
                                 </div>
@@ -554,7 +551,7 @@
 
                             </div>
                             
-                            <div class="col-lg-10">
+                            <div class="col-lg-10" style="margin-left: -0.8%;">
                                 
                                 <h2>Details and Activity</h2>
                             
@@ -649,7 +646,7 @@
                             </div>
                             <div class="col-lg-3">
                                 
-                                <button class="btn savebutton" style="margin: 40px 0;float: left;" type="submit">Submit</button> 
+                                <button class="btn savebutton" style="margin: 40px 0;float: left;" type="submit">Save changes</button> 
                                 
                             </div>
                             <div class="col-lg-2">
