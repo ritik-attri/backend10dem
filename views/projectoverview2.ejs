@@ -9,13 +9,13 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
         
         <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
-        <link rel="stylesheet" href="/public/lib/owlcarousel/assets/owl.carousel.min.css">
-        <link rel="stylesheet" href="/public/lib/owlcarousel/assets/owl.theme.default.min.css">
+        <link rel="stylesheet" href="lib/owlcarousel/assets/owl.carousel.min.css">
+        <link rel="stylesheet" href="lib/owlcarousel/assets/owl.theme.default.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 
-        <link rel="stylesheet" href="/public/css/index.css">
-        <link rel="stylesheet" href="/public/css/assignmentoverview.css">
+        <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/assignmentoverview.css">
         <style>
             #drop-area {
                 width: 100%;
@@ -81,12 +81,14 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/home/">Home</a>
+                        <a class="nav-link" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/myprojects">Ongoing Project</a>
+                        <a class="nav-link" href="#">Ongoing Project</a>
                     </li>
-                    <%if(hide_manage_students==true){%>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Resources</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Membership
@@ -130,7 +132,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#"><i class="fas fa-crown" style="color: rgb(233, 233, 3);padding-right: 10px;"></i>Try 10dem pro</a>
                     </li>
-                    <%}%>
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <!-- <li class="nav-item">
@@ -140,16 +141,15 @@
                         <a class="nav-link btn-primary"  style="border-radius: 5px;" href="#"><i class="fas fa-plus" style="color: rgb(255, 255, 255);"></i>  Create Project</a>
                     </li> -->
                     <li class="nav-item">
-                        <a class="nav-link btn-primary" id="login" href="#"><%=firstletter%></a>
+                        <a class="nav-link btn-primary" id="login" href="#">S</a>
                     </li>
                     <li class="nav-item dropdown" style="margin-left: -30px;">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
                         <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <%if(role=='org'){%>
-                                <li><a href="/orgprofile/profile">My profile</a></li>
-                            <%}%>
+                            <a class="dropdown-item" href="#">My Profile</a>
+                            <a class="dropdown-item" href="#">Dashboard</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="/">Logout</a>
+                            <a class="dropdown-item" href="#">Logout</a>
                         </div>
                     </li>
                 </ul>
@@ -161,63 +161,36 @@
             <!-- Sidebar  -->
             <nav id="sidebar">
                 <div class="sidebar-header">
-                    <img src="/public/img/10-dem@2x.png" alt="">
+                    <img src="img/logo.jpeg" alt="">
                 </div>
-
-                <button type="button" id="sidebarCollapse" class="btn bg-light sidebutton">
-                    <i id="collapse-icon" class="fas fa-angle-left" style="font-size: 50px;"></i>
-                </button>
 
                 <ul class="list-unstyled components">
                     <li>
-                        <a href="/myprojects"><box-icon class="bx-fw" name="file"></box-icon> My Projects&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        <a href="#"><box-icon class="bx-fw" name="laptop"></box-icon>  My Projects</a>
                     </li>
                     <li>
-                        <a href="/bookmarks"><box-icon class="bx-fw" name='bookmarks'></box-icon> Bookmarks&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                    </li>
-                    <!-- <li>
-                        <a href="#"><box-icon class="bx-fw" name='folder' ></box-icon>    My Folders</a>
-                    </li> -->
-                    <li>
-                        <a href="/conversations"><box-icon class="bx-fw" name='chat' ></box-icon> Conversations&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        <a href="#"><box-icon class="bx-fw" name='bookmark'></box-icon>  Bookmarks</a>
                     </li>
                     <li>
-                    <%if(role=='educator'){%>
-                    <li>
-                        <a href="/educatordashboard"><box-icon class="bx-fw" name='user-circle' ></box-icon> Manage Students&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        <a href="#"><box-icon class="bx-fw" name='folder' ></box-icon>  My Folders</a>
                     </li>
-                    <%}else if(role=='org'){%>
-                        <li>
-                            <a href="/orgdashboard"><box-icon class="bx-fw" name='user-circle' ></box-icon> Manage Org&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                        </li>
-                    <%}else{%>
-
-                    <%}%>
-                    <%if(org_name!=''){%>
-                        <li>
-                            <a href="/orgDetails"><box-icon class="bx-fw" name='book-reader'></box-icon><%=org_name%></a>
-                        </li>
-                        <%}%>
+                    <li>
+                        <a href="#"><box-icon class="bx-fw" name='user-check' ></box-icon>  Manage Students</a>
+                    </li>
                 </ul>
-                    <!--<li>
-                        <a href="#"><box-icon class="bx-fw" name='book-reader'></box-icon> ABC Organization&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                    </li>-->
-                </ul>
-
-                <div class="learnMore">
-                    <img src="/public/img/explore.svg">
-                    <p>Hello John <br/> Explore <span style="color: #FD585C;cursor: pointer;">Pro account</span> with Premium features.</p>
-                    <button class="btn">Learn more</button>
-                </div>
-
             </nav>
             
 
             <!-- Page Content  -->
             <div id="content" class="container">
                 
+
+                <button type="button" id="sidebarCollapse" class="btn bg-light sidebutton">
+                    <i id="collapse-icon" class="fas fa-angle-left" style="font-size: 60px;"></i>
+                </button>
+                
                 <a href="#" class="float">
-                    <img src="/public/img/help.svg" class="my-float" style="width: 30px;height: 30px;" alt="">
+                    <img src="img/help.svg" class="my-float" style="width: 30px;height: 30px;" alt="">
                 </a>
 
 
@@ -225,7 +198,7 @@
                 <div style="margin-left: 8%;">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                          <li class="breadcrumb-item"><a href="/home/">Home</a></li>
+                          <li class="breadcrumb-item"><a href="#">Home</a></li>
                           <li class="breadcrumb-item"><a href="#">Physics</a></li>
                           <li class="breadcrumb-item active" aria-current="page">Fundamental of Design</li>
                         </ol>
@@ -249,7 +222,7 @@
                             
                                 <div style="height: 70px;"></div>
 
-                                <h1><%project.title%></h1>
+                                <h1>Fundamental of Design</h1>
                                 <div class="row">
                                     <div class="col-lg-11">
                                         <p class="keywords">Art&nbsp;&nbsp;|&nbsp;&nbsp;Color Theory&nbsp;&nbsp;|&nbsp;&nbsp;Asthetics</p>
@@ -270,27 +243,29 @@
                                         <p class="keywords" style="text-align: right;padding-right: 0;color: #FD585C"><a href="#" data-toggle="modal" data-target="#exampleModalCenter1">Assign to class</a></p>
                                     </div>
                                     <div class="col-lg-1">
-                                        <div class="symbol" style="margin-top: 10px;"><img src="/public/img/assign.svg"></div>
+                                        <div class="symbol" style="margin-top: 10px;"><img src="img/assign.svg"></div>
                                     </div> -->
                                     <div class="col-lg-4">
                                         <button class="btn expressInterest" data-toggle="modal" data-target="#exampleModalCenter3">
-                                            <img src="/public/img/favorite.svg">      Express Interest
+                                            <img src="img/favorite.svg">      Express Interest
                                         </button>
                                         <!-- <p style="color: #FD585C;font-weight: 600;float: right;letter-spacing: 1.96px;">Request Sent</p> -->
                                     </div>
                                 </div>
-                                <p class="keywords" style="padding: 0;"><%=project.subject%></p>
+                                <p class="keywords" style="padding: 0;">Design&nbsp;&nbsp;|&nbsp;&nbsp;Fundamental Theory&nbsp;&nbsp;|&nbsp;&nbsp;Human Computer Interaction</p>
 
 
                                 <h3>Grade</h3>
                                 <div style="margin: 40px 0;">
-                                    <a class="grades"><%=project.grade%></a>
+                                    <a class="grades">7-8 grade</a>
+                                    <a class="grades">8-9 grade</a>
+                                    <a class="grades">9-10 grade</a>
                                 </div>
                                
 
                                 <h3>Overview</h3>
                                 <p id="innerpara">
-                                    <%=project.summary%>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore eeut tedolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco labo nisi ut aliquip ext ea commodo consequat. Duis aute irure dolor inreprehenderit in fugia voluptate velit esse cillum dolore eu fugiat nulla pariatur dolor inreprehenderit in fugia ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud reeer exercitation ullamco labo nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor inreprehenderitr
                                 </p>
 
 
@@ -298,13 +273,13 @@
 
                                     <h3>Learning Outcome</h3>
                                     <p id="innerpara">
-                                        <%=project.learningOutcome%>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore etee dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco labo nisi ut aliquip ex ea commodo consequat. Duis
                                     </p>
 
 
-                                    <h3>Key Contribution</h3>
+                                    <h3>Key Contribution (Community & Planet)</h3>
                                     <p id="innerpara">
-                                        <%=project.keyContribution%>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore eteee dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco labo nisi ut aliquip ex eatt commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiatrrr tynulla pariatur uis nostrud exercitation ullamco labo nisi ut aliquip ex ea commodo consequat.
                                     </p>
 
 
@@ -345,7 +320,7 @@
                                                 </div>
                                                 <div class="col-lg-1">
                                                     <div style="text-align: center;margin-top: 20px;">
-                                                        <img src="/public/img/attachment.svg" alt="">
+                                                        <img src="img/attachment.svg" alt="">
                                                     </div>
                                                 </div>                                          
                                                 <div class="col-lg-3">
@@ -353,14 +328,14 @@
                                                     <div style="margin: 10px;">
                                                         <div class="row document">
                                                             <div class="col-lg-11 p-0 d-flex justify-content-left">
-                                                                <img src="/public/img/doc.png" style="height: 40px;width: 40px;margin-right: 10px;">
+                                                                <img src="img/doc.png" style="height: 40px;width: 40px;margin-right: 10px;">
                                                                 <div>
                                                                     <p class="filename">Work plan.docx</p>
                                                                     <p class="filesize">2 MB</p>
                                                                 </div> 
                                                             </div>
                                                             <div class="col-lg-1 p-0">
-                                                                <img src="/public/img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
+                                                                <img src="img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -370,14 +345,14 @@
                                                     <div style="margin: 10px;">
                                                         <div class="row document">
                                                             <div class="col-lg-11 p-0 d-flex justify-content-left">
-                                                                <img src="/public/img/image.svg" style="height: 40px;width: 40px;margin-right: 10px;">
+                                                                <img src="img/image.svg" style="height: 40px;width: 40px;margin-right: 10px;">
                                                                 <div>
                                                                     <p class="filename">Work plan.docx</p>
                                                                     <p class="filesize">2 MB</p>
                                                                 </div> 
                                                             </div>
                                                             <div class="col-lg-1 p-0">
-                                                                <img src="/public/img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
+                                                                <img src="img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -386,14 +361,14 @@
                                                     <div style="margin: 10px;">
                                                         <div class="row document">
                                                             <div class="col-lg-11 p-0 d-flex justify-content-left">
-                                                                <img src="/public/img/doc.png" style="height: 40px;width: 40px;margin-right: 10px;">
+                                                                <img src="img/doc.png" style="height: 40px;width: 40px;margin-right: 10px;">
                                                                 <div>
                                                                     <p class="filename">Work plan.docx</p>
                                                                     <p class="filesize">2 MB</p>
                                                                 </div> 
                                                             </div>
                                                             <div class="col-lg-1 p-0">
-                                                                <img src="/public/img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
+                                                                <img src="img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -417,21 +392,21 @@
                                                 </div>
                                                 <div class="col-lg-1">
                                                     <div style="text-align: center;margin-top: 20px;">
-                                                        <img src="/public/img/attachment.svg" alt="">
+                                                        <img src="img/attachment.svg" alt="">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <div style="margin: 10px;">
                                                         <div class="row document">
                                                             <div class="col-lg-11 p-0 d-flex justify-content-left">
-                                                                <img src="/public/img/pdf.png" style="height: 40px;width: 40px;margin-right: 10px;">
+                                                                <img src="img/pdf.png" style="height: 40px;width: 40px;margin-right: 10px;">
                                                                 <div>
                                                                     <p class="filename">Work plan.docx</p>
                                                                     <p class="filesize">2 MB</p>
                                                                 </div> 
                                                             </div>
                                                             <div class="col-lg-1 p-0">
-                                                                <img src="/public/img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
+                                                                <img src="img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -440,14 +415,14 @@
                                                     <div style="margin: 10px;">
                                                         <div class="row document">
                                                             <div class="col-lg-11 p-0 d-flex justify-content-left">
-                                                                <img src="/public/img/doc.png" style="height: 40px;width: 40px;margin-right: 10px;">
+                                                                <img src="img/doc.png" style="height: 40px;width: 40px;margin-right: 10px;">
                                                                 <div>
                                                                     <p class="filename">Work plan.docx</p>
                                                                     <p class="filesize">2 MB</p>
                                                                 </div> 
                                                             </div>
                                                             <div class="col-lg-1 p-0">
-                                                                <img src="/public/img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
+                                                                <img src="img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -470,21 +445,21 @@
                                                 </div>
                                                 <div class="col-lg-1">
                                                     <div style="text-align: center;margin-top: 20px;">
-                                                        <img src="/public/img/attachment.svg" alt="">
+                                                        <img src="img/attachment.svg" alt="">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <div style="margin: 10px;">
                                                         <div class="row document">
                                                             <div class="col-lg-11 p-0 d-flex justify-content-left">
-                                                                <img src="/public/img/image.svg" style="height: 40px;width: 40px;margin-right: 10px;">
+                                                                <img src="img/image.svg" style="height: 40px;width: 40px;margin-right: 10px;">
                                                                 <div>
                                                                     <p class="filename">Work plan.docx</p>
                                                                     <p class="filesize">2 MB</p>
                                                                 </div> 
                                                             </div>
                                                             <div class="col-lg-1 p-0">
-                                                                <img src="/public/img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
+                                                                <img src="img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
                                                             </div>
                                                         </div>
                                                     </div> 
@@ -493,14 +468,14 @@
                                                     <div style="margin: 10px;">
                                                         <div class="row document">
                                                             <div class="col-lg-11 p-0 d-flex justify-content-left">
-                                                                <img src="/public/img/doc.png" style="height: 40px;width: 40px;margin-right: 10px;">
+                                                                <img src="img/doc.png" style="height: 40px;width: 40px;margin-right: 10px;">
                                                                 <div>
                                                                     <p class="filename">Work plan.docx</p>
                                                                     <p class="filesize">2 MB</p>
                                                                 </div> 
                                                             </div>
                                                             <div class="col-lg-1 p-0">
-                                                                <img src="/public/img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
+                                                                <img src="img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -516,7 +491,7 @@
                                     <h3>Add Additional Information</h3>
                                     <hr style="border: 2px solid #FFDB64;">
 
-                                    <h3 style="font-family: ProductB;"><img src="/public/img/pin3.svg" style="padding: 15px;background: #FFF8DD 0% 0% no-repeat padding-box;border-radius: 50%;">&nbsp;&nbsp;&nbsp;&nbsp;Attach your files</h3>
+                                    <h3 style="font-family: ProductB;"><img src="img/pin3.svg" style="padding: 15px;background: #FFF8DD 0% 0% no-repeat padding-box;border-radius: 50%;">&nbsp;&nbsp;&nbsp;&nbsp;Attach your files</h3>
                                     <div class="row">
                                         <!-- module -->
                                         <div class="col-lg-1">
@@ -525,7 +500,7 @@
                                         <div class="col-lg-11" style="padding: 0;padding-right: 15px;padding-left: 10px;">
                                             <div id="drop-area">
                                                 <form class="my-form">
-                                                    <img src="/public/img/upload.svg">
+                                                    <img src="img/upload.svg">
                                                     <p style="margin: 0;color: #272727;">Drag file to upload</p>
                                                     <p style="margin: 0;">Or</p>
                                                     <input type="file" id="fileElem" multiple accept=".doc,.docx,.xls,.xlsx,.csv,.ppt,.pptx,.pdf,.png,.jpeg,.jpg" onchange="handleFiles(this.files)">
@@ -537,7 +512,7 @@
                                         
                                     </div>
 
-                                    <h3 style="font-family: ProductB;"><img src="/public/img/comment.svg" style="padding: 15px;background: #E3EFFF 0% 0% no-repeat padding-box;border-radius: 50%;">&nbsp;&nbsp;&nbsp;&nbsp;Add Your comment</h3>
+                                    <h3 style="font-family: ProductB;"><img src="img/comment.svg" style="padding: 15px;background: #E3EFFF 0% 0% no-repeat padding-box;border-radius: 50%;">&nbsp;&nbsp;&nbsp;&nbsp;Add Your comment</h3>
                                     <div style="height: 80px;margin-left: 40px;background: #F7F6F3 0% 0% no-repeat padding-box;border-radius: 10px;">
                                         <p style="margin-left: 60px;color: #03293D;line-height: 1em;padding-top: 15px;">Mrs. Neeti</p>
                                         <p style="margin-left: 60px;color: #ccccFF;line-height: 1em;padding-bottom: 15px;">Lorem ipsum</p>
@@ -561,7 +536,7 @@
                                         </div>
                                         <div class="col-lg-11">
                                             <div style="text-align: center;">
-                                                <button class="classAssign" data-toggle="modal" data-target="#exampleModalCenter2"><img src="/public/img/assign.svg">&nbsp;Assign To Class</button>
+                                                <button class="classAssign" data-toggle="modal" data-target="#exampleModalCenter2"><img src="img/assign.svg">&nbsp;Assign To Class</button>
                                             </div>
                                         </div>
                                         <!-- module -->
@@ -689,13 +664,13 @@
                             </button>
                         </div>
                         <div class="modal-body" style="text-align: center;">
-                            <img src="/public/img/assignProject.png">
+                            <img src="img/assignProject.png">
                             <p class="m1">Empty Class</p>
                             <p class="m2">Looks like you haven't made your student list yet...</p>
                             <p class="m3">Let's add students list now</p>
                         </div>
                         <div class="modal-footer" style="justify-content: center;">
-                            <button type="button" id="assigned" data-dismiss="modal" class="btn modalbutton1" style="border-radius: 50%;height: 60px;width: 60px;"><img src="/public/img/arrow.svg"></button>
+                            <button type="button" id="assigned" data-dismiss="modal" class="btn modalbutton1" style="border-radius: 50%;height: 60px;width: 60px;"><img src="img/arrow.svg"></button>
                         </div>
                     </div>
                     </div>
@@ -712,7 +687,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div class="symbol"><img src="/public/img/person_circle.svg" style="width: 80px;height: 80px;border-radius: 50%;position: relative;bottom: 30px;right: 7px;"></div>
+                            <div class="symbol"><img src="img/person_circle.svg" style="width: 80px;height: 80px;border-radius: 50%;position: relative;bottom: 30px;right: 7px;"></div>
                             <h4 class="cm1">John Doe</h4>
                             <p class="cm2">Invited you to collaborate</p>
                             <hr style="border: 1px solid #FFDB64;">
@@ -722,7 +697,7 @@
                             <p class="cm3">John Doe</p>
                         </div>
                         <div class="modal-footer" style="justify-content: center;">
-                            <button type="button" id="assigned" data-dismiss="modal" class="btn view"><span style="position: relative;top: 2px;">&nbsp;&nbsp;&nbsp;View Project&nbsp;&nbsp;&nbsp;</span><img src="/public/img/blackarrow.svg" style="width: 30px;height: 30px;background: white;border-radius: 50%;"></button>
+                            <button type="button" id="assigned" data-dismiss="modal" class="btn view"><span style="position: relative;top: 2px;">&nbsp;&nbsp;&nbsp;View Project&nbsp;&nbsp;&nbsp;</span><img src="img/blackarrow.svg" style="width: 30px;height: 30px;background: white;border-radius: 50%;"></button>
                         </div>
                     </div>
                     </div>
@@ -740,7 +715,7 @@
                         <div class="owl-carousel testimonials-carousel owl-theme">
             
                             <div class="testimonial-item">
-                                <img src="/public/img/download.jpeg" class="testimonial-img" alt="">
+                                <img src="img/download.jpeg" class="testimonial-img" alt="">
                                 <h3>Project 1</h3>
                                 <p>Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
                                 <p id="innerp">
@@ -750,7 +725,7 @@
                             </div>
 
                             <div class="testimonial-item">
-                                <img src="/public/img/download.jpeg" class="testimonial-img" alt="">
+                                <img src="img/download.jpeg" class="testimonial-img" alt="">
                                 <h3>Project 2</h3>
                                 <p>Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
                                 <p id="innerp">
@@ -761,7 +736,7 @@
                             </div>
 
                             <div class="testimonial-item">
-                                <img src="/public/img/download.jpeg" class="testimonial-img" alt="">
+                                <img src="img/download.jpeg" class="testimonial-img" alt="">
                                 <h3>Project 3</h3>
                                 <p>Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
                                 <p id="innerp">
@@ -771,7 +746,7 @@
                             </div>
 
                             <div class="testimonial-item">
-                                <img src="/public/img/download.jpeg" class="testimonial-img" alt="">
+                                <img src="img/download.jpeg" class="testimonial-img" alt="">
                                 <h3>Project 4</h3>
                                 <p>Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
                                 <p id="innerp">
@@ -781,7 +756,7 @@
                             </div>
 
                             <div class="testimonial-item">
-                                <img src="/public/img/download.jpeg" class="testimonial-img" alt="">
+                                <img src="img/download.jpeg" class="testimonial-img" alt="">
                                 <h3>Project 5</h3>
                                 <p>Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
                                 <p id="innerp">
@@ -791,7 +766,7 @@
                             </div>
 
                             <div class="testimonial-item">
-                                <img src="/public/img/download.jpeg" class="testimonial-img" alt="">
+                                <img src="img/download.jpeg" class="testimonial-img" alt="">
                                 <h3>Project 6</h3>
                                 <p>Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
                                 <p id="innerp">
@@ -818,7 +793,7 @@
         <div class="toast" id="myToast" data-delay="3000">
             <div class="toast-body d-flex justify-content-left">
                 <div class="toastSymbol">
-                    <img src="/public/img/done.svg">
+                    <img src="img/done.svg">
                 </div>
                 <div class="toastText">
                     Assigned Successfully to Class 8A
@@ -843,7 +818,7 @@
         <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
         <script src="https://kit.fontawesome.com/6f24662773.js" crossorigin="anonymous"></script>
 
-        <script src="/public/js/index.js"></script>
+        <script src="js/index.js"></script>
         <script>
             let dropArea = document.getElementById('drop-area')
 
@@ -911,37 +886,37 @@
                 var src;
                 switch (file.type) {
                     case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
-                        src = '/public/img/doc.png'
+                        src = 'img/doc.png'
                         break;
                     case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
-                        src = '/public/img/doc.png'
+                        src = 'img/doc.png'
                         break;
                     case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-                        src = '/public/img/doc.png'
+                        src = 'img/doc.png'
                         break;
                     case 'application/msword':
-                        src = '/public/img/doc.png'
+                        src = 'img/doc.png'
                         break;
                     case 'application/vnd.ms-excel':
-                        src = '/public/img/doc.png'
+                        src = 'img/doc.png'
                         break; 
                     case 'application/vnd.ms-powerpoint':
-                        src = '/public/img/doc.png'
+                        src = 'img/doc.png'
                         break;
                     case 'text/csv':
-                        src = '/public/img/doc.png'
+                        src = 'img/doc.png'
                         break;
                     case 'application/pdf':
-                        src = '/public/img/pdf.png'
+                        src = 'img/pdf.png'
                         break;
                     case 'image/jpg':
-                        src = '/public/img/image.svg'
+                        src = 'img/image.svg'
                         break;
                     case 'image/png':
-                        src = '/public/img/image.svg'
+                        src = 'img/image.svg'
                         break;
                     case 'image/jpeg':
-                        src = '/public/img/image.svg'
+                        src = 'img/image.svg'
                         break;  
                 }
 
@@ -959,10 +934,10 @@
                                 </div>
                             </div>
                             <div class="col-lg-1 p-0">
-                                <img src="/public/img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 15px;">
+                                <img src="img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 15px;">
                             </div>
                             <div class="col-lg-1 p-0">
-                                <img src="/public/img/close.svg" style="height: 15px;width: 15px;margin-bottom: 8px;margin-left: 3px;">
+                                <img src="img/close.svg" style="height: 15px;width: 15px;margin-bottom: 8px;margin-left: 3px;">
                             </div>
                         </div>
                     </div> 
@@ -971,7 +946,7 @@
 
             }
         </script>
-        <script src="/public/js/build/ckeditor.js"></script>
+        <script src="js/build/ckeditor.js"></script>
         <script>ClassicEditor
 			.create( document.querySelector( '#editor' ), {
 				

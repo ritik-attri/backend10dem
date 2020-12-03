@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const submittedProjects = require('./Submittedactivities')
 const userSchema = Schema({
     username:{
         type: String,
@@ -64,7 +65,10 @@ const userSchema = Schema({
         user_id:String,
         project_id:String
     }],
-    
+    assigned_projects:[{
+        type:Object
+    }],
+    submitted_activities:[{ type: mongoose.Schema.ObjectId, ref: 'submitted' }]
 });
 
 

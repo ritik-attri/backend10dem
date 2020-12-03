@@ -287,25 +287,179 @@ app.get('/student-Login',(req,res)=>{
   })
 })
 /*#######################################
-  #######Handling Student Login##########
-  ####################################### */
+#######Handling Student Login##########
+####################################### */
 app.post('/student-Credentials',function(req,res){
-  console.log(req.body);
-  Student.find({email:req.body.email,password:req.body.pass},(err,resp)=>{
+console.log(req.body);
+Student.find(
+  { email: req.body.email, password: req.body.pass },
+  (err, resp) => {
     console.log(resp[0]);
-    if(err||resp[0]==undefined){
-      res.redirect('/student-login');
-    }else{
-      sess.req=session;
-      sess.user_data={user:resp[0]};
-      if(sess.user_data.user==undefined){
-        res.redirect('/student-Login');
-      }else{
-        res.render('studentdashboard',{student_Data:resp[0]});
+    if (err || resp[0] == undefined) {
+      res.redirect("/student-login");
+    } else {
+      sess.req = session;
+      sess.user_data = { user: resp[0] };
+      if (sess.user_data.user == undefined) {
+        res.redirect("/student-Login");
+      } else {
+        // res.render("studentdashboard", { student_Data: resp[0] });
+        res.redirect("/student-dashboard")
       }
+    }
+  }
+);
+});
+
+/*####################################### 
+  #########Student Project submission########
+  #######################################*/
+
+  app.post("/submit-activity/:id",upload.array("attachedfiles",3),(req,res)=>{
+    internetConnected().then(async ()=>{
+      if (sess.user_data == undefined) {
+        res.redirect("/");
+      } else {
+        var files = []
+        for(i of req.files){
+        files.push(i.path)
+      }
+      var params = req.params.id.split('&')
+      var activity_number = params[0]
+      var activity_id = params[2]
+      var id= params[1]
+      for(i of sess.user_data.user.projects_assigned){
+        if(i._id == id){
+          console.log(i);
+          var project_id = i.project_id
+          var teacher_id=i.by
+        }
+      }
+      const projectData = await superadminProject.findOne({_id:project_id})
+      const data = await submitted.findOne({project_id:project_id})
+      console.log(data);
+      console.log(activity_number);
+      if(data){
+        var activities= {
+          activity_number:activity_number,
+          attached_files:files,
+          comments:req.body.comment
+        }
+        submitted.updateOne({project_id:project_id},{$push:{activities:activities}}).then(async (result)=>{
+         var query = {projects_assigned:{$elemMatch:{_id:id}},"projects_assigned.activities":{$elemMatch:{activity_number:activity_number}}}
+          var updation = await Student.update(query,{$set:{"projects_assigned.$[outer].activities.$[inner].status":true}},{"arrayFilters":[{'outer._id':id},{'inner.activity_number':activity_number}]})
+          console.log(updation);
+          var submittedData =await submitted.findOne({project_id:project_id})
+          console.log(submittedData.activities.length);
+          if(submittedData.activities.length>=projectData.activity.length){
+            var query2 = {projects_assigned:{$elemMatch:{_id:id}}}
+            var updation2 = await Student.update(query2,{$set:{"projects_assigned.$[outer].status":true}},{"arrayFilters":[{'outer._id':id}]})
+            console.log("second updation",updation2);
+          }
+          res.redirect("/student-dashboard")
+
+        })
+      }else{
+        var obj = new submitted({
+          project_id:project_id,
+          by:sess.user_data.user._id,
+          activities:{
+            activity_number:activity_number,
+            attached_files:files,
+            comments:req.body.comment
+          },
+          to:teacher_id
+        })
+        obj.save().then(async result=>{
+          await Student.update({_id:sess.user_data.user._id},{$push:{submitted_activities:result._id}})
+          await user.update({_id:teacher_id},{$push:{submitted_activities:result._id}})
+          var query = {projects_assigned:{$elemMatch:{_id:id}},"projects_assigned.activities":{$elemMatch:{activity_number:activity_number}}}
+          var updation = await Student.update(query,{$set:{"projects_assigned.$[outer].activities.$[inner].status":true}},{"arrayFilters":[{'outer._id':id},{'inner.activity_number':activity_number}]})
+          console.log(updation);
+          res.redirect("/student-dashboard")
+          // var submittedData =await submitted.findOne({project_id:project_id})
+          // console.log(submittedData.activities.length);
+          
+
+        }).catch((err)=>{
+          console.log(err);
+        })
+      }
+      }
+    })
+  })
+
+/*#######################################
+  ####### Student Dashboard #############
+  ####################################### */
+
+  app.get("/student-dashboard",(req,res)=>{
+    internetConnected().then(async ()=>{
+      if (sess.user_data == undefined) {
+        res.redirect("/student-login");
+      } else {
+        console.log("Student projects", sess.user_data.user.projects_assigned);
+        const projects = sess.user_data.user.projects_assigned
+        const studentProjects= []
+        var projectData;
+        for(i of projects){
+          console.log(i.activities);
+          var data = await superadminProject.findOne({_id:i.project_id})
+          projectData = {
+            activities: i.activities,
+            project: data,
+            status: i.status,
+            id:i._id
+          }
+          studentProjects.push(projectData)
+        }
+        
+        console.log(studentProjects);
+        res.render("studentdashboard",{student_Data:sess.user_data.user,projects:studentProjects});
+      }
+    }).catch(()=>{
+      res.render("noInternet")
+    })
+}) 
+
+/*####################################### 
+  #########Student Project submission########
+  #######################################*/
+
+app.get("/view-project/:id",(req,res)=>{
+  internetConnected().then(async ()=>{
+    if (sess.user_data == undefined) {
+      res.redirect("/");
+    } else {
+      console.log(sess.user_data.user.projects_assigned);
+      for(i of sess.user_data.user.projects_assigned){
+        if(i._id == req.params.id){
+          var id = req.params.id
+          var project = await superadminProject.findOne({_id:i.project_id})
+          var teacher = await user.findOne({_id:i.by})
+          var activities = i.activities
+        }
+      }
+      console.log(project)
+      console.log(teacher);
+      res.render("studentassignprojectview",{project:project,student:sess.user_data.user,teacher:teacher,activities:activities,id:id})
     }
   })
 })
+/*#######################################
+  ######Submitted project details ######
+  ####################################### */
+  app.get("/submitted-project/:id",(req,res)=>{
+    internetConnected().then(async ()=>{
+      if (sess.user_data == undefined) {
+        res.redirect("/student-login");
+      } else {
+        console.log(req.params.id);
+        var studentData = await Student.findOne({_id:i}).populate("submitted_activities")
+        res.render('activityDetails',{student:studentData})
+      }
+    })
+  })
 /*####################################### 
   #########Create Project Superadmin########
   #######################################*/
@@ -444,7 +598,7 @@ app.post("/superadmin/create-activity",upload.array("files",4),(req,res)=>{
       res.redirect('/');
     }
     else{
-      superadminProject.find({"activity.activity_title":{$exists:true}}).then(result=>{
+      superadminProject.find({published:true}).then(result=>{
         console.log(result)
         res.render("superadminProjects",{projects:result})
       })
@@ -465,7 +619,7 @@ app.post("/superadmin/create-activity",upload.array("files",4),(req,res)=>{
         res.redirect('/');
       }
       else{
-        var data = await superadminProject.find({activity:[]})
+        var data = await superadminProject.find({published:false})
         console.log(data)
         res.render("superadminDrafts",{data:data})
       }
@@ -580,7 +734,7 @@ app.post("/searching",(req,res)=>{
   #######################################*/
 app.get('/home/',async function(req,res){
   internetConnected().then(async ()=>{
-    const projects = await superadminProject.find({"activity.activity_title":{$exists:true}})
+    const projects = await superadminProject.find({published:true})
     console.log("Projects are",projects)
     if(sess.user_data==undefined){
       res.redirect('/');
@@ -708,8 +862,8 @@ app.get('/superadmin/dashboard',async function(req,res){
                       console.log('Count:- '+count1+' total number of projects:- '+resp1.length);
                       if(count1==resp1.length){
                         console.log('NOPM:- '+notifications_of_pro_members);
-                        var Sprojects = await superadminProject.find({"activity.activity_title":{$exists:true}})
-                        var drafts= await superadminProject.find({activity:[]})
+                        var Sprojects = await superadminProject.find({published:true})
+                        var drafts= await superadminProject.find({published:false})
                         console.log("Draft projects are",drafts)
                         console.log("Superadminprojects are",Sprojects)
                         res.render('superadminDashboard',{tnm:resp.length,tnpm:total_count_of_pro_members,tnom:total_count_of_org_members,tnnm:total_count_of_nporg_members,tnp:resp1.length,tn10p:total_count_of_10dem_projects,tndp:total_count_of_10dem_drafts,tnop:total_count_of_10dem_ongoing,tnep:total_count_of_10dem_ext_collb,noom:notifications_of_org_members,nonpm:notifications_of_nporg_members,nopm:notifications_of_pro_members,nofm:notifications_of_free_users,projects:Sprojects,drafts:drafts});
@@ -2309,6 +2463,52 @@ app.post('/addproject/:id',upload.array('attachedfiles',5),function(req,res){
     }
   }
 })
+
+
+/*########################################
+  ####Students project progress(classes)#####
+  ####################################### */
+  app.post("/class-details", (req, res) => {
+    internetConnected().then(async () => {
+      console.log(req.body);
+      if (sess.user_data == undefined) {
+        res.redirect("/");
+      } else {
+        const classData = await classes.findOne({ _id: req.body.id });
+        console.log(classData);
+        var submitData = [];
+        var pending = [];
+        if (classData.students) {
+          for (i of classData.students) {
+            var stuData = await Student.findOne({ _id: i }).populate('submitted_activities');
+            console.log("student data is",stuData)
+            if(stuData.projects_assigned.length!=0){
+              if (stuData.projects_assigned[0].status === true) {
+                submitData.push(stuData);
+              } else if (stuData.projects_assigned[0].status === false) {
+                pending.push(stuData);
+              }
+              // for(i of stuData.projects_assigned){
+              //    if (i.status === true) {
+              //       submitData.push(stuData);
+              //     } else if (i.status === false) {
+              //       pending.push(stuData);
+              //     }
+              // }          
+            }
+          }
+        }
+        var data;
+        res.render("classdetails", {
+          data:data,
+          submitted: submitData,
+          pending: pending,
+          students: classData.students,
+        });
+      }
+    });
+  });
+
 /*#################################
   ###Project Preview via home##
   ################################# */
@@ -2322,8 +2522,7 @@ app.post('/addproject/:id',upload.array('attachedfiles',5),function(req,res){
         console.log(project)
         var users = sess.user_data.user
         if(users.Role.is10DemProuser==false&&users.Role.isEducator==false&&users.Role.isNPOrg==false&&users.Role.isOrg==false){
-          let first_letter=sess.user_data.user.username.split('');
-            res.render('projectoverview2',{project:project,name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'none'});
+          res.render("projectoverview2",{project:project})
         }
         else if(users.Role.is10DemProuser==true||users.Role.isEducator==true ||users.Role.isNPOrg==true||users.Role.isOrg==true){
           var classData =[]
@@ -2331,46 +2530,135 @@ app.post('/addproject/:id',upload.array('attachedfiles',5),function(req,res){
             const data = await classes.findOne({_id:i})
             classData.push(data)
           }
-          if(sess.user_data.user.Role.is10DemProuser==true){
-            let first_letter=sess.user_data.user.username.split('');
-            res.render('ProjectOverviewpage',{project:project,classes:classData,name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator'});
-          }else if(sess.user_data.role_Data.org_name!=''){
-            console.log(sess.user_data.role_Data.org_name);
-            let first_letter=sess.user_data.user.username.split('');
-            if(sess.user_data.user.Role.isEducator==true){
-              res.render('ProjectOverviewpage',{project:project,classes:classData,name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator'});
-            }
-            else{
-              res.render('ProjectOverviewpage',{project:project,classes:classData,name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org'});
-            }
-          }
+          res.render("ProjectOverviewpage",{project:project,classes:classData})
         }
       }
     })
   })
 
-  /*#################################
+
+/*#################################
   ####Assign Project to class#####
   ################################# */
 
-  app.post("/assign-project/:id",((req,res)=>{
-    console.log(req.body)
-    const projectDetails = {
-      project:req.params.id,
-      actitvities:[
-        {activity_1:
+  app.post("/assign-project/:id",async (req, res) => {
+    console.log(req.body);
+    var activities = []
+    if(typeof(req.body.startDate)!="string"){
+      for(i=0; i<req.body.startDate.length; i++){
+        var activity = 
+           {
+            activity_number:`activity_${i+1}`,
+            startdate: req.body.startDate[i],
+            enddate: req.body.endDate[i],
+            status:false
+          }
+        
+        activities.push(activity)
+      }
+        }
+        else if(typeof(req.body.startDate)=="string"){
+          var activity = 
           {
-            stardate:req.body.startDate1,
-            enddate:req.body.endDate1
+           activity_number:`activity_1`,
+           startdate: req.body.startDate,
+           enddate: req.body.endDate,
+           status:false
+         }
+       
+       activities.push(activity)
+        }
+      
+    
+    const projectDetails = {
+      by: sess.user_data.user._id,
+      project: req.params.id,
+      activities: activities,
+    };
+    const assignedProjects = {
+      project_id: req.params.id,
+      class: req.body.class,
+      activities:activities
+  
+    }
+    const StudentProjectdetails = {project_id: req.params.id,
+                    activities:activities,
+                    by: sess.user_data.user._id}
+    const notification = {
+      message:"You have been assigned new Project",
+      time: Date.now(),
+      user_id: sess.user_data.user._id,
+      project_id:req.params.id
+  
+    } 
+    console.log(assignedProjects);
+    
+    console.log("Notification is",notification)
+    const classData = await classes.findOne({_id:req.body.class})
+    classes
+      .update({ _id: req.body.class }, { $push: { projects: projectDetails } })
+      .then(async result => {
+        await user.updateOne({_id:sess.user_data.user._id},{$push:{assigned_projects:assignedProjects}})
+        if(classData.students){
+          for(i of classData.students){
+            var stuData = await Student.findOne({_id:i})
+            var mailData = 
+            {
+              from: "10demdeveloper@gmail.com",
+              to: stuData.email,
+              subject: "New Project!",
+              text:'You have been assigned a new Project!'
+            };
+            const mailResult = await mail.sendMail(mailData)
+            console.log(mailResult)
+            await Student.updateOne({_id:i},{$push:{notifications:notification,projects_assigned:StudentProjectdetails}})
+              
+          }
+        }
+        res.redirect("/home/");
+      });
+  });
+
+
+/*#################################
+  ####Students project progress#####
+  ################################# */
+
+  app.get("/student-progress",async (req,res)=>{
+    internetConnected().then(async ()=>{
+      if (sess.user_data == undefined) {
+        res.redirect("/");
+      }
+      else{
+        var data = []
+      for(i of sess.user_data.role_Data.classes){
+        const classData =await classes.findOne({_id:i})
+        data.push(classData)
+      }
+      var submitData= []
+      var pending =[]
+      if(data[0].students){
+        for(i of data[0].students){
+          var stuData = await Student.findOne({_id:i}).populate("submitted_activities")
+          console.log("student data is",stuData)
+          if(stuData.projects_assigned){
+            if(stuData.projects_assigned[0].status===true){
+              submitData.push(stuData)
+            }
+            else if(stuData.projects_assigned[0].status===false){
+              pending.push(stuData)
+            }
+          }
         }
       }
-      ]
+      console.log(data)
+      res.render("classdetails",{data:data,submitted:submitData,pending:pending,students:data[0].students})
     }
-    console.log(projectDetails)
-    classes.update({_id:req.body.class},{$push:{projects:projectDetails}}).then(result=>{
-      res.redirect("/home/")
     })
-  }))
+  })
+
+
+
 
 
 
@@ -2486,6 +2774,8 @@ app.get('/editproject/:id',function(req,res){
     res.render("noInternet")
   })
 })
+
+
 /*#################################
   #######Project Preview 2###########
   ################################# */

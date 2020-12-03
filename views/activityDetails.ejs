@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        
+        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+        
+        <link rel="stylesheet" href="../public/css/index.css">
+        <link rel="stylesheet" href="../public/css/assignmentoverview.css">
+        <link rel="stylesheet" href="../public/css/header.css">
+        <link rel="stylesheet" href="../public/css/activityDetails.css">
+        <title>10dem Education|Home</title>
+    </head>
+
+    <body>
+        <header id="header">
+                
+            <nav id="nav-menu-container">
+
+                <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-left">
+                        <!-- <div id="logo">
+                        
+                            <a class="navbar-brand" href="#"><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span></a>
+                            
+                        </div> -->
+                        <ul class="nav-menu">
+                            <li><a href="">Home</a></li>
+                            <li><a href="">Ongoing Project</a></li>
+                            <li class="menu-has-children dropdown-toggle"><a href="">Membership</a>
+                                <ul class="navbar-nav mr-auto">
+                                    <li class="nav-item navMember">
+                                        <h5 class="innerhead">Pro</h5>
+                                        <p class="innerpara">Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
+                                        <a href="#" class="innertag">View all</a>
+                                    </li>
+                                    <li class="nav-item navMember">
+                                        <h5 class="innerhead">Organization</h5>
+                                        <p class="innerpara">Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
+                                        <a href="#" class="innertag">View all</a>
+                                    </li>
+                                    <li class="nav-item navMember">
+                                        <h5 class="innerhead">Non Profits</h5>
+                                        <p class="innerpara">Proin iaculis purus consequat sem cure digni ssim donec porttitora.</p>
+                                        <a href="#" class="innertag">View all</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li style="position: relative;top: -3px;"><a href="#"><i class="fas fa-crown" style="color: rgb(233, 233, 3);"></i>Try 10dem pro</a></li>
+                            <l1><a href="#"><img src="../public/img/notifications.svg"><span style="position: relative;right: 10px;bottom: 10px;padding: 2px 6px;border-radius: 50%;background: red;font-size: 14px;">2</span></a></l1>
+                        </ul>
+                    </div>
+                    
+                    <ul class="nav-menu">
+                        <li class="menu-has-children dropdown-toggle navprofile" style="margin-top: 0;"><a href="#" style="color: #000;background: #FFFFFF;border-radius: 50%;height: 35px;width: 35px;text-align: center;padding: 7px;">S</a>
+                            <ul style="right: 0 !important;left: auto !important;width: fit-content;padding-left: 1px !important;padding-right: 1px !important;padding-inline-start: 0px;background: #fff !important;">
+                                <li><a href="#">My profile</a></li>
+                                <li><a href="#">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div>
+            
+            </nav><!-- #nav-menu-container -->
+
+        </header><!-- #header -->
+        <div style="max-width: 100%; background-color: #e9ecef;" class="container">
+            <a href="#" class="float">
+                <img src="../public/img/help.svg" class="my-float" style="width: 30px;height: 30px;" alt="">
+            </a>
+
+            <main>
+                <section class="page-content">
+                    <div >
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                              <li class="breadcrumb-item"><a href="#">Home</a></li>
+                              <li class="breadcrumb-item active" aria-current="page">Physics Project</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <h3 style="margin: 0 0 1rem 2rem;">Fundamentals of Design</h3>
+                    <div class="user-details">
+                        <figure><img src="../public/img/students.svg" alt=""></figure>
+                        <h5><%=student.name%></h5>
+                        <span class="grade"><%=student.grade%> - <%=student.section%></span>
+                    </div>
+                    <div class="row" style="margin-bottom: 2rem;box-shadow: 0px 0px 6px #00000029;">
+                        <div class="col-lg-12" style="box-shadow: 0px 3px 6px #00000029;">
+                            <ul class="nav d-flex justify-content-left activity-list">
+                                <li class="nav-item active">
+                                    <a style="color: rgb(172, 170, 170);" class="nav-link" href="#">Activity 1</a>
+                                </li>
+                                <li class="nav-item" style="padding-bottom: .5rem;border-bottom: 5px solid #FD585C;">
+                                    <a style="color: #FD585C;" class="nav-link" href="#">Activity 2</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a style="color: rgb(172, 170, 170);" class="nav-link" href="#">Activity 3</a>
+                                </li>
+                            </ul>
+                            
+                        </div>  
+                    </div>
+                    <div class="row ">
+                        <div style="padding:0 3rem; flex-direction: column;" class="row d-flex">
+                            <h4>Submission Details</h4>
+                            <div class="submission-details">
+                                <span>Assigned date</span>
+                                <span>Submission date</span>
+                            </div>
+                            <div class="submission-details-date">
+                                <span style="background-color: rgb(214, 212, 212);">22/12/2020</span>
+                                <span style="background-color: rgba(9, 189, 150, 0.918);">23/12/2020</span>
+                            </div>
+                        </div>
+        
+                        <div style="padding:0 3rem; width: 100%; justify-content: space-between; " class="row d-flex">
+                            <h4 >Attached files</h4>
+                            <span style="color: red;">DownLoad files <img src="../public/img/download.svg" alt=""></span>
+
+                        </div>
+                        <div class="col-lg-11">
+                            <div class="row">                           
+                                <div style="min-width: 32%;" class="col-lg-3">
+                                    <div style="margin: 10px;">
+                                        <div class="row document">
+                                            <div class="col-lg-11 p-0 d-flex justify-content-left">
+                                                <img src="../public/img/doc.png" style="height: 40px;width: 40px;margin-right: 10px;">
+                                                <div>
+                                                    <p class="filename">Work plan.docx</p>
+                                                    <p class="filesize">2 MB</p>
+                                                </div> 
+                                            </div>
+                                            <div class="col-lg-1 p-0">
+                                                <img src="../public/img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div style="min-width: 32%;" class="col-lg-3">
+                                    <div style="margin: 10px;">
+                                        <div class="row document">
+                                            <div class="col-lg-11 p-0 d-flex justify-content-left">
+                                                <img src="../public/img/image.svg" style="height: 40px;width: 40px;margin-right: 10px;">
+                                                <div>
+                                                    <p class="filename">Work plan.docx</p>
+                                                    <p class="filesize">2 MB</p>
+                                                </div> 
+                                            </div>
+                                            <div class="col-lg-1 p-0">
+                                                <img src="../public/img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="min-width: 32%;" class="col-lg-3">
+                                    <div style="margin: 10px;">
+                                        <div class="row document">
+                                            <div class="col-lg-11 p-0 d-flex justify-content-left">
+                                                <img src="../public/img/doc.png" style="height: 40px;width: 40px;margin-right: 10px;">
+                                                <div>
+                                                    <p class="filename">Work plan.docx</p>
+                                                    <p class="filesize">2 MB</p>
+                                                </div> 
+                                            </div>
+                                            <div class="col-lg-1 p-0">
+                                                <img src="../public/img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="min-width: 32%;" class="col-lg-3">
+                                    <div style="margin: 10px;">
+                                        <div class="row document">
+                                            <div class="col-lg-11 p-0 d-flex justify-content-left">
+                                                <img src="../public/img/doc.png" style="height: 40px;width: 40px;margin-right: 10px;">
+                                                <div>
+                                                    <p class="filename">Work plan.docx</p>
+                                                    <p class="filesize">2 MB</p>
+                                                </div> 
+                                            </div>
+                                            <div class="col-lg-1 p-0">
+                                                <img src="../public/img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="min-width: 32%;" class="col-lg-3">
+                                    <div style="margin: 10px;">
+                                        <div class="row document">
+                                            <div class="col-lg-11 p-0 d-flex justify-content-left">
+                                                <img src="../public/img/doc.png" style="height: 40px;width: 40px;margin-right: 10px;">
+                                                <div>
+                                                    <p class="filename">Work plan.docx</p>
+                                                    <p class="filesize">2 MB</p>
+                                                </div> 
+                                            </div>
+                                            <div class="col-lg-1 p-0">
+                                                <img src="../public/img/filedownload.svg" style="height: 20px;width: 20px;margin-top: 10px;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div style="padding:.5rem 3rem;" class="row">
+                            <h4>Students Comments</h4>
+                            <div style="width: 100%; border: 1px solid #999; margin: .5rem 0 10rem 0;">
+                                <p style="padding:1rem; font-size:1rem;">10dem.com provides the project-based and inquiry-based ideas for informational purposes only. 10dem.com does not make any guarantee or
+                                    representation regarding the ideas and is not responsible or liable for any loss or damage, directly or indirectly, caused by your use of such
+                                    information. By accessing the 10dem project ideas, you waive and renounce any claims against 10dem.com that arise thereof. </p>
+                            </div>
+                        </div>
+</div>
+                </section>
+                <section class="details">
+                    <h2>Details</h2>
+                    <section class="assignment-details">
+                        <div class="item">
+                            <figure><img src="../public/img/submit.svg" alt=""></figure>
+                            <h4 style="margin: 0 .5rem;">Assign by</h4>
+                        </div>
+                        <h5>Ms. Priya Parkar</h5>
+                        <div class="item">
+                            <figure><img src="../public/img/students.svg" alt=""></figure>
+                            <h4 style="margin: 0 .5rem;">Assigned to</h4>
+                        </div>
+                        <h5><%=student.name%></h5>
+                        <div class="item">
+                            <figure><img src="../public/img/dues2.svg" alt=""></figure>
+                            <h4 style="margin: 0 .5rem;">Submission Details</h4>
+                        </div>
+                        <div class="due-dates">
+                            <h6>Assigned on</h6>
+                            <h6>Due by</h6>
+                        </div>
+                        <div class="due-dates-dates">
+                            <h6>22/12/2020</h6>
+                            <h6>12/01/2021</h6>
+                        </div>
+                    </section>
+                    
+                </section>
+                
+            </main>
+
+
+            
+        </div>
+</body>
+</html>

@@ -93,20 +93,22 @@
                     <div class="upcoming">
 
                         <div class="upcoming1">
-
-
-                            <div class="col-lg-12">
-                                <div>
-                                    <a href="#" class="btn">Science</a>
+                        <%for(i of projects){%>
+                            <div  class="col-lg-12">
+                                <div onclick="window.location.href='/view-project/<%=i.id%>'">
+                                    <a href="#" style="width: auto;" class="btn"><%=i.project.subject%></a>
                                     <a href="#"><img src="/../public/img/person_outline.svg" class="symbol1" alt=""></a>
                                     <a class="btn sidetag1" style="color: crimson;">OverDue</a>
-                                    <p class="pa1">Telemedicine in Healthcare</p>
-                                    <p class="pa2"><img src="/../public/img/clock.svg" class="symbol2" alt="">&nbsp;&nbsp;25 July 2020</p>
+                                    <p class="pa1"><%=i.project.title%></p>
+                                    <p class="pa2"><img src="/../public/img/clock.svg" class="symbol2" alt="">&nbsp;&nbsp;<%=i.activities[0].enddate.toDateString()%></p>
                                     <hr class="interval">
                                 </div>
                             </div>
+                        <%}%>
+
+                           
                                 
-                            <div class="col-lg-12">
+                            <!-- <div class="col-lg-12">
                                 <div>
                                     <a href="#" class="btn">Science</a>
                                     <a href="#"><img src="/../public/img/person_outline.svg" class="symbol1" alt=""></a>
@@ -137,7 +139,7 @@
                                     <p class="pa2"><img src="/../public/img/clock.svg" class="symbol2" alt="">&nbsp;&nbsp;25 July 2020</p>
                                     <hr class="interval">
                                 </div>
-                            </div>
+                            </div> -->
 
                         </div>
                         

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const submittedProjects = require("./Submittedactivities")
 const StudentSchema=Schema({
     name:{
         type:String,
@@ -22,15 +23,34 @@ const StudentSchema=Schema({
         required:true
     },
     projects_assigned:[{
+        
         project_id:{
             type:String,
             required:true,
         },
         status:{
             type:Boolean,
-            default:false,
+            default: false
         },
-        attached_files:Array,
-    }]
+        by:{
+            type: String
+        },
+        activities:[{
+            activity_number:String,
+            startdate: Date,
+            enddate:Date,
+            status:{
+                type:Boolean,
+                default:false
+            }
+        }]
+    }],
+    notifications:[{
+        message:String,
+        time:Date,
+        user_id:String,
+        project_id:String
+    }],
+    submitted_activities:[{ type: mongoose.Schema.ObjectId, ref: 'submittedProjects' }]
 })
 module.exports = mongoose.model('Student',StudentSchema);
