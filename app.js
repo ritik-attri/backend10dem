@@ -2140,26 +2140,38 @@ app.get('/externalcollab',function(req,res){
       let wholedata=[];
       let count=0;
       let first_letter=sess.user_data.user.username.split('');
-      sess.user_data.user.Projects.forEach(function(document_id){
-        project.find({_id:document_id},function(err,resp){
-          if(resp[0].collaboration.length!=0){
-            wholedata.push(resp[0]);
-          }
-          count+=1;
-          if(count==sess.user_data.user.Projects.length){
-            console.log('All projects being sent to myprojects:- '+wholedata);
-            if(sess.user_data.user.Role.is10DemProuser){
-              res.render('externalcollab',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:'',role:'educator',projects:wholedata,notifications:sess.user_data.user.notifications});
-            }else if(sess.user_data.user.Role.isEducator){
-              res.render('externalcollab',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:wholedata,notifications:sess.user_data.user.notifications});
-            }else if(sess.user_data.user.Role.isNPOrg||sess.user_data.user.Role.isOrg){
-              res.render('externalcollab',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org',projects:wholedata,notifications:sess.user_data.user.notifications});
-            }else{
-              res.render('externalcollab',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'',projects:wholedata,notifications:sess.user_data.user.notifications});
+      if(sess.user_data.user.Projects.length==0){
+        if(sess.user_data.user.Role.is10DemProuser){
+          res.render('externalcollab',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:'',role:'educator',projects:wholedata,notifications:sess.user_data.user.notifications});
+        }else if(sess.user_data.user.Role.isEducator){
+          res.render('externalcollab',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:wholedata,notifications:sess.user_data.user.notifications});
+        }else if(sess.user_data.user.Role.isNPOrg||sess.user_data.user.Role.isOrg){
+          res.render('externalcollab',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org',projects:wholedata,notifications:sess.user_data.user.notifications});
+        }else{
+          res.render('externalcollab',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'',projects:wholedata,notifications:sess.user_data.user.notifications});
+        }
+      }else{
+        sess.user_data.user.Projects.forEach(function(document_id){
+          project.find({_id:document_id},function(err,resp){
+            if(resp[0].collaboration.length!=0){
+              wholedata.push(resp[0]);
             }
-          }
+            count+=1;
+            if(count==sess.user_data.user.Projects.length){
+              console.log('All projects being sent to myprojects:- '+wholedata);
+              if(sess.user_data.user.Role.is10DemProuser){
+                res.render('externalcollab',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:'',role:'educator',projects:wholedata,notifications:sess.user_data.user.notifications});
+              }else if(sess.user_data.user.Role.isEducator){
+                res.render('externalcollab',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:wholedata,notifications:sess.user_data.user.notifications});
+              }else if(sess.user_data.user.Role.isNPOrg||sess.user_data.user.Role.isOrg){
+                res.render('externalcollab',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org',projects:wholedata,notifications:sess.user_data.user.notifications});
+              }else{
+                res.render('externalcollab',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'',projects:wholedata,notifications:sess.user_data.user.notifications});
+              }
+            }
+          })
         })
-      })
+      }
     }
   })
   .catch(()=>{
@@ -2178,26 +2190,38 @@ app.get('/externalcollab',function(req,res){
       let wholedata=[];
       let count =0;
       let first_letter=sess.user_data.user.username.split('');
-      sess.user_data.user.Projects.forEach(function(document_id){
-        project.find({_id:document_id},function(err,resp){
-          if(!resp[0].status){
-            wholedata.push(resp[0]);
-          }
-          count+=1;
-          if(count==sess.user_data.user.Projects.length){
-            console.log('All projects being sent to myprojects:- '+wholedata);
-            if(sess.user_data.user.Role.is10DemProuser){
-              res.render('drafts',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:'',role:'educator',projects:wholedata,notifications:sess.user_data.user.notifications});
-            }else if(sess.user_data.user.Role.isEducator){
-              res.render('drafts',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:wholedata,notifications:sess.user_data.user.notifications});
-            }else if(sess.user_data.user.Role.isNPOrg||sess.user_data.user.Role.isOrg){
-              res.render('drafts',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org',projects:wholedata,notifications:sess.user_data.user.notifications});
-            }else{
-              res.render('drafts',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'',projects:wholedata,notifications:sess.user_data.user.notifications});
+      if(sess.user_data.user.Projects.length==0){
+        if(sess.user_data.user.Role.is10DemProuser){
+          res.render('drafts',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:'',role:'educator',projects:wholedata,notifications:sess.user_data.user.notifications});
+        }else if(sess.user_data.user.Role.isEducator){
+          res.render('drafts',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:wholedata,notifications:sess.user_data.user.notifications});
+        }else if(sess.user_data.user.Role.isNPOrg||sess.user_data.user.Role.isOrg){
+          res.render('drafts',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org',projects:wholedata,notifications:sess.user_data.user.notifications});
+        }else{
+          res.render('drafts',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'',projects:wholedata,notifications:sess.user_data.user.notifications});
+        }
+      }else{
+        sess.user_data.user.Projects.forEach(function(document_id){
+          project.find({_id:document_id},function(err,resp){
+            if(!resp[0].status){
+              wholedata.push(resp[0]);
             }
-          }
+            count+=1;
+            if(count==sess.user_data.user.Projects.length){
+              console.log('All projects being sent to myprojects:- '+wholedata);
+              if(sess.user_data.user.Role.is10DemProuser){
+                res.render('drafts',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:'',role:'educator',projects:wholedata,notifications:sess.user_data.user.notifications});
+              }else if(sess.user_data.user.Role.isEducator){
+                res.render('drafts',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:wholedata,notifications:sess.user_data.user.notifications});
+              }else if(sess.user_data.user.Role.isNPOrg||sess.user_data.user.Role.isOrg){
+                res.render('drafts',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org',projects:wholedata,notifications:sess.user_data.user.notifications});
+              }else{
+                res.render('drafts',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'',projects:wholedata,notifications:sess.user_data.user.notifications});
+              }
+            }
+          })
         })
-      })
+      }
     }
   })
   .catch(()=>{
@@ -2216,30 +2240,42 @@ app.get('/completed',function(req,res){
       let wholedata=[];
       let count=0;
       let first_letter=sess.user_data.user.username.split('');
-      sess.user_data.user.Projects.forEach(function(document_id){
-        project.find({_id:document_id},function(err,resp){          
-          if(resp[0].status){
-            if(Date.now()>resp[0].end_date){
-              console.log(resp[0]);
-              wholedata.push(resp[0]);
+      if(sess.user_data.user.Projects.length==0){
+        if(sess.user_data.user.Role.is10DemProuser){
+          res.render('completed',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:'',role:'educator',projects:wholedata,notifications:sess.user_data.user.notifications});
+        }else if(sess.user_data.user.Role.isEducator){
+          res.render('completed',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:wholedata,notifications:sess.user_data.user.notifications});
+        }else if(sess.user_data.user.Role.isNPOrg||sess.user_data.user.Role.isOrg){
+          res.render('completed',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org',projects:wholedata,notifications:sess.user_data.user.notifications});
+        }else{
+          res.render('completed',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'',projects:wholedata,notifications:sess.user_data.user.notifications});
+        }
+      }else{
+        sess.user_data.user.Projects.forEach(function(document_id){
+          project.find({_id:document_id},function(err,resp){          
+            if(resp[0].status){
+              if(Date.now()>resp[0].end_date){
+                console.log(resp[0]);
+                wholedata.push(resp[0]);
+              }
             }
-          }
-          count+=1;
-          console.log('count:- '+count+' length:- '+sess.user_data.user.Projects.length);
-          if(count==sess.user_data.user.Projects.length){
-            console.log('All projects being sent to myprojects:- '+wholedata);
-            if(sess.user_data.user.Role.is10DemProuser){
-              res.render('completed',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:'',role:'educator',projects:wholedata,notifications:sess.user_data.user.notifications});
-            }else if(sess.user_data.user.Role.isEducator){
-              res.render('completed',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:wholedata,notifications:sess.user_data.user.notifications});
-            }else if(sess.user_data.user.Role.isNPOrg||sess.user_data.user.Role.isOrg){
-              res.render('completed',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org',projects:wholedata,notifications:sess.user_data.user.notifications});
-            }else{
-              res.render('completed',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'',projects:wholedata,notifications:sess.user_data.user.notifications});
+            count+=1;
+            console.log('count:- '+count+' length:- '+sess.user_data.user.Projects.length);
+            if(count==sess.user_data.user.Projects.length){
+              console.log('All projects being sent to myprojects:- '+wholedata);
+              if(sess.user_data.user.Role.is10DemProuser){
+                res.render('completed',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:'',role:'educator',projects:wholedata,notifications:sess.user_data.user.notifications});
+              }else if(sess.user_data.user.Role.isEducator){
+                res.render('completed',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator',projects:wholedata,notifications:sess.user_data.user.notifications});
+              }else if(sess.user_data.user.Role.isNPOrg||sess.user_data.user.Role.isOrg){
+                res.render('completed',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org',projects:wholedata,notifications:sess.user_data.user.notifications});
+              }else{
+                res.render('completed',{name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'',projects:wholedata,notifications:sess.user_data.user.notifications});
+              }
             }
-          }
+          })
         })
-      })
+      }
     }
   })
   .catch(()=>{
@@ -2522,7 +2558,9 @@ app.post('/addproject/:id',upload.array('attachedfiles',5),function(req,res){
         console.log(project)
         var users = sess.user_data.user
         if(users.Role.is10DemProuser==false&&users.Role.isEducator==false&&users.Role.isNPOrg==false&&users.Role.isOrg==false){
-          res.render("projectoverview2",{project:project})
+            console.log(sess.user_data.user['email']);
+            let first_letter=sess.user_data.user.username.split('');
+            res.render('projectoverview2',{project:project,name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'none'});
         }
         else if(users.Role.is10DemProuser==true||users.Role.isEducator==true ||users.Role.isNPOrg==true||users.Role.isOrg==true){
           var classData =[]
@@ -2530,7 +2568,23 @@ app.post('/addproject/:id',upload.array('attachedfiles',5),function(req,res){
             const data = await classes.findOne({_id:i})
             classData.push(data)
           }
-          res.render("ProjectOverviewpage",{project:project,classes:classData})
+          if(sess.user_data.user.Role_object_id==''){
+            console.log(sess.user_data.user['email']);
+            let first_letter=sess.user_data.user.username.split('');
+            res.render('ProjectOverviewpage',{project:project,classes:classData,name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:true,org_name:'',role:'none'});
+          }else if(sess.user_data.user.Role.is10DemProuser==true){
+            let first_letter=sess.user_data.user.username.split('');
+            res.render('ProjectOverviewpage',{project:project,classes:classData,name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator'});
+          }else if(sess.user_data.role_Data.org_name!=''){
+            console.log(sess.user_data.role_Data.org_name);
+            let first_letter=sess.user_data.user.username.split('');
+            if(sess.user_data.user.Role.isEducator==true){
+              res.render('ProjectOverviewpage',{project:project,classes:classData,name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'educator'});
+            }
+            else{
+              res.render('ProjectOverviewpage',{project:project,classes:classData,name:sess.user_data.user.username,firstletter:first_letter[0],hide_manage_students:false,org_name:sess.user_data.role_Data.org_name,role:'org'});
+            }
+          }
         }
       }
     })
@@ -2837,13 +2891,13 @@ app.get('/projectpreview/:id',function(req,res){
           })
           if(sess.user_data.user.Role_object_id==''){
             console.log('Project data:- '+resp[0]);
-            res.render('projectpreview2n',{firstletter:first_letter[0],projectidforurl:req.params.id,hide_manage_students:true,role:'none',title:resp[0].project_title,subject:resp[0].subject,grade:resp[0].grade,summary:resp[0].project_summary,learningoutcome:resp[0].learning_outcome,keycontri:resp[0].key_contribution,detailsactivity:resp[0].details_activity,files:attachedfiles,startdate:resp[0].start_date,enddate:resp[0].end_date});
+            res.render('projectpreview2n',{firstletter:first_letter[0],name:sess.user_data.user.username,projectidforurl:req.params.id,hide_manage_students:true,role:'none',org_name:'',title:resp[0].project_title,subject:resp[0].subject,grade:resp[0].grade,summary:resp[0].project_summary,learningoutcome:resp[0].learning_outcome,keycontri:resp[0].key_contribution,detailsactivity:resp[0].details_activity,files:attachedfiles,startdate:resp[0].start_date,enddate:resp[0].end_date});
           }else if(sess.user_data.user.Role.is10DemProuser==true||sess.user_data.user.Role.isEducator==true){
             console.log('Project data:- '+resp[0]);
-            res.render('projectpreview2n',{firstletter:first_letter[0],projectidforurl:req.params.id,hide_manage_students:false,role:'educator',title:resp[0].project_title,subject:resp[0].subject,grade:resp[0].grade,summary:resp[0].project_summary,learningoutcome:resp[0].learning_outcome,keycontri:resp[0].key_contribution,detailsactivity:resp[0].details_activity,files:attachedfiles,startdate:resp[0].start_date,enddate:resp[0].end_date});
+            res.render('projectpreview2n',{firstletter:first_letter[0],name:sess.user_data.user.username,projectidforurl:req.params.id,hide_manage_students:false,role:'educator',org_name:sess.user_data.role_Data.org_name,title:resp[0].project_title,subject:resp[0].subject,grade:resp[0].grade,summary:resp[0].project_summary,learningoutcome:resp[0].learning_outcome,keycontri:resp[0].key_contribution,detailsactivity:resp[0].details_activity,files:attachedfiles,startdate:resp[0].start_date,enddate:resp[0].end_date});
           }else{
             console.log('Project data:- '+resp[0]);
-            res.render('projectpreview2n',{firstletter:first_letter[0],projectidforurl:req.params.id,hide_manage_students:false,role:'org',title:resp[0].project_title,subject:resp[0].subject,grade:resp[0].grade,summary:resp[0].project_summary,learningoutcome:resp[0].learning_outcome,keycontri:resp[0].key_contribution,detailsactivity:resp[0].details_activity,files:attachedfiles,startdate:resp[0].start_date,enddate:resp[0].end_date});
+            res.render('projectpreview2n',{firstletter:first_letter[0],name:sess.user_data.user.username,projectidforurl:req.params.id,hide_manage_students:false,role:'org',org_name:sess.user_data.role_Data.org_name,title:resp[0].project_title,subject:resp[0].subject,grade:resp[0].grade,summary:resp[0].project_summary,learningoutcome:resp[0].learning_outcome,keycontri:resp[0].key_contribution,detailsactivity:resp[0].details_activity,files:attachedfiles,startdate:resp[0].start_date,enddate:resp[0].end_date});
           }
         }
       })

@@ -170,9 +170,8 @@
                         <a href="#"><box-icon class="bx-fw" name='folder' ></box-icon>    My Folders</a>
                     </li> -->
                     <li>
-                        <a href="#"><box-icon class="bx-fw" name='chat' ></box-icon> Conversations&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        <a href="conversations"><box-icon class="bx-fw" name='chat' ></box-icon> Conversations&nbsp;&nbsp;&nbsp;&nbsp;</a>
                     </li>
-                    <li>
                     <%if(role=='educator'){%>
                     <li>
                         <a href="/educatordashboard"><box-icon class="bx-fw" name='user-circle' ></box-icon> Manage Students&nbsp;&nbsp;&nbsp;&nbsp;</a>
@@ -185,19 +184,15 @@
 
                     <%}%>
                     <%if(org_name!=''){%>
-                        <li>
-                            <a href="/orgDetails"><box-icon class="bx-fw" name='book-reader'></box-icon><%=org_name%></a>
-                        </li>
-                        <%}%>
-                </ul>
-                    <!--<li>
-                        <a href="#"><box-icon class="bx-fw" name='book-reader'></box-icon> ABC Organization&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                    </li>-->
+                    <li>
+                        <a href="/orgDetails"><box-icon class="bx-fw" name='book-reader'></box-icon> <%=org_name%>&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                    </li>
+                    <%}%>
                 </ul>
 
                 <div class="learnMore">
                     <img src="/public/img/explore.svg">
-                    <p>Hello John <br/> Explore <span style="color: #FD585C;cursor: pointer;">Pro account</span> with Premium features.</p>
+                    <p>Hello <%=name%> <br/> Explore <span style="color: #FD585C;cursor: pointer;">Pro account</span> with Premium features.</p>
                     <button class="btn">Learn more</button>
                 </div>
 

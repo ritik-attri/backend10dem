@@ -89,8 +89,9 @@
                             
                         </div> -->
                         <ul class="nav-menu">
-                            <li><a href="">Home</a></li>
-                            <li><a href="">Ongoing Project</a></li>
+                            <li><a href="/home/">Home</a></li>
+                            <li><a href="/myprojects">Ongoing Project</a></li>
+                            <%if(hide_manage_students==true){%>
                             <li class="menu-has-children dropdown-toggle"><a href="">Membership</a>
                                 <ul class="navbar-nav mr-auto">
                                     <li class="nav-item navMember">
@@ -111,16 +112,17 @@
                                 </ul>
                             </li>
                             <li style="position: relative;top: -3px;"><a href="#"><i class="fas fa-crown" style="color: rgb(233, 233, 3);"></i>Try 10dem pro</a></li>
-                            <l1><a href="#"><img src="/public/img/notifications.svg"><span style="position: relative;right: 10px;bottom: 10px;padding: 2px 6px;border-radius: 50%;background: red;font-size: 14px;">2</span></a></l1>
+                            <%}%>
+                            
                         </ul>
                     </div>
                     
                     <ul class="nav-menu">
-                        <li><a class="btn-primary" style="border-radius: 5px;position: relative;top: -6px;padding: 4px 8px 6px 8px;" href="#"><i class="fas fa-plus" style="color: rgb(255, 255, 255);"></i>  Start Collaboration</a></li>
-                        <li class="menu-has-children dropdown-toggle navprofile" style="margin-top: 0;"><a href="#" style="color: #000;background: #FFFFFF;border-radius: 50%;height: 35px;width: 35px;text-align: center;padding: 7px;">S</a>
+                        <li><a class="btn-primary" style="border-radius: 5px;position: relative;top: -6px;padding: 4px 8px 6px 8px;" href="/home/createproject/1"><i class="fas fa-plus" style="color: rgb(255, 255, 255);"></i>  Start Collaboration</a></li>
+                        <li class="menu-has-children dropdown-toggle navprofile" style="margin-top: 0;"><a href="#" style="color: #000;background: #FFFFFF;border-radius: 50%;height: 35px;width: 35px;text-align: center;padding: 7px;"><%=firstletter%></a>
                             <ul style="right: 0 !important;left: auto !important;width: fit-content;padding-left: 1px !important;padding-right: 1px !important;padding-inline-start: 0px;background: #fff !important;">
-                                <li><a href="#">My profile</a></li>
-                                <li><a href="#">Logout</a></li>
+                                
+                                <li><a href="/">Logout</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -144,28 +146,38 @@
 
                 <ul class="list-unstyled components">
                     <li>
-                        <a href="#"><box-icon class="bx-fw" name="file"></box-icon> My Projects&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        <a href="/myprojects"><box-icon class="bx-fw" name="file"></box-icon> My Projects&nbsp;&nbsp;&nbsp;&nbsp;</a>
                     </li>
                     <li>
-                        <a href="#"><box-icon class="bx-fw" name='bookmarks'></box-icon> Bookmarks&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        <a href="/bookmarks"><box-icon class="bx-fw" name='bookmarks'></box-icon> Bookmarks&nbsp;&nbsp;&nbsp;&nbsp;</a>
                     </li>
                     <!-- <li>
                         <a href="#"><box-icon class="bx-fw" name='folder' ></box-icon>    My Folders</a>
                     </li> -->
                     <li>
-                        <a href="#"><box-icon class="bx-fw" name='chat' ></box-icon> Conversations&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        <a href="/conversations"><box-icon class="bx-fw" name='chat' ></box-icon> Conversations&nbsp;&nbsp;&nbsp;&nbsp;</a>
                     </li>
+                    <%if(role=='educator'){%>
                     <li>
-                        <a href="#"><box-icon class="bx-fw" name='user-circle' ></box-icon> Manage Students&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        <a href="/educatordashboard"><box-icon class="bx-fw" name='user-circle' ></box-icon> Manage Students&nbsp;&nbsp;&nbsp;&nbsp;</a>
                     </li>
+                    <%}else if(role=='org'){%>
+                        <li>
+                            <a href="/orgdashboard"><box-icon class="bx-fw" name='user-circle' ></box-icon> Manage Org&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        </li>
+                    <%}else{%>
+
+                    <%}%>
+                    <%if(org_name!=''){%>
                     <li>
-                        <a href="#"><box-icon class="bx-fw" name='book-reader'></box-icon> ABC Organization&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        <a href="/orgDetails"><box-icon class="bx-fw" name='book-reader'></box-icon> <%=org_name%>&nbsp;&nbsp;&nbsp;&nbsp;</a>
                     </li>
+                    <%}%>
                 </ul>
 
                 <div class="learnMore">
                     <img src="/public/img/explore.svg">
-                    <p>Hello John <br/> Explore <span style="color: #FD585C;cursor: pointer;">Pro account</span> with Premium features.</p>
+                    <p>Hello <%=name%> <br/> Explore <span style="color: #FD585C;cursor: pointer;">Pro account</span> with Premium features.</p>
                     <button class="btn">Learn more</button>
                 </div>
 
@@ -189,7 +201,7 @@
                 <div style="margin-left: 8%;">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                          <li class="breadcrumb-item"><a href="#">Home</a></li>
+                          <li class="breadcrumb-item"><a href="/home/">Home</a></li>
                           <li class="breadcrumb-item"><a href="#">Projects</a></li>
                           <li class="breadcrumb-item active" aria-current="page"><%=project.title%></li>
                         </ol>
@@ -648,7 +660,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
         
-        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="/public/lib/owlcarousel/owl.carousel.min.js"></script>
 
         <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
         <script src="https://kit.fontawesome.com/6f24662773.js" crossorigin="anonymous"></script>
@@ -830,7 +842,7 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         $('.flatpickr').flatpickr({
-            
+            minDate:"today",
         });
 
         $('#assigned').click(function(){
